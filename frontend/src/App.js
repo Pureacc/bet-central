@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Dashboard from "./Dashboard";
+import Dashboard from "./layout/Dashboard";
 
 class App extends Component {
   render() {
