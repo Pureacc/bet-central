@@ -5,10 +5,11 @@
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
+    "classnames": "latest",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
-    "react-scripts": "1.1.4",
-    "classnames": "latest"
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

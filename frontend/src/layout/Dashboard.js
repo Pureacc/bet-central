@@ -1,4 +1,5 @@
 import React from 'react';
+import {BrowserRouter, Route} from 'react-router-dom'
 import classNames from 'classnames';
 
 import {
@@ -17,7 +18,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import {mainListItems, secondaryListItems} from './listItems';
-import SimpleTable from '../SimpleTable';
+import SimpleTable from '../Bets';
+import Calculate from "../Calculate";
+import Home from "../Home";
 
 const drawerWidth = 240;
 
@@ -89,9 +92,6 @@ const styles = theme => ({
   },
   chartContainer: {
     marginLeft: -22,
-  },
-  tableContainer: {
-    height: 320,
   },
   h5: {
     marginBottom: theme.spacing.unit * 2,
@@ -166,15 +166,18 @@ class Dashboard extends React.Component {
           <Divider/>
           <List>{secondaryListItems}</List>
         </Drawer>
+
         <main className={classes.content}>
           <div className={classes.appBarSpacer}/>
-          <Typography variant="h4" gutterBottom component="h2">
-            Products
-          </Typography>
-          <div className={classes.tableContainer}>
-            <SimpleTable/>
-          </div>
+          <BrowserRouter>
+            <Route exact path="/" component={Home}/>
+            <Route path="/calculate" component={Calculate}/>
+            <Route path="/bets" render={() =>
+              <SimpleTable/>
+            }/>
+          </BrowserRouter>
         </main>
+
       </div>
     );
   }

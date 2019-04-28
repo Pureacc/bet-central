@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <name>betcentral</name>
-    <description>BetCebtrak</description>
+    <description>Bet Central</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
