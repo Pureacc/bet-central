@@ -13,6 +13,10 @@ public final class DecimalOdds {
         return new DecimalOdds(odds);
     }
 
+    public double getOdds() {
+        return odds;
+    }
+
     public Percentage getProbability() {
         return Percentage.of(100.0 / odds);
     }

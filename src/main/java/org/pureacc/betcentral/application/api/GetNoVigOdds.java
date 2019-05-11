@@ -3,7 +3,7 @@ package org.pureacc.betcentral.application.api;
 import org.pureacc.betcentral.vocabulary.DecimalOdds;
 import org.pureacc.betcentral.vocabulary.Percentage;
 
-public interface CalculateNoVigOdds {
+public interface GetNoVigOdds {
     Response execute(Request request);
 
     final class Request {

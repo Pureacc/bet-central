@@ -1,6 +1,6 @@
 package org.pureacc.betcentral.application
 
-import org.pureacc.betcentral.application.api.CalculateNoVigOdds
+import org.pureacc.betcentral.application.api.GetNoVigOdds
 import org.pureacc.betcentral.main.SpringAndReactApplication
 import org.pureacc.betcentral.vocabulary.DecimalOdds
 import org.pureacc.betcentral.vocabulary.Percentage
@@ -9,22 +9,22 @@ import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static org.pureacc.betcentral.application.api.CalculateNoVigOdds.*
+import static org.pureacc.betcentral.application.api.GetNoVigOdds.*
 
 @SpringBootTest(classes = SpringAndReactApplication.class)
-class CalculateNoVigOddsSpec extends Specification {
+class GetNoVigOddsSpec extends Specification {
     @Autowired
-    CalculateNoVigOdds calculateNoVigOdds
+    GetNoVigOdds getNoVigOdds
 
     @Unroll
-    def "I can calculate the no-vig odds for a bet offer with odds #oddsA and #oddsB"() {
+    def "I can get the no-vig odds for a bet offer with odds #oddsA and #oddsB"() {
         given: "A bet with two sides"
         and: "Side A has odds of #oddsA"
         and: "Side B has odds of #oddsB"
 
-        when: "I calculate the no-vig odds"
+        when: "I get the no-vig odds"
         Request request = Request.newBuilder().withOddsA(oddsA).withOddsB(oddsB).build()
-        Response response = calculateNoVigOdds.execute(request)
+        Response response = getNoVigOdds.execute(request)
 
         then: "The vig charged for the bet is #vig"
         response.vig == vig
