@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {Link} from 'react-router-dom'
 import {ListItem, ListItemIcon, ListItemText, ListSubheader} from '@material-ui/core'
 import HomeIcon from '@material-ui/icons/Home';
 import GavelIcon from '@material-ui/icons/Gavel'
@@ -8,19 +9,19 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 
 export const mainListItems = (
   <div>
-    <ListItem button>
+    <ListItem button component={Link} to="/">
       <ListItemIcon>
         <HomeIcon/>
       </ListItemIcon>
       <ListItemText primary="Home"/>
     </ListItem>
-    <ListItem button>
+    <ListItem button component={Link} to="/calculate">
       <ListItemIcon>
         <GavelIcon/>
       </ListItemIcon>
       <ListItemText primary="Calculate"/>
     </ListItem>
-    <ListItem button>
+    <ListItem button component={Link} to="/bets">
       <ListItemIcon>
         <ListIcon/>
       </ListItemIcon>

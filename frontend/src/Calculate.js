@@ -6,13 +6,17 @@ import Button from "@material-ui/core/Button";
 class Calculate extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {odds1: 0};
+    this.state = {oddsA: 0, oddsB: 0, noVigOddsA: 0, noVigOddsB: 0};
   }
 
-  handleChange = event => {
-    this.setState({odds1: event.target.value});
+  handleChangeOdds = event => {
+    this.setState({[event.target.name]: event.target.value});
   };
 
+  handleCalculate = event => {
+    alert("Clicked");
+  };
+  
   render() {
     return (
       <Fragment>
@@ -22,21 +26,39 @@ class Calculate extends React.Component {
         <form>
           <TextField
             id="odds-a"
+            name="oddsA"
             label="Odds A"
-            value={this.state.odds1}
-            onChange={this.handleChange}
+            value={this.state.oddsA}
+            onChange={this.handleChangeOdds}
+            type="number"
+            margin="normal"
+          />
+          <TextField
+            id="odds-b"
+            name="oddsB"
+            label="Odds B"
+            value={this.state.oddsB}
+            onChange={this.handleChangeOdds}
             type="number"
             margin="normal"
           />
           <TextField
             id="standard-number"
             label="Number"
-            value={this.state.odds1}
+            value={this.state.noVigOddsA}
             disabled="true"
             type="number"
             margin="normal"
           />
-          <Button color="primary">
+          <TextField
+            id="standard-number"
+            label="Number"
+            value={this.state.noVigOddsB}
+            disabled="true"
+            type="number"
+            margin="normal"
+          />
+          <Button onClick={this.handleCalculate} color="primary">
             Calculate
           </Button>
         </form>
