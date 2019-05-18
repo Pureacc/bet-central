@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 class GetNoVigOddsController {
     private final GetNoVigOdds getNoVigOdds;
 
-    public GetNoVigOddsController(GetNoVigOdds getNoVigOdds) {
+    GetNoVigOddsController(GetNoVigOdds getNoVigOdds) {
         this.getNoVigOdds = getNoVigOdds;
     }
 
-    @GetMapping("/calculate/novig")
+    @GetMapping("/api/calculate/novig")
     protected WebResponse get(@RequestParam double oddsA, @RequestParam double oddsB) {
         Request request = Request.newBuilder()
                 .withOddsA(DecimalOdds.of(oddsA))
@@ -27,17 +27,17 @@ class GetNoVigOddsController {
     }
 
     private static final class WebResponse {
-        private final String vigPercentage;
+        private final double vigPercentage;
         private final double noVigOddsA;
         private final double noVigOddsB;
 
         WebResponse(Response response) {
-            this.vigPercentage = response.getVig().toString();
+            this.vigPercentage = response.getVig().getValue();
             this.noVigOddsA = response.getNoVigOddsA().getOdds();
             this.noVigOddsB = response.getNoVigOddsB().getOdds();
         }
 
-        public String getVigPercentage() {
+        public double getVigPercentage() {
             return vigPercentage;
         }
 

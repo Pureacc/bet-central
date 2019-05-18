@@ -13,6 +13,10 @@ public final class Percentage {
         return new Percentage(value);
     }
 
+    public double getValue() {
+        return value;
+    }
+
     public DecimalOdds getDecimalOdds() {
         return DecimalOdds.of(100.0 / value);
     }
