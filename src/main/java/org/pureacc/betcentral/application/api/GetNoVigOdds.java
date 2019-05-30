@@ -15,16 +15,16 @@ public interface GetNoVigOdds {
             oddsB = builder.oddsB;
         }
 
-        public static Builder newBuilder() {
-            return new Builder();
-        }
-
         public DecimalOdds getOddsA() {
             return oddsA;
         }
 
         public DecimalOdds getOddsB() {
             return oddsB;
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
         }
 
         public static final class Builder {

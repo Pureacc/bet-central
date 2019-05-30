@@ -10,7 +10,7 @@ public class User {
 
     public User(String username) {
         this.username = username;
-        balance = new Balance();
+        this.balance = new Balance();
     }
 
     public User(UserId userId, String username, Balance balance) {
