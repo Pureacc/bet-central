@@ -1,9 +1,15 @@
 package org.pureacc.betcentral.application.api;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public interface CreateUser {
-    void execute(Request request);
+    void execute(@Valid Request request);
 
     final class Request {
+        @Size(min = 8, max = 32)
+        @NotBlank
         private final String username;
 
         private Request(Builder builder) {

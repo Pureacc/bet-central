@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 import spock.lang.Unroll
 
+import javax.validation.ConstraintViolationException
+
 import static org.pureacc.betcentral.application.api.GetNoVigOdds.*
 
 @SpringBootTest(classes = SpringAndReactApplication.class)
@@ -38,5 +40,23 @@ class GetNoVigOddsSpec extends Specification {
         DecimalOdds.of(1.76) | DecimalOdds.of(2.18) || Percentage.of(2.689741451209329) | DecimalOdds.of(1.8073394495412842) | DecimalOdds.of(2.2386363636363633)
         DecimalOdds.of(8)    | DecimalOdds.of(1.07) || Percentage.of(5.957943925233636) | DecimalOdds.of(8.47663551401869)   | DecimalOdds.of(1.13375)
         DecimalOdds.of(2)    | DecimalOdds.of(2)    || Percentage.of(0)                 | DecimalOdds.of(2)                  | DecimalOdds.of(2)
+    }
+
+    @Unroll
+    def "I cannot get the no-vig odds for a bet offer with odds #oddsA and #oddsB"() {
+        given: "A bet with two sides"
+        and: "Side A has odds of #oddsA"
+        and: "Side B has odds of #oddsB"
+
+        when: "I get the no-vig odds"
+        Request request = Request.newBuilder().withOddsA(oddsA).withOddsB(oddsB).build()
+        getNoVigOdds.execute(request)
+
+        then: "An exception is thrown"
+        thrown ConstraintViolationException
+
+        where:
+        oddsA                | oddsB
+        DecimalOdds.of(0.90) | DecimalOdds.of(2.18)
     }
 }

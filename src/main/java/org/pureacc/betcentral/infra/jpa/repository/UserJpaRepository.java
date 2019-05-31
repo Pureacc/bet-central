@@ -31,9 +31,9 @@ class UserJpaRepository implements UserRepository {
     }
 
     @Override
-    public void save(User user) {
+    public User save(User user) {
         UserEntity userEntity = map(user);
-        userJpaDao.save(userEntity);
+        return map(userJpaDao.save(userEntity));
     }
 
     private User map(UserEntity userEntity) {
@@ -41,7 +41,7 @@ class UserJpaRepository implements UserRepository {
     }
 
     private Balance map(BalanceEntity balanceEntity) {
-        return new Balance(new Euros(balanceEntity.getEuros()));
+        return new Balance(Euros.of(balanceEntity.getEuros()));
     }
 
     private UserEntity map(User user) {

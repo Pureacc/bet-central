@@ -39,7 +39,7 @@ class DepositJpaRepository implements DepositRepository {
     }
 
     private Deposit map(DepositEntity depositEntity) {
-        return new Deposit(map(depositEntity.getUser()), new Euros(depositEntity.getEuros()), depositEntity.getDate());
+        return new Deposit(map(depositEntity.getUser()), Euros.of(depositEntity.getEuros()), depositEntity.getDate());
     }
 
     private User map(UserEntity userEntity) {
@@ -47,7 +47,7 @@ class DepositJpaRepository implements DepositRepository {
     }
 
     private Balance map(BalanceEntity balanceEntity) {
-        return new Balance(new Euros(balanceEntity.getEuros()));
+        return new Balance(Euros.of(balanceEntity.getEuros()));
     }
 
     private DepositEntity map(Deposit deposit) {

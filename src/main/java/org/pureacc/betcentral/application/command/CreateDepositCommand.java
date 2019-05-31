@@ -5,11 +5,10 @@ import org.pureacc.betcentral.domain.model.Deposit;
 import org.pureacc.betcentral.domain.model.User;
 import org.pureacc.betcentral.domain.repository.DepositRepository;
 import org.pureacc.betcentral.domain.repository.UserRepository;
-import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 
-@Component
+@Command
 class CreateDepositCommand implements CreateDeposit {
     private final DepositRepository depositRepository;
     private final UserRepository userRepository;

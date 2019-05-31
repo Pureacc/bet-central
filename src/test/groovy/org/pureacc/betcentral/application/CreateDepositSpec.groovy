@@ -7,6 +7,9 @@ import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.DepositRepository
 import org.pureacc.betcentral.vocabulary.Euros
 import org.springframework.beans.factory.annotation.Autowired
+import spock.lang.Unroll
+
+import javax.validation.ConstraintViolationException
 
 import static org.pureacc.betcentral.application.api.CreateDeposit.Request
 
@@ -16,12 +19,12 @@ class CreateDepositSpec extends ApplicationSpec {
     @Autowired
     DepositRepository depositRepository
 
-    def "A user can deposit money into his account"() {
+    @Unroll
+    def "A user can deposit #euros euros into his account"() {
         given: "I am a user"
         User user = users.aUser()
 
-        when: "I deposit 50 euros into my account"
-        def euros = new Euros(50)
+        when: "I deposit #euros euros into my account"
         Request request = Request.newBuilder().withUserId(user.userId).withEuros(euros).build()
         deposit.execute(request)
 
@@ -38,5 +41,29 @@ class CreateDepositSpec extends ApplicationSpec {
             it.userId == user.userId
             it.euros == euros
         }
+
+        where:
+        euros            | _
+        Euros.of(50)     | _
+        Euros.of(100.65) | _
+    }
+
+    @Unroll
+    def "A user cannot deposit #euros euros into his account"() {
+        given: "I am a user"
+        User user = users.aUser()
+
+        when: "I deposit #euros euros into my account"
+        Request request = Request.newBuilder().withUserId(user.userId).withEuros(euros).build()
+        deposit.execute(request)
+
+        then: "An exception is thrown"
+        thrown ConstraintViolationException
+
+        where:
+        euros        | _
+        Euros.of(0)  | _
+        Euros.of(-1) | _
+        null         | _
     }
 }

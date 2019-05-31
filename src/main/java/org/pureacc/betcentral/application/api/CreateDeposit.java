@@ -3,11 +3,18 @@ package org.pureacc.betcentral.application.api;
 import org.pureacc.betcentral.vocabulary.Euros;
 import org.pureacc.betcentral.vocabulary.UserId;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 public interface CreateDeposit {
-    void execute(Request request);
+    void execute(@Valid Request request);
 
     final class Request {
+        @Valid
+        @NotNull
         private final UserId userId;
+        @Valid
+        @NotNull
         private final Euros euros;
 
         private Request(Builder builder) {

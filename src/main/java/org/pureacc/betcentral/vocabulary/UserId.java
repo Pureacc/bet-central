@@ -1,8 +1,10 @@
 package org.pureacc.betcentral.vocabulary;
 
+import javax.validation.constraints.Positive;
 import java.util.Objects;
 
 public final class UserId {
+    @Positive
     private final long value;
 
     public UserId(long value) {

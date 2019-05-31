@@ -1,11 +1,13 @@
 package org.pureacc.betcentral.vocabulary;
 
+import javax.validation.constraints.Positive;
 import java.util.Objects;
 
 public class Euros {
+    @Positive
     private double value;
 
-    public Euros(double value) {
+    private Euros(double value) {
         this.value = value;
     }
 
@@ -19,6 +21,10 @@ public class Euros {
 
     public double getValue() {
         return value;
+    }
+
+    public static Euros of(double value) {
+        return new Euros(value);
     }
 
     @Override

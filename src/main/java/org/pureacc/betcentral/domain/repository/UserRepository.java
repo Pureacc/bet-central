@@ -8,5 +8,5 @@ public interface UserRepository {
 
     User get(String username);
 
-    void save(User user);
+    User save(User user);
 }

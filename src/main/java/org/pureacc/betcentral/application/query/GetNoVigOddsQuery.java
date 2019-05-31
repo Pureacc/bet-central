@@ -2,9 +2,8 @@ package org.pureacc.betcentral.application.query;
 
 import org.pureacc.betcentral.application.api.GetNoVigOdds;
 import org.pureacc.betcentral.domain.model.BetOffer;
-import org.springframework.stereotype.Component;
 
-@Component
+@Query
 class GetNoVigOddsQuery implements GetNoVigOdds {
     @Override
     public Response execute(Request request) {

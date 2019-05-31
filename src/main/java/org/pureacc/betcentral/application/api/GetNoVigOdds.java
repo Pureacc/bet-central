@@ -3,11 +3,18 @@ package org.pureacc.betcentral.application.api;
 import org.pureacc.betcentral.vocabulary.DecimalOdds;
 import org.pureacc.betcentral.vocabulary.Percentage;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 public interface GetNoVigOdds {
-    Response execute(Request request);
+    Response execute(@Valid Request request);
 
     final class Request {
+        @Valid
+        @NotNull
         private final DecimalOdds oddsA;
+        @Valid
+        @NotNull
         private final DecimalOdds oddsB;
 
         private Request(Builder builder) {

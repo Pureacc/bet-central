@@ -1,8 +1,10 @@
 package org.pureacc.betcentral.vocabulary;
 
+import javax.validation.constraints.Min;
 import java.util.Objects;
 
 public final class DecimalOdds {
+    @Min(1)
     private final double odds;
 
     private DecimalOdds(double odds) {

@@ -6,7 +6,7 @@ public class Balance {
     private Euros euros;
 
     public Balance() {
-        this.euros = new Euros(0);
+        this.euros = Euros.of(0);
     }
 
     public Balance(Euros euros) {
