@@ -2,6 +2,7 @@ package org.pureacc.betcentral.application.api;
 
 import org.pureacc.betcentral.vocabulary.Euros;
 import org.pureacc.betcentral.vocabulary.UserId;
+import org.pureacc.betcentral.vocabulary.Username;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -44,7 +45,7 @@ public interface GetUser {
     }
 
     final class Response {
-        private final String username;
+        private final Username username;
         private final Euros balance;
 
         private Response(Builder builder) {
@@ -52,7 +53,7 @@ public interface GetUser {
             balance = builder.balance;
         }
 
-        public String getUsername() {
+        public Username getUsername() {
             return username;
         }
 
@@ -65,13 +66,13 @@ public interface GetUser {
         }
 
         public static final class Builder {
-            private String username;
+            private Username username;
             private Euros balance;
 
             private Builder() {
             }
 
-            public Builder withUsername(String username) {
+            public Builder withUsername(Username username) {
                 this.username = username;
                 return this;
             }

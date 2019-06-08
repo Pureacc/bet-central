@@ -8,6 +8,7 @@ import org.pureacc.betcentral.infra.jpa.model.BalanceEntity;
 import org.pureacc.betcentral.infra.jpa.model.UserEntity;
 import org.pureacc.betcentral.vocabulary.Euros;
 import org.pureacc.betcentral.vocabulary.UserId;
+import org.pureacc.betcentral.vocabulary.Username;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,8 +26,8 @@ class UserJpaRepository implements UserRepository {
     }
 
     @Override
-    public User get(String username) {
-        UserEntity userEntity = userJpaDao.findByUsername(username);
+    public User get(Username username) {
+        UserEntity userEntity = userJpaDao.findByUsername(username.getValue());
         return map(userEntity);
     }
 

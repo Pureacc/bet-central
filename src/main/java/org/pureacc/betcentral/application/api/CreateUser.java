@@ -1,22 +1,23 @@
 package org.pureacc.betcentral.application.api;
 
+import org.pureacc.betcentral.vocabulary.Username;
+
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 
 public interface CreateUser {
     void execute(@Valid Request request);
 
     final class Request {
-        @Size(min = 8, max = 32)
-        @NotBlank
-        private final String username;
+        @Valid
+        @NotNull
+        private final Username username;
 
         private Request(Builder builder) {
             username = builder.username;
         }
 
-        public String getUsername() {
+        public Username getUsername() {
             return username;
         }
 
@@ -25,12 +26,12 @@ public interface CreateUser {
         }
 
         public static final class Builder {
-            private String username;
+            private Username username;
 
             private Builder() {
             }
 
-            public Builder withUsername(String username) {
+            public Builder withUsername(Username username) {
                 this.username = username;
                 return this;
             }

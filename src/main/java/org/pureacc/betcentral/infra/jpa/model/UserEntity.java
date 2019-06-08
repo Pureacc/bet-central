@@ -1,5 +1,7 @@
 package org.pureacc.betcentral.infra.jpa.model;
 
+import org.pureacc.betcentral.vocabulary.Username;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,12 +22,12 @@ public class UserEntity {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public Username getUsername() {
+        return Username.of(username);
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(Username username) {
+        this.username = username.getValue();
     }
 
     public BalanceEntity getBalance() {

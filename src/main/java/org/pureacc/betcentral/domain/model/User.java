@@ -2,18 +2,19 @@ package org.pureacc.betcentral.domain.model;
 
 import org.pureacc.betcentral.vocabulary.Euros;
 import org.pureacc.betcentral.vocabulary.UserId;
+import org.pureacc.betcentral.vocabulary.Username;
 
 public class User {
     private UserId userId;
-    private String username;
+    private Username username;
     private Balance balance;
 
-    public User(String username) {
+    public User(Username username) {
         this.username = username;
         this.balance = new Balance();
     }
 
-    public User(UserId userId, String username, Balance balance) {
+    public User(UserId userId, Username username, Balance balance) {
         this.userId = userId;
         this.username = username;
         this.balance = balance;
@@ -27,7 +28,7 @@ public class User {
         return userId;
     }
 
-    public String getUsername() {
+    public Username getUsername() {
         return username;
     }
 

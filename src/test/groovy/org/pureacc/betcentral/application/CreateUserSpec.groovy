@@ -10,6 +10,7 @@ import javax.validation.ConstraintViolationException
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic
 import static org.pureacc.betcentral.application.api.CreateUser.Request
+import static org.pureacc.betcentral.vocabulary.Username.of
 
 class CreateUserSpec extends ApplicationSpec {
     private static final int USERNAME_LENGTH_MIN = 8
@@ -33,9 +34,9 @@ class CreateUserSpec extends ApplicationSpec {
         user.balance.isEmpty()
 
         where:
-        username    | _
-        "Bettor420" | _
-        "John Doe"  | _
+        username        | _
+        of("Bettor420") | _
+        of("John Doe")  | _
     }
 
     @Unroll
@@ -48,11 +49,12 @@ class CreateUserSpec extends ApplicationSpec {
         thrown ConstraintViolationException
 
         where:
-        username                                  | _
-        ""                                        | _
-        "   "                                     | _
-        null                                      | _
-        randomAlphabetic(USERNAME_LENGTH_MIN - 1) | _
-        randomAlphabetic(USERNAME_LENGTH_MAX + 1) | _
+        username                                      | _
+        of("")                                        | _
+        of("   ")                                     | _
+        of(null)                                      | _
+        of(randomAlphabetic(USERNAME_LENGTH_MIN - 1)) | _
+        of(randomAlphabetic(USERNAME_LENGTH_MAX + 1)) | _
+        null                                          | _
     }
 }
