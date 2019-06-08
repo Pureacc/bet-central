@@ -52,7 +52,7 @@ class DepositJpaRepository implements DepositRepository {
 
     private DepositEntity map(Deposit deposit) {
         DepositEntity depositEntity = new DepositEntity();
-        UserEntity userEntity = userJpaDao.getOne(deposit.getUser().getUserId().getValue());
+        UserEntity userEntity = userJpaDao.getOne(deposit.getUser().getId().getValue());
         depositEntity.setUser(userEntity);
         depositEntity.setEuros(deposit.getEuros().getValue());
         depositEntity.setDate(deposit.getDate());

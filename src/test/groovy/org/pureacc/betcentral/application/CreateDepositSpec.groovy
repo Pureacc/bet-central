@@ -25,20 +25,20 @@ class CreateDepositSpec extends ApplicationSpec {
         User user = users.aUser()
 
         when: "I deposit #euros euros into my account"
-        Request request = Request.newBuilder().withUserId(user.userId).withEuros(euros).build()
+        Request request = Request.newBuilder().withUserId(user.id).withEuros(euros).build()
         deposit.execute(request)
 
         then: "A deposit is created"
-        List<Deposit> deposits = depositRepository.findByUser(user.userId)
+        List<Deposit> deposits = depositRepository.findByUser(user.id)
         with(deposits.get(0)) {
-            it.user.userId == user.userId
+            it.user.id == user.id
             it.euros == euros
         }
 
         and: "A DepositEvent is published"
         DepositEvent event = testEventPublisher.poll() as DepositEvent
         with(event) {
-            it.userId == user.userId
+            it.userId == user.id
             it.euros == euros
         }
 
@@ -54,7 +54,7 @@ class CreateDepositSpec extends ApplicationSpec {
         User user = users.aUser()
 
         when: "I deposit #euros euros into my account"
-        Request request = Request.newBuilder().withUserId(user.userId).withEuros(euros).build()
+        Request request = Request.newBuilder().withUserId(user.id).withEuros(euros).build()
         deposit.execute(request)
 
         then: "An exception is thrown"

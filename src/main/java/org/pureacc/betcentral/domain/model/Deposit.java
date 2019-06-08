@@ -15,7 +15,7 @@ public class Deposit {
         this.user = user;
         this.euros = euros;
         this.date = new Date();
-        DepositEvent event = new DepositEvent(user.getUserId(), euros);
+        DepositEvent event = new DepositEvent(user.getId(), euros);
         DomainEventPublisher.publish(event);
     }
 

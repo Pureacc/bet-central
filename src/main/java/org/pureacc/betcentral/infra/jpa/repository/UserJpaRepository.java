@@ -46,8 +46,8 @@ class UserJpaRepository implements UserRepository {
 
     private UserEntity map(User user) {
         UserEntity userEntity = new UserEntity();
-        if (user.getUserId() != null) {
-            userEntity.setId(user.getUserId().getValue());
+        if (user.getId() != null) {
+            userEntity.setId(user.getId().getValue());
         }
         userEntity.setUsername(user.getUsername());
         userEntity.setBalance(map(user.getBalance()));

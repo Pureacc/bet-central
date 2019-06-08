@@ -23,7 +23,7 @@ public class User {
         balance.add(euros);
     }
 
-    public UserId getUserId() {
+    public UserId getId() {
         return userId;
     }
 

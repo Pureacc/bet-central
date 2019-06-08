@@ -1,13 +1,9 @@
 package org.pureacc.betcentral.application
 
-
 import org.pureacc.betcentral.application.api.CreateUser
 import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.UserRepository
-import org.pureacc.betcentral.main.SpringAndReactApplication
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import spock.lang.Specification
 import spock.lang.Unroll
 
 import javax.validation.ConstraintViolationException
@@ -15,8 +11,7 @@ import javax.validation.ConstraintViolationException
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic
 import static org.pureacc.betcentral.application.api.CreateUser.Request
 
-@SpringBootTest(classes = SpringAndReactApplication.class)
-class CreateUserSpec extends Specification {
+class CreateUserSpec extends ApplicationSpec {
     private static final int USERNAME_LENGTH_MIN = 8
     private static final int USERNAME_LENGTH_MAX = 32
 
@@ -33,7 +28,7 @@ class CreateUserSpec extends Specification {
 
         then: "The new user is created"
         User user = userRepository.get(username)
-        user.userId != null
+        user.id != null
         user.username == username
         user.balance.isEmpty()
 

@@ -15,6 +15,10 @@ public final class UserId {
         return value;
     }
 
+    public static UserId of(long value) {
+        return new UserId(value);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

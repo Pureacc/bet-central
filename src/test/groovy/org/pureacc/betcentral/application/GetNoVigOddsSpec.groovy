@@ -1,20 +1,17 @@
 package org.pureacc.betcentral.application
 
 import org.pureacc.betcentral.application.api.GetNoVigOdds
-import org.pureacc.betcentral.main.SpringAndReactApplication
 import org.pureacc.betcentral.vocabulary.DecimalOdds
 import org.pureacc.betcentral.vocabulary.Percentage
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import spock.lang.Specification
 import spock.lang.Unroll
 
 import javax.validation.ConstraintViolationException
 
-import static org.pureacc.betcentral.application.api.GetNoVigOdds.*
+import static org.pureacc.betcentral.application.api.GetNoVigOdds.Request
+import static org.pureacc.betcentral.application.api.GetNoVigOdds.Response
 
-@SpringBootTest(classes = SpringAndReactApplication.class)
-class GetNoVigOddsSpec extends Specification {
+class GetNoVigOddsSpec extends ApplicationSpec {
     @Autowired
     GetNoVigOdds getNoVigOdds
 
