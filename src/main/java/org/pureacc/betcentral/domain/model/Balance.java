@@ -17,6 +17,10 @@ public class Balance {
         this.euros.add(euros);
     }
 
+    public boolean isSufficient(Euros euros) {
+        return this.euros.isAtLeast(euros);
+    }
+
     public boolean isEmpty() {
         return euros.isEmpty();
     }

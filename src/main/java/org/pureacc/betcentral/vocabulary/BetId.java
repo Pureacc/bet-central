@@ -3,16 +3,16 @@ package org.pureacc.betcentral.vocabulary;
 import javax.validation.constraints.Positive;
 import java.util.Objects;
 
-public final class UserId {
+public final class BetId {
     @Positive
     private final long value;
 
-    public UserId(long value) {
+    public BetId(@Positive long value) {
         this.value = value;
     }
 
-    public static UserId of(long value) {
-        return new UserId(value);
+    public static BetId of(long value) {
+        return new BetId(value);
     }
 
     public long getValue() {
@@ -23,8 +23,8 @@ public final class UserId {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserId userId = (UserId) o;
-        return value == userId.value;
+        BetId betId = (BetId) o;
+        return value == betId.value;
     }
 
     @Override

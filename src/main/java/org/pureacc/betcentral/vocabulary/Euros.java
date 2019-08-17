@@ -15,6 +15,10 @@ public class Euros {
         this.value += euros.value;
     }
 
+    public boolean isAtLeast(Euros euros) {
+        return value >= euros.value;
+    }
+
     public boolean isEmpty() {
         return value == 0;
     }

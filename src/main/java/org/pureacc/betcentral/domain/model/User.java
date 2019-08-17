@@ -20,6 +20,10 @@ public class User {
         this.balance = balance;
     }
 
+    public boolean isBalanceSufficient(Euros euros) {
+        return balance.isSufficient(euros);
+    }
+
     public void deposit(Euros euros) {
         balance.add(euros);
     }

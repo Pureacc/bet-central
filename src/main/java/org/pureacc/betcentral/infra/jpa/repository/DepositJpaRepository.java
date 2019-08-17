@@ -21,7 +21,7 @@ class DepositJpaRepository implements DepositRepository {
     private final DepositJpaDao depositJpaDao;
     private final UserJpaDao userJpaDao;
 
-    public DepositJpaRepository(DepositJpaDao depositJpaDao, UserJpaDao userJpaDao) {
+    DepositJpaRepository(DepositJpaDao depositJpaDao, UserJpaDao userJpaDao) {
         this.depositJpaDao = depositJpaDao;
         this.userJpaDao = userJpaDao;
     }
