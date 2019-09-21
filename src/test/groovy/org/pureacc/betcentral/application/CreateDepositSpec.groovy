@@ -33,6 +33,7 @@ class CreateDepositSpec extends ApplicationSpec {
         with(deposits.get(0)) {
             it.user.id == user.id
             it.euros == euros
+            it.date == testTime.now()
         }
 
         and: "A DepositEvent is published"

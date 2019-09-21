@@ -6,6 +6,8 @@ import org.pureacc.betcentral.vocabulary.Euros;
 
 import java.util.Date;
 
+import static org.pureacc.betcentral.domain.service.DomainTime.now;
+
 public class Deposit {
     private User user;
     private Euros euros;
@@ -14,7 +16,7 @@ public class Deposit {
     public Deposit(User user, Euros euros) {
         this.user = user;
         this.euros = euros;
-        this.date = new Date();
+        this.date = now();
         DepositEvent event = new DepositEvent(user.getId(), euros);
         DomainEventPublisher.publish(event);
     }

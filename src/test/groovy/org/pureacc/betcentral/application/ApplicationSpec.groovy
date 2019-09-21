@@ -4,6 +4,7 @@ import org.pureacc.betcentral.application.conf.ApplicationSpecConfiguration
 import org.pureacc.betcentral.application.factory.Bets
 import org.pureacc.betcentral.application.factory.Users
 import org.pureacc.betcentral.application.mock.TestEventPublisher
+import org.pureacc.betcentral.application.stub.TestTime
 import org.pureacc.betcentral.main.SpringAndReactApplication
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -22,4 +23,6 @@ class ApplicationSpec extends Specification {
     protected Bets bets
     @Autowired
     protected TestEventPublisher testEventPublisher
+    @Autowired
+    protected TestTime testTime
 }

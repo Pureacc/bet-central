@@ -8,6 +8,7 @@ import org.pureacc.betcentral.vocabulary.exception.DomainException;
 
 import java.util.Date;
 
+import static org.pureacc.betcentral.domain.service.DomainTime.now;
 import static org.pureacc.betcentral.vocabulary.BetStatus.*;
 
 public class Bet {
@@ -24,7 +25,7 @@ public class Bet {
             this.user = user;
             this.odds = odds;
             this.euros = euros;
-            this.placedDate = new Date();
+            this.placedDate = now();
             this.status = PENDING;
         } else {
             throw new DomainException();
@@ -81,7 +82,7 @@ public class Bet {
         if (status != PENDING) {
             throw new DomainException();
         }
-        resolveDate = new Date();
+        resolveDate = now();
         status = WON;
     }
 
@@ -89,7 +90,7 @@ public class Bet {
         if (status != PENDING) {
             throw new DomainException();
         }
-        resolveDate = new Date();
+        resolveDate = now();
         status = LOST;
     }
 }

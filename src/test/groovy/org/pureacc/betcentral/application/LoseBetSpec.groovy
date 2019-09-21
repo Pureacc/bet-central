@@ -36,7 +36,7 @@ class LoseBetSpec extends ApplicationSpec {
         Bet validateBet = betRepository.get(bet.id)
         with(validateBet) {
             validateBet.lost
-            validateBet.resolveDate != null
+            validateBet.resolveDate == testTime.now()
         }
 
         where:

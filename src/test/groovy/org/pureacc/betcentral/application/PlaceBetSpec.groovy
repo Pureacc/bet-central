@@ -40,7 +40,7 @@ class PlaceBetSpec extends ApplicationSpec {
             bet.user.id == user.id
             bet.odds == odds
             bet.euros == euros
-            bet.placedDate != null
+            bet.placedDate == testTime.now()
         }
 
         where:
