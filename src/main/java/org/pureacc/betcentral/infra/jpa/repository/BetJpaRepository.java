@@ -47,12 +47,14 @@ class BetJpaRepository implements BetRepository {
         betEntity.setOdds(bet.getOdds().getOdds());
         betEntity.setEuros(bet.getEuros().getValue());
         betEntity.setPlacedDate(bet.getPlacedDate());
+        betEntity.setResolveDate(bet.getResolveDate());
+        betEntity.setStatus(bet.getStatus());
         return betEntity;
     }
 
     private Bet map(BetEntity betEntity) {
         User user = map(betEntity.getUser());
-        return new Bet(BetId.of(betEntity.getId()), user, DecimalOdds.of(betEntity.getOdds()), Euros.of(betEntity.getEuros()), betEntity.getPlacedDate());
+        return new Bet(BetId.of(betEntity.getId()), user, DecimalOdds.of(betEntity.getOdds()), Euros.of(betEntity.getEuros()), betEntity.getPlacedDate(), betEntity.getResolveDate(), betEntity.getStatus());
     }
 
     private User map(UserEntity userEntity) {

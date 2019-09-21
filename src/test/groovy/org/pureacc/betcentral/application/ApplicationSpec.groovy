@@ -1,6 +1,7 @@
 package org.pureacc.betcentral.application
 
 import org.pureacc.betcentral.application.conf.ApplicationSpecConfiguration
+import org.pureacc.betcentral.application.factory.Bets
 import org.pureacc.betcentral.application.factory.Users
 import org.pureacc.betcentral.application.mock.TestEventPublisher
 import org.pureacc.betcentral.main.SpringAndReactApplication
@@ -17,6 +18,8 @@ import javax.transaction.Transactional
 class ApplicationSpec extends Specification {
     @Autowired
     protected Users users
+    @Autowired
+    protected Bets bets
     @Autowired
     protected TestEventPublisher testEventPublisher
 }

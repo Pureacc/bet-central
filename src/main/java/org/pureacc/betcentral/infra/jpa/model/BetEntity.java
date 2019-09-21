@@ -1,5 +1,7 @@
 package org.pureacc.betcentral.infra.jpa.model;
 
+import org.pureacc.betcentral.vocabulary.BetStatus;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,6 +16,9 @@ public class BetEntity {
     private double odds;
     private double euros;
     private Date placedDate;
+    private Date resolveDate;
+    @Enumerated(EnumType.STRING)
+    private BetStatus status;
 
     public long getId() {
         return id;
@@ -53,5 +58,21 @@ public class BetEntity {
 
     public void setPlacedDate(Date placedDate) {
         this.placedDate = placedDate;
+    }
+
+    public Date getResolveDate() {
+        return resolveDate;
+    }
+
+    public void setResolveDate(Date resolveDate) {
+        this.resolveDate = resolveDate;
+    }
+
+    public BetStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BetStatus status) {
+        this.status = status;
     }
 }
