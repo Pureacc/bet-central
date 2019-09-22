@@ -1,5 +1,6 @@
 package org.pureacc.betcentral.domain.model;
 
+import org.pureacc.betcentral.domain.model.snapshot.BetSnapshot;
 import org.pureacc.betcentral.vocabulary.BetId;
 import org.pureacc.betcentral.vocabulary.BetStatus;
 import org.pureacc.betcentral.vocabulary.DecimalOdds;
@@ -32,42 +33,30 @@ public class Bet {
         }
     }
 
-    public Bet(BetId betId, User user, DecimalOdds odds, Euros euros, Date placedDate, Date resolveDate, BetStatus status) {
-        this.betId = betId;
-        this.user = user;
-        this.odds = odds;
-        this.euros = euros;
-        this.placedDate = placedDate;
-        this.resolveDate = resolveDate;
-        this.status = status;
+    public Bet(BetSnapshot betSnapshot) {
+        this.betId = betSnapshot.getBetId();
+        this.user = betSnapshot.getUser();
+        this.odds = betSnapshot.getOdds();
+        this.euros = betSnapshot.getEuros();
+        this.placedDate = betSnapshot.getPlacedDate();
+        this.resolveDate = betSnapshot.getResolveDate();
+        this.status = betSnapshot.getStatus();
+    }
+
+    public BetSnapshot toSnapshot() {
+        return BetSnapshot.newBuilder()
+                .withBetId(betId)
+                .withUser(user)
+                .withOdds(odds)
+                .withEuros(euros)
+                .withPlacedDate(placedDate)
+                .withResolveDate(resolveDate)
+                .withStatus(status)
+                .build();
     }
 
     public BetId getId() {
         return betId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public DecimalOdds getOdds() {
-        return odds;
-    }
-
-    public Euros getEuros() {
-        return euros;
-    }
-
-    public Date getPlacedDate() {
-        return placedDate;
-    }
-
-    public Date getResolveDate() {
-        return resolveDate;
-    }
-
-    public BetStatus getStatus() {
-        return status;
     }
 
     public boolean isWon() {

@@ -1,6 +1,7 @@
 package org.pureacc.betcentral.domain.model;
 
 import org.pureacc.betcentral.domain.events.DepositEvent;
+import org.pureacc.betcentral.domain.model.snapshot.DepositSnapshot;
 import org.pureacc.betcentral.domain.service.DomainEventPublisher;
 import org.pureacc.betcentral.vocabulary.Euros;
 
@@ -21,21 +22,17 @@ public class Deposit {
         DomainEventPublisher.publish(event);
     }
 
-    public Deposit(User user, Euros euros, Date date) {
-        this.user = user;
-        this.euros = euros;
-        this.date = date;
+    public Deposit(DepositSnapshot depositSnapshot) {
+        this.user = depositSnapshot.getUser();
+        this.euros = depositSnapshot.getEuros();
+        this.date = depositSnapshot.getDate();
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public Euros getEuros() {
-        return euros;
-    }
-
-    public Date getDate() {
-        return date;
+    public DepositSnapshot toSnapshot() {
+        return DepositSnapshot.newBuilder()
+                .withUser(user)
+                .withEuros(euros)
+                .withDate(date)
+                .build();
     }
 }
