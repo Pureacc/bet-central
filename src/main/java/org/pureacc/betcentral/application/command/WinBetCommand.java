@@ -3,7 +3,6 @@ package org.pureacc.betcentral.application.command;
 import org.pureacc.betcentral.application.api.WinBet;
 import org.pureacc.betcentral.domain.model.Bet;
 import org.pureacc.betcentral.domain.repository.BetRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Command
 class WinBetCommand implements WinBet {
@@ -13,7 +12,6 @@ class WinBetCommand implements WinBet {
         this.betRepository = betRepository;
     }
 
-    @Transactional
     @Override
     public void execute(Request request) {
         Bet bet = betRepository.get(request.getBetId());

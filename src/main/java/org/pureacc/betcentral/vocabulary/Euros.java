@@ -1,7 +1,8 @@
 package org.pureacc.betcentral.vocabulary;
 
-import javax.validation.constraints.Positive;
 import java.util.Objects;
+
+import javax.validation.constraints.Positive;
 
 public class Euros {
     @Positive
@@ -13,6 +14,10 @@ public class Euros {
 
     public void add(Euros euros) {
         this.value += euros.value;
+    }
+
+    public void substract(Euros euros) {
+        this.value -= euros.value;
     }
 
     public boolean isAtLeast(Euros euros) {
@@ -29,6 +34,11 @@ public class Euros {
 
     public static Euros of(double value) {
         return new Euros(value);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
     }
 
     @Override

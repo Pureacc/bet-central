@@ -5,7 +5,6 @@ import org.pureacc.betcentral.domain.model.Bet;
 import org.pureacc.betcentral.domain.model.User;
 import org.pureacc.betcentral.domain.repository.BetRepository;
 import org.pureacc.betcentral.domain.repository.UserRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Command
 class PlaceBetCommand implements PlaceBet {
@@ -17,7 +16,6 @@ class PlaceBetCommand implements PlaceBet {
         this.userRepository = userRepository;
     }
 
-    @Transactional
     @Override
     public Response execute(Request request) {
         User user = userRepository.get(request.getUserId());

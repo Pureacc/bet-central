@@ -10,6 +10,7 @@ import javax.validation.ConstraintViolationException
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic
 import static org.pureacc.betcentral.application.api.CreateUser.Request
+import static org.pureacc.betcentral.application.api.CreateUser.Response
 import static org.pureacc.betcentral.vocabulary.Username.of
 
 class CreateUserSpec extends ApplicationSpec {
@@ -25,11 +26,11 @@ class CreateUserSpec extends ApplicationSpec {
     def "I can create a new user with username #username"() {
         when: "I create a new user with username #username"
         Request request = Request.newBuilder().withUsername(username).build()
-        createUser.execute(request)
+        Response response = createUser.execute(request)
 
         then: "The new user is created"
-        User user = userRepository.get(username)
-        user.id != null
+        User user = userRepository.get(response.userId)
+        user.id == response.userId
         user.username == username
         user.balance.isEmpty()
 

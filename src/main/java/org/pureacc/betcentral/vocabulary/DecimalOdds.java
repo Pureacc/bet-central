@@ -1,7 +1,8 @@
 package org.pureacc.betcentral.vocabulary;
 
-import javax.validation.constraints.Min;
 import java.util.Objects;
+
+import javax.validation.constraints.Min;
 
 public final class DecimalOdds {
     @Min(1)
@@ -21,6 +22,10 @@ public final class DecimalOdds {
 
     public Percentage getProbability() {
         return Percentage.of(100.0 / odds);
+    }
+
+    public Euros calculate(Euros euros) {
+        return Euros.of(euros.getValue() * odds);
     }
 
     @Override

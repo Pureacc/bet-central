@@ -25,4 +25,8 @@ class ApplicationSpec extends Specification {
     protected TestEventPublisher testEventPublisher
     @Autowired
     protected TestTime testTime
+
+    void setup() {
+        testEventPublisher.clear()
+    }
 }

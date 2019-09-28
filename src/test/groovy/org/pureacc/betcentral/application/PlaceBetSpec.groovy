@@ -1,6 +1,7 @@
 package org.pureacc.betcentral.application
 
 import org.pureacc.betcentral.application.api.PlaceBet
+import org.pureacc.betcentral.domain.events.BetPlacedEvent
 import org.pureacc.betcentral.domain.model.Bet
 import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.BetRepository
@@ -39,8 +40,15 @@ class PlaceBetSpec extends ApplicationSpec {
             bet.id == response.getBetId()
             bet.user.id == user.id
             bet.odds == odds
-            bet.euros == euros
+            bet.stake == euros
             bet.placedDate == testTime.now()
+        }
+        and: "A BetPlacedEvent is published"
+        BetPlacedEvent event = testEventPublisher.poll() as BetPlacedEvent
+        with(event) {
+            it.userId == user.id
+            it.odds == odds
+            it.euros == euros
         }
 
         where:

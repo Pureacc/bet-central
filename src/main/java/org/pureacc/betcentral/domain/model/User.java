@@ -2,6 +2,7 @@ package org.pureacc.betcentral.domain.model;
 
 import org.pureacc.betcentral.domain.model.snapshot.UserSnapshot;
 import org.pureacc.betcentral.vocabulary.Euros;
+import org.pureacc.betcentral.vocabulary.Operation;
 import org.pureacc.betcentral.vocabulary.UserId;
 import org.pureacc.betcentral.vocabulary.Username;
 
@@ -41,8 +42,15 @@ public class User {
         return balance;
     }
 
-    public void deposit(Euros euros) {
-        balance.add(euros);
+    public void updateBalance(Euros euros, Operation operation) {
+        switch (operation) {
+        case ADD:
+            balance.add(euros);
+            break;
+        case SUBSTRACT:
+            balance.substract(euros);
+            break;
+        }
     }
 
     boolean isBalanceSufficient(Euros euros) {

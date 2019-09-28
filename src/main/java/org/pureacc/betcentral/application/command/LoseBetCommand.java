@@ -3,7 +3,6 @@ package org.pureacc.betcentral.application.command;
 import org.pureacc.betcentral.application.api.LoseBet;
 import org.pureacc.betcentral.domain.model.Bet;
 import org.pureacc.betcentral.domain.repository.BetRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Command
 class LoseBetCommand implements LoseBet {
@@ -13,7 +12,6 @@ class LoseBetCommand implements LoseBet {
         this.betRepository = betRepository;
     }
 
-    @Transactional
     @Override
     public void execute(Request request) {
         Bet bet = betRepository.get(request.getBetId());

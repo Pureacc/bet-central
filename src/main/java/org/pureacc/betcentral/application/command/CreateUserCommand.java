@@ -13,8 +13,11 @@ class CreateUserCommand implements CreateUser {
     }
 
     @Override
-    public void execute(Request request) {
+    public Response execute(Request request) {
         User user = new User(request.getUsername());
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        return Response.newBuilder()
+                .withUserId(savedUser.getId())
+                .build();
     }
 }

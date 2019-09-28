@@ -1,10 +1,10 @@
 package org.pureacc.betcentral.application.mock;
 
-import org.pureacc.betcentral.domain.events.Event;
-import org.pureacc.betcentral.domain.service.EventPublisher;
-
 import java.util.LinkedList;
 import java.util.Queue;
+
+import org.pureacc.betcentral.domain.events.Event;
+import org.pureacc.betcentral.domain.service.EventPublisher;
 
 public class TestEventPublisher implements EventPublisher {
     private final Queue<Event> events = new LinkedList<>();
@@ -16,5 +16,9 @@ public class TestEventPublisher implements EventPublisher {
 
     public Event poll() {
         return events.poll();
+    }
+
+    public void clear() {
+        events.clear();
     }
 }

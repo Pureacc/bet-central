@@ -3,6 +3,7 @@ package org.pureacc.betcentral.application.factory;
 import org.pureacc.betcentral.domain.model.User;
 import org.pureacc.betcentral.domain.repository.UserRepository;
 import org.pureacc.betcentral.vocabulary.Euros;
+import org.pureacc.betcentral.vocabulary.Operation;
 import org.pureacc.betcentral.vocabulary.Username;
 
 public class Users {
@@ -19,7 +20,7 @@ public class Users {
 
     public User aUser(Euros balance) {
         User user = aUser();
-        user.deposit(balance);
+        user.updateBalance(balance, Operation.ADD);
         return userRepository.save(user);
     }
 }

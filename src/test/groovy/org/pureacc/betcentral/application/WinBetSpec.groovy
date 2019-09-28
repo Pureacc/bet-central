@@ -1,6 +1,7 @@
 package org.pureacc.betcentral.application
 
 import org.pureacc.betcentral.application.api.WinBet
+import org.pureacc.betcentral.domain.events.BetWonEvent
 import org.pureacc.betcentral.domain.model.Bet
 import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.BetRepository
@@ -26,6 +27,7 @@ class WinBetSpec extends ApplicationSpec {
         User user = users.aUser(Euros.of(50))
         and: "I have placed a bet of 5 euros with status #status"
         Bet bet = bets.aBet(user, Euros.of(5), status)
+        testEventPublisher.clear()
 
         when: "I win the bet"
         WinBet.Request request = WinBet.Request.newBuilder()
@@ -37,6 +39,12 @@ class WinBetSpec extends ApplicationSpec {
         with(validateBet) {
             validateBet.won
             validateBet.resolveDate == testTime.now()
+        }
+        and: "A BetWonEvent is published"
+        BetWonEvent event = testEventPublisher.poll() as BetWonEvent
+        with(event) {
+            it.userId == user.id
+            it.amountWon == Euros.of(10)
         }
 
         where:
