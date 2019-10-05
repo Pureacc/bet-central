@@ -18,13 +18,13 @@ class UserController {
 	}
 
 	@PostMapping("/api/user/register")
-	public RegisterResponse register(@RequestBody RegisterWebRequest webRequest) {
+	public RegisterWebResponse register(@RequestBody RegisterWebRequest webRequest) {
 		CreateUser.Request request = CreateUser.Request.newBuilder()
-				.withUsername(Username.of(webRequest.username))
+				.withUsername(webRequest.getUsername())
 				.build();
 		CreateUser.Response response = createUser.execute(request);
-		return new RegisterResponse(String.valueOf(response.getUserId()
-				.getValue()));
+		return new RegisterWebResponse(response.getUserId()
+				.getValue());
 	}
 
 	static final class RegisterWebRequest {
@@ -34,16 +34,20 @@ class UserController {
 		RegisterWebRequest(@JsonProperty("username") String username) {
 			this.username = username;
 		}
+
+		public Username getUsername() {
+			return Username.of(username);
+		}
 	}
 
-	static final class RegisterResponse {
-		private final String userId;
+	static final class RegisterWebResponse {
+		private final long userId;
 
-		RegisterResponse(String userId) {
+		RegisterWebResponse(long userId) {
 			this.userId = userId;
 		}
 
-		public String getUserId() {
+		public long getUserId() {
 			return userId;
 		}
 	}
