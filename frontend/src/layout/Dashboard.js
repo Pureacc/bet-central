@@ -21,6 +21,7 @@ import {mainListItems, secondaryListItems} from './listItems';
 import SimpleTable from '../Bets';
 import Calculate from "../Calculate";
 import Home from "../Home";
+import SignUp from "../SignUp";
 
 const drawerWidth = 240;
 
@@ -173,6 +174,7 @@ class Dashboard extends React.Component {
           <main className={classes.content}>
             <div className={classes.appBarSpacer}/>
               <Route exact path="/" component={Home}/>
+              <Route path="/register" component={SignUp}/>
               <Route path="/calculate" component={Calculate}/>
               <Route path="/bets" render={() =>
                 <SimpleTable/>
