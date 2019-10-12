@@ -1,28 +1,87 @@
 import React from 'react';
 import {BrowserRouter, Route} from 'react-router-dom'
 import classNames from 'classnames';
-
-import {
-    withStyles,
-    CssBaseline,
-    Drawer,
-    AppBar,
-    Toolbar,
-    List,
-    Typography,
-    Divider,
-    IconButton
-} from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu';
+import {CssBaseline, Divider, Drawer, IconButton, List, withStyles} from '@material-ui/core'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import {mainListItems, secondaryListItems} from './listItems';
 import SimpleTable from '../Bets';
 import Calculate from "../Calculate";
 import Home from "../Home";
 import Register from "../Register";
-import AuthenticateMenu from "./AuthenticateMenu";
 import SignIn from "../SignIn";
-import ProfileMenu from "./ProfileMenu";
+import TopMenu from "../menu/TopMenu";
+
+class Dashboard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: true,
+            userId: null
+        }
+    }
+
+    handleLoggedIn = (userId) => {
+        this.setState({userId: userId});
+    };
+
+    handleLoggedOut = () => {
+        this.setState({userId: null});
+    };
+
+    handleDrawerOpen = () => {
+        this.setState({open: true});
+    };
+
+    handleDrawerClose = () => {
+        this.setState({open: false});
+    };
+
+    render() {
+        const {classes} = this.props;
+
+        return (
+            <div className={classes.root}>
+                <CssBaseline/>
+
+                <BrowserRouter>
+                    <TopMenu open={this.state.open}
+                             authenticated={this.state.userId}
+                             onDrawerOpen={this.handleDrawerOpen}/>
+                    <Drawer
+                        variant="permanent"
+                        classes={{
+                            paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+                        }}
+                        open={this.state.open}
+                    >
+                        <div className={classes.toolbarIcon}>
+                            <IconButton onClick={this.handleDrawerClose}>
+                                <ChevronLeftIcon/>
+                            </IconButton>
+                        </div>
+                        <Divider/>
+                        <List>{mainListItems}</List>
+                        <Divider/>
+                        <List>{secondaryListItems}</List>
+                    </Drawer>
+
+                    <main className={classes.content}>
+                        <div className={classes.appBarSpacer}/>
+                        <Route exact path="/" component={Home}/>
+                        <Route path="/register" component={Register}/>
+                        <Route path="/signin"
+                               render={(props) => <SignIn onLoggedIn={this.handleLoggedIn} {...props} />}/>
+                        <Route path="/calculate" component={Calculate}/>
+                        <Route path="/bets" render={() =>
+                            <SimpleTable/>
+                        }/>
+                    </main>
+
+                </BrowserRouter>
+            </div>
+        );
+    }
+}
 
 const drawerWidth = 240;
 
@@ -99,111 +158,5 @@ const styles = theme => ({
         marginBottom: theme.spacing.unit * 2,
     },
 });
-
-class Dashboard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            open: true,
-            userId: null
-        }
-    }
-
-    handleLoggedIn = (userId) => {
-        this.setState({userId: userId});
-    };
-
-    handleLoggedOut = () => {
-        this.setState({userId: null});
-    };
-
-    handleDrawerOpen = () => {
-        this.setState({open: true});
-    };
-
-    handleDrawerClose = () => {
-        this.setState({open: false});
-    };
-
-    render() {
-        const {classes} = this.props;
-        const {userId} = this.state;
-
-        let rightMenu;
-        if (userId) {
-            rightMenu = <ProfileMenu userId={this.state.userId} onLoggedOut={this.handleLoggedOut}/>;
-        } else {
-            rightMenu = <AuthenticateMenu/>;
-        }
-
-        return (
-            <div className={classes.root}>
-                <CssBaseline/>
-
-                <BrowserRouter>
-
-                    <AppBar
-                        position="absolute"
-                        className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-                    >
-                        <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
-                            <IconButton
-                                color="inherit"
-                                aria-label="Open drawer"
-                                onClick={this.handleDrawerOpen}
-                                className={classNames(
-                                    classes.menuButton,
-                                    this.state.open && classes.menuButtonHidden,
-                                )}
-                            >
-                                <MenuIcon/>
-                            </IconButton>
-                            <Typography
-                                component="h1"
-                                variant="h6"
-                                color="inherit"
-                                noWrap
-                                className={classes.title}
-                            >
-                                Bet Central
-                            </Typography>
-                            {rightMenu}
-                        </Toolbar>
-                    </AppBar>
-                    <Drawer
-                        variant="permanent"
-                        classes={{
-                            paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
-                        }}
-                        open={this.state.open}
-                    >
-                        <div className={classes.toolbarIcon}>
-                            <IconButton onClick={this.handleDrawerClose}>
-                                <ChevronLeftIcon/>
-                            </IconButton>
-                        </div>
-                        <Divider/>
-                        <List>{mainListItems}</List>
-                        <Divider/>
-                        <List>{secondaryListItems}</List>
-                    </Drawer>
-
-                    <main className={classes.content}>
-                        <div className={classes.appBarSpacer}/>
-                        <Route exact path="/" component={Home}/>
-                        <Route path="/register" component={Register}/>
-                        <Route path="/signin" render={(props) => <SignIn onLoggedIn={this.handleLoggedIn} {...props} />}/>
-                        {/*<Route path="/signin" component={SignIn}/>*/}
-                        <Route path="/calculate" component={Calculate}/>
-                        <Route path="/bets" render={() =>
-                            <SimpleTable/>
-                        }/>
-                    </main>
-
-                </BrowserRouter>
-            </div>
-        );
-    }
-}
 
 export default withStyles(styles)(Dashboard);

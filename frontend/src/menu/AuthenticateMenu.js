@@ -1,6 +1,6 @@
 import * as React from "react";
-import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
+import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
 class AuthenticateMenu extends React.Component {
