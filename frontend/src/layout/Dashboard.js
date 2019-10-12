@@ -44,13 +44,14 @@ class Dashboard extends React.Component {
                 <BrowserRouter>
                     <TopMenu open={this.state.open}
                              authenticated={this.state.userId}
-                             onDrawerOpen={this.handleDrawerOpen}/>
+                             onDrawerOpen={this.handleDrawerOpen}
+                             onLoggedOut={this.handleLoggedOut}/>
                     <LeftMenu open={this.state.open}
                               onDrawerClose={this.handleDrawerClose}/>
 
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer}/>
-                        <Route exact path="/" component={Home}/>
+                        <Route exact path="/" render={(props) => <Home userId={this.state.userId} {...props} />}/>
                         <Route path="/register" component={Register}/>
                         <Route path="/signin"
                                render={(props) => <SignIn onLoggedIn={this.handleLoggedIn} {...props} />}/>
@@ -65,8 +66,6 @@ class Dashboard extends React.Component {
         );
     }
 }
-
-const drawerWidth = 240;
 
 const styles = theme => ({
     root: {

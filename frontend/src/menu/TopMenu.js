@@ -11,7 +11,7 @@ class TopMenu extends React.Component {
 
         let rightMenu;
         if (authenticated) {
-            rightMenu = <ProfileMenu onLoggedOut={this.handleLoggedOut}/>;
+            rightMenu = <ProfileMenu {...this.props}/>;
         } else {
             rightMenu = <AuthenticateMenu/>;
         }

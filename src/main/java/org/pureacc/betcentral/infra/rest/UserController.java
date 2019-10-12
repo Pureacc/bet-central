@@ -2,6 +2,7 @@ package org.pureacc.betcentral.infra.rest;
 
 import org.pureacc.betcentral.application.api.CreateUser;
 import org.pureacc.betcentral.application.api.GetUser;
+import org.pureacc.betcentral.vocabulary.Euros;
 import org.pureacc.betcentral.vocabulary.UserId;
 import org.pureacc.betcentral.vocabulary.Username;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ class UserController {
 				.withUserId(UserId.of(userId))
 				.build();
 		GetUser.Response response = getUser.execute(request);
-		return new GetUserWebResponse(request.getUserId(), response.getUsername());
+		return new GetUserWebResponse(request.getUserId(), response.getUsername(), response.getBalance());
 	}
 
 	static final class RegisterWebRequest {
@@ -66,10 +67,12 @@ class UserController {
 	static final class GetUserWebResponse {
 		private final long userId;
 		private final String username;
+		private final double balance;
 
-		GetUserWebResponse(UserId userId, Username username) {
+		GetUserWebResponse(UserId userId, Username username, Euros balance) {
 			this.userId = userId.getValue();
 			this.username = username.getValue();
+			this.balance = balance.getValue();
 		}
 
 		public long getUserId() {
@@ -78,6 +81,10 @@ class UserController {
 
 		public String getUsername() {
 			return username;
+		}
+
+		public double getBalance() {
+			return balance;
 		}
 	}
 }
