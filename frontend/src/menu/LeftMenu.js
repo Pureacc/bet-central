@@ -1,68 +1,32 @@
-import React from 'react';
-import {BrowserRouter, Route} from 'react-router-dom'
-import {CssBaseline, withStyles} from '@material-ui/core'
-import SimpleTable from '../Bets';
-import Calculate from "../Calculate";
-import Home from "../Home";
-import Register from "../Register";
-import SignIn from "../SignIn";
-import TopMenu from "../menu/TopMenu";
-import LeftMenu from "../menu/LeftMenu";
+import * as React from "react";
+import classNames from "classnames";
+import {Divider, Drawer, IconButton, List, withStyles} from "@material-ui/core";
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import {mainListItems, secondaryListItems} from "../layout/listItems";
 
-class Dashboard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            open: true,
-            userId: null
-        }
-    }
-
-    handleLoggedIn = (userId) => {
-        this.setState({userId: userId});
-    };
-
-    handleLoggedOut = () => {
-        this.setState({userId: null});
-    };
-
-    handleDrawerOpen = () => {
-        this.setState({open: true});
-    };
-
-    handleDrawerClose = () => {
-        this.setState({open: false});
-    };
-
+class LeftMenu extends React.Component {
     render() {
         const {classes} = this.props;
 
         return (
-            <div className={classes.root}>
-                <CssBaseline/>
-
-                <BrowserRouter>
-                    <TopMenu open={this.state.open}
-                             authenticated={this.state.userId}
-                             onDrawerOpen={this.handleDrawerOpen}/>
-                    <LeftMenu open={this.state.open}
-                              onDrawerClose={this.handleDrawerClose}/>
-
-                    <main className={classes.content}>
-                        <div className={classes.appBarSpacer}/>
-                        <Route exact path="/" component={Home}/>
-                        <Route path="/register" component={Register}/>
-                        <Route path="/signin"
-                               render={(props) => <SignIn onLoggedIn={this.handleLoggedIn} {...props} />}/>
-                        <Route path="/calculate" component={Calculate}/>
-                        <Route path="/bets" render={() =>
-                            <SimpleTable/>
-                        }/>
-                    </main>
-
-                </BrowserRouter>
-            </div>
-        );
+            <Drawer
+                variant="permanent"
+                classes={{
+                    paper: classNames(classes.drawerPaper, !this.props.open && classes.drawerPaperClose),
+                }}
+                open={this.props.open}
+            >
+                <div className={classes.toolbarIcon}>
+                    <IconButton onClick={this.props.onDrawerClose}>
+                        <ChevronLeftIcon/>
+                    </IconButton>
+                </div>
+                <Divider/>
+                <List>{mainListItems}</List>
+                <Divider/>
+                <List>{secondaryListItems}</List>
+            </Drawer>
+        )
     }
 }
 
@@ -142,4 +106,4 @@ const styles = theme => ({
     },
 });
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(LeftMenu);
