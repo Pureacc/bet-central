@@ -1,5 +1,4 @@
 import React from 'react';
-import Axios from 'axios';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -7,12 +6,13 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {Link as RouterLink} from "react-router-dom";
+import {ExitToApp} from "@material-ui/icons";
 
-class SignUp extends React.Component {
+class SignIn extends React.Component {
     constructor(props) {
         super(props);
         this.state = {username: "", password: ""};
@@ -24,15 +24,8 @@ class SignUp extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        const register = {
-            "username": this.state.username
-        };
-        Axios.post(`/api/user/register`, register)
-            .then(res => {
-                // window.alert("success");
-                console.log(res);
-                console.log(res.data);
-            });
+        this.props.onLoggedIn(1);
+        this.props.history.push("/")
     };
 
     render() {
@@ -43,10 +36,10 @@ class SignUp extends React.Component {
                 <CssBaseline/>
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon/>
+                        <ExitToApp/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign up
+                        Sign In
                     </Typography>
                     <form className={classes.form} noValidate>
                         <Grid container spacing={2}>
@@ -86,12 +79,12 @@ class SignUp extends React.Component {
                             color="primary"
                             className={classes.submit}
                         >
-                            Sign Up
+                            Sign In
                         </Button>
                         <Grid container justify="flex-end">
                             <Grid item>
-                                <Link href="#" variant="body2">
-                                    Already have an account? Sign in
+                                <Link component={RouterLink} to="/register" variant="body2">
+                                    Don't have an account yet? Register
                                 </Link>
                             </Grid>
                         </Grid>
@@ -102,7 +95,7 @@ class SignUp extends React.Component {
     }
 }
 
-SignUp.propTypes = {
+SignIn.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
@@ -131,4 +124,4 @@ const styles = theme => ({
     },
 });
 
-export default withStyles(styles)(SignUp);
+export default withStyles(styles)(SignIn);
