@@ -11,6 +11,9 @@ import {withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link as RouterLink} from "react-router-dom";
 import {ExitToApp} from "@material-ui/icons";
+import {connect} from "react-redux";
+import {compose} from "recompose";
+import {authenticate} from "./actions/user";
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -24,7 +27,7 @@ class SignIn extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.onLoggedIn(1);
+        this.props.authenticate(this.state.username, this.state.password);
         this.props.history.push("/")
     };
 
@@ -124,4 +127,13 @@ const styles = theme => ({
     },
 });
 
-export default withStyles(styles)(SignIn);
+const mapDispatchToProps = dispatch => {
+    return {
+        authenticate: (username, password) => dispatch(authenticate(username, password))
+    }
+};
+
+export default compose(
+    withStyles(styles),
+    connect(f => f, mapDispatchToProps),
+)(SignIn);

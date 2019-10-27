@@ -1,23 +1,12 @@
 import React from "react";
 import {Typography} from "@material-ui/core";
-import Axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
+import {connect} from "react-redux";
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            username: "username",
-            balance: 0
-        }
-    }
-
-    componentDidMount() {
-        Axios.get(`/api/user`, {params: {userId: this.props.userId}})
-            .then((res) => {
-                this.setState({username: res.data.username, balance: res.data.balance});
-            });
     }
 
     render() {
@@ -27,7 +16,7 @@ class Home extends React.Component {
                 <TextField
                     id="username"
                     label="Username"
-                    value={this.state.username}
+                    value={this.props.username}
                     margin="normal"
                     InputProps={{
                         readOnly: true,
@@ -36,7 +25,7 @@ class Home extends React.Component {
                 <TextField
                     id="balance"
                     label="Balance"
-                    value={this.state.balance}
+                    value={this.props.balance}
                     margin="normal"
                     InputProps={{
                         readOnly: true,
@@ -47,4 +36,9 @@ class Home extends React.Component {
     }
 }
 
-export default Home
+const mapStateToProps = state => ({
+   username: state.user.name,
+   balance: state.user.balance
+});
+
+export default connect(mapStateToProps)(Home)

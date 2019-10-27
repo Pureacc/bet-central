@@ -1,10 +1,17 @@
-export const AUTHENTICATE = "AUTHENTICATE";
+import * as api from "../api";
+
+import {ActionType} from 'redux-promise-middleware';
+const AUTHENTICATE = "AUTHENTICATE";
+export const AUTHENTICATE_PENDING = `${AUTHENTICATE}_${ActionType.Pending}`;
+export const AUTHENTICATE_FULFILLED = `${AUTHENTICATE}_${ActionType.Fulfilled}`;
+export const AUTHENTICATE_REJECTED = `${AUTHENTICATE}_${ActionType.Rejected}`;
+
 export const LOG_OUT = "LOG_OUT";
 
-export function authenticate() {
+export function authenticate(username, password) {
     return {
         type: AUTHENTICATE,
-        payload: {user: "John Doe"}
+        payload: api.authenticate(username, password)
     }
 }
 
