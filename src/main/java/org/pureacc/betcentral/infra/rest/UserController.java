@@ -1,5 +1,6 @@
 package org.pureacc.betcentral.infra.rest;
 
+import org.pureacc.betcentral.application.api.Authenticate;
 import org.pureacc.betcentral.application.api.CreateUser;
 import org.pureacc.betcentral.application.api.GetUser;
 import org.pureacc.betcentral.vocabulary.Euros;
@@ -14,10 +15,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 class UserController {
 	private final CreateUser createUser;
 	private final GetUser getUser;
+	private final Authenticate authenticate;
 
-	UserController(CreateUser createUser, GetUser getUser) {
+	UserController(CreateUser createUser, GetUser getUser, Authenticate authenticate) {
 		this.createUser = createUser;
 		this.getUser = getUser;
+		this.authenticate = authenticate;
 	}
 
 	@PostMapping("/api/user/register")
@@ -28,6 +31,16 @@ class UserController {
 		CreateUser.Response response = createUser.execute(request);
 		return new RegisterWebResponse(response.getUserId()
 				.getValue());
+	}
+
+	@PostMapping("/api/user/authenticate")
+	public AuthenticateWebResponse authenticate(@RequestBody AuthenticateWebRequest webRequest) {
+		Authenticate.Request request = Authenticate.Request.newBuilder()
+				.withUsername(webRequest.getUsername())
+				.withPassword(webRequest.getPassword())
+				.build();
+		Authenticate.Response response = authenticate.execute(request);
+		return new AuthenticateWebResponse(response.getUserId(), response.getUsername(), response.getBalance());
 	}
 
 	@GetMapping("/api/user")
@@ -61,6 +74,49 @@ class UserController {
 
 		public long getUserId() {
 			return userId;
+		}
+	}
+
+	static final class AuthenticateWebRequest {
+		private final String username;
+		private final String password;
+
+		@JsonCreator
+		AuthenticateWebRequest(@JsonProperty("username") String username, @JsonProperty("password") String password) {
+			this.username = username;
+			this.password = password;
+		}
+
+		public Username getUsername() {
+			return Username.of(username);
+		}
+
+		public String getPassword() {
+			return password;
+		}
+	}
+
+	static final class AuthenticateWebResponse {
+		private final long userId;
+		private final String username;
+		private final double balance;
+
+		AuthenticateWebResponse(UserId userId, Username username, Euros balance) {
+			this.userId = userId.getValue();
+			this.username = username.getValue();
+			this.balance = balance.getValue();
+		}
+
+		public long getUserId() {
+			return userId;
+		}
+
+		public String getUsername() {
+			return username;
+		}
+
+		public double getBalance() {
+			return balance;
 		}
 	}
 

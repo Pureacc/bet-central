@@ -13,18 +13,9 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: true,
-            userId: null
+            open: true
         }
     }
-
-    handleLoggedIn = (userId) => {
-        this.setState({userId: userId});
-    };
-
-    handleLoggedOut = () => {
-        this.setState({userId: null});
-    };
 
     handleDrawerOpen = () => {
         this.setState({open: true});
@@ -43,18 +34,16 @@ class Dashboard extends React.Component {
 
                 <BrowserRouter>
                     <TopMenu open={this.state.open}
-                             authenticated={this.state.userId}
-                             onDrawerOpen={this.handleDrawerOpen}
-                             onLoggedOut={this.handleLoggedOut}/>
+                             onDrawerOpen={this.handleDrawerOpen}/>
                     <LeftMenu open={this.state.open}
                               onDrawerClose={this.handleDrawerClose}/>
 
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer}/>
-                        <Route exact path="/" render={(props) => <Home userId={this.state.userId} {...props} />}/>
+                        <Route exact path="/" render={(props) => <Home {...props} />}/>
                         <Route path="/register" component={Register}/>
                         <Route path="/signin"
-                               render={(props) => <SignIn onLoggedIn={this.handleLoggedIn} {...props} />}/>
+                               render={(props) => <SignIn {...props} />}/>
                         <Route path="/calculate" component={Calculate}/>
                         <Route path="/bets" render={() =>
                             <SimpleTable/>

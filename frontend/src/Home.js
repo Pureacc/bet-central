@@ -36,9 +36,12 @@ class Home extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-   username: state.user.name,
-   balance: state.user.balance
-});
+const mapStateToProps = state => {
+    const {user} = state;
+    return {
+        username: typeof user.name !== "undefined" ? user.name : "",
+        balance: typeof user.balance !== "undefined" ? user.balance : ""
+    }
+};
 
 export default connect(mapStateToProps)(Home)

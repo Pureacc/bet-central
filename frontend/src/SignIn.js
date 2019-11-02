@@ -25,6 +25,10 @@ class SignIn extends React.Component {
         this.setState({username: event.target.value});
     };
 
+    handleChangePassword = event => {
+        this.setState({password: event.target.value});
+    };
+
     handleSubmit = event => {
         event.preventDefault();
         this.props.authenticate(this.state.username, this.state.password);
@@ -66,6 +70,7 @@ class SignIn extends React.Component {
                                     name="password"
                                     label="Password"
                                     value={this.state.password}
+                                    onChange={this.handleChangePassword}
                                     variant="outlined"
                                     required
                                     fullWidth

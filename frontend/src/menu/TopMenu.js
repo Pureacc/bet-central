@@ -4,6 +4,8 @@ import {AppBar, IconButton, Toolbar, Typography, withStyles} from "@material-ui/
 import MenuIcon from '@material-ui/icons/Menu';
 import ProfileMenu from "./ProfileMenu";
 import AuthenticateMenu from "./AuthenticateMenu";
+import {compose} from "recompose";
+import {connect} from "react-redux";
 
 class TopMenu extends React.Component {
     render() {
@@ -82,4 +84,11 @@ const styles = theme => ({
     },
 });
 
-export default withStyles(styles)(TopMenu);
+const mapStateToProps = state => ({
+    authenticated: !!state.user.id,
+});
+
+export default compose(
+    withStyles(styles),
+    connect(mapStateToProps),
+)(TopMenu);

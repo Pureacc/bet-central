@@ -8,25 +8,18 @@ import {
 export default function user(state = {}, action) {
     switch (action.type) {
         case AUTHENTICATE_PENDING:
-            return {
-                ...state,
-                name: undefined,
-                balance: undefined
-            };
+            return {};
         case AUTHENTICATE_FULFILLED:
             return {
                 ...state,
-                name: action.payload.username,
-                balance: action.payload.balance
+                id: action.payload.data.userId,
+                name: action.payload.data.username,
+                balance: action.payload.data.balance
             };
         case AUTHENTICATE_REJECTED:
             return state;
         case LOG_OUT:
-            return {
-                ...state,
-                name: undefined,
-                balance: undefined
-            };
+            return {};
         default:
             return state;
     }

@@ -23,6 +23,10 @@ class Register extends React.Component {
         this.setState({username: event.target.value});
     };
 
+    handleChangePassword = event => {
+        this.setState({password: event.target.value});
+    };
+
     handleSubmit = event => {
         event.preventDefault();
         const register = {
@@ -69,6 +73,7 @@ class Register extends React.Component {
                                     name="password"
                                     label="Password"
                                     value={this.state.password}
+                                    onChange={this.handleChangePassword}
                                     variant="outlined"
                                     required
                                     fullWidth

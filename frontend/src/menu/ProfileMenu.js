@@ -4,6 +4,9 @@ import IconButton from "@material-ui/core/IconButton";
 import {AccountCircle} from "@material-ui/icons";
 import {Menu} from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import * as Actions from "../actions/user";
 
 class ProfileMenu extends React.Component {
     constructor(props) {
@@ -23,7 +26,7 @@ class ProfileMenu extends React.Component {
     };
 
     handleLogout = () => {
-        this.props.onLoggedOut()
+        this.props.actions.logOut();
     };
 
     render() {
@@ -59,4 +62,10 @@ class ProfileMenu extends React.Component {
     }
 }
 
-export default ProfileMenu
+const mapDispatchToProps = dispatch => {
+    return {
+        actions: bindActionCreators(Actions, dispatch)
+    }
+};
+
+export default connect(undefined, mapDispatchToProps)(ProfileMenu)
