@@ -6,7 +6,7 @@ import {Menu} from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import * as Actions from "../actions/user";
+import * as Actions from "../../../actions/user";
 
 class ProfileMenu extends React.Component {
     constructor(props) {

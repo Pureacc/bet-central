@@ -1,13 +1,13 @@
 import React from 'react';
 import {BrowserRouter, Route} from 'react-router-dom'
 import {CssBaseline, withStyles} from '@material-ui/core'
-import SimpleTable from '../Bets';
-import Calculate from "../Calculate";
-import Home from "../Home";
-import Register from "../Register";
-import SignIn from "../SignIn";
-import TopMenu from "../menu/TopMenu";
-import LeftMenu from "../menu/LeftMenu";
+import SimpleTable from '../content/Bets';
+import Calculate from "../content/Calculate";
+import Home from "../content/Home";
+import Register from "../content/Register";
+import SignIn from "../content/SignIn";
+import TopMenu from "../menu/top/TopMenu";
+import LeftMenu from "../menu/left/LeftMenu";
 
 class Dashboard extends React.Component {
     constructor(props) {

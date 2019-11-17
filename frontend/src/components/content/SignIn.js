@@ -13,7 +13,7 @@ import {Link as RouterLink} from "react-router-dom";
 import {ExitToApp} from "@material-ui/icons";
 import {connect} from "react-redux";
 import {compose} from "recompose";
-import {authenticate} from "./actions/user";
+import {authenticate} from "../../actions/user";
 
 class SignIn extends React.Component {
     constructor(props) {
