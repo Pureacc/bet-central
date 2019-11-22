@@ -6,6 +6,7 @@ import Calculate from "../content/Calculate";
 import Home from "../content/Home";
 import Register from "../content/Register";
 import SignIn from "../content/SignIn";
+import Actions from "../content/Actions";
 import TopMenu from "../menu/top/TopMenu";
 import LeftMenu from "../menu/left/LeftMenu";
 
@@ -44,6 +45,7 @@ class Dashboard extends React.Component {
                         <Route path="/register" component={Register}/>
                         <Route path="/signin"
                                render={(props) => <SignIn {...props} />}/>
+                        <Route path="/actions" component={Actions}/>
                         <Route path="/calculate" component={Calculate}/>
                         <Route path="/bets" render={() =>
                             <SimpleTable/>

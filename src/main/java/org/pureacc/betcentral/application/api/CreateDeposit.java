@@ -1,13 +1,13 @@
 package org.pureacc.betcentral.application.api;
 
-import org.pureacc.betcentral.vocabulary.Euros;
-import org.pureacc.betcentral.vocabulary.UserId;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.pureacc.betcentral.vocabulary.Euros;
+import org.pureacc.betcentral.vocabulary.UserId;
+
 public interface CreateDeposit {
-    void execute(@Valid Request request);
+    Response execute(@Valid Request request);
 
     final class Request {
         @Valid
@@ -53,6 +53,38 @@ public interface CreateDeposit {
 
             public Request build() {
                 return new Request(this);
+            }
+        }
+    }
+
+    final class Response {
+        private final Euros balance;
+
+        private Response(Builder builder) {
+            balance = builder.balance;
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Euros getBalance() {
+            return balance;
+        }
+
+        public static final class Builder {
+            private Euros balance;
+
+            private Builder() {
+            }
+
+            public Builder withBalance(Euros balance) {
+                this.balance = balance;
+                return this;
+            }
+
+            public Response build() {
+                return new Response(this);
             }
         }
     }

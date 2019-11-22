@@ -5,10 +5,6 @@ import Grid from "@material-ui/core/Grid";
 import {connect} from "react-redux";
 
 class Home extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return <Typography variant="h4" gutterBottom component="h2">
             Home

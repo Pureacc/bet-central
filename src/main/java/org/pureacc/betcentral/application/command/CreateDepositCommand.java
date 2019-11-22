@@ -17,9 +17,14 @@ class CreateDepositCommand implements CreateDeposit {
 	}
 
 	@Override
-	public void execute(Request request) {
+	public Response execute(Request request) {
 		User user = userRepository.get(request.getUserId());
 		Deposit deposit = new Deposit(user, request.getEuros());
 		depositRepository.save(deposit);
+		User updatedUser = userRepository.get(request.getUserId());
+		return Response.newBuilder()
+				.withBalance(updatedUser.getBalance()
+						.getEuros())
+				.build();
 	}
 }
