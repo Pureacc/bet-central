@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.pureacc.betcentral.infra.security.checks.IsAuthenticated;
 import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException;
 import org.springframework.stereotype.Component;
 

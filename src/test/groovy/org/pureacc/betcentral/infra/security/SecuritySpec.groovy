@@ -1,6 +1,7 @@
 package org.pureacc.betcentral.infra.security
 
 import org.pureacc.betcentral.application.ApplicationSpec
+import org.pureacc.betcentral.infra.security.checks.IsAuthenticated
 import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
