@@ -23,8 +23,9 @@ public class ArchitectureTest {
     private static final String INFRA_JPA = "org.pureacc.betcentral.infra.jpa..";
     private static final String INFRA_TIME = "org.pureacc.betcentral.infra.time..";
     private static final String INFRA_EVENTS = "org.pureacc.betcentral.infra.events..";
+    private static final String INFRA_SECURITY = "org.pureacc.betcentral.infra.security..";
     private static final String[] CALLING_INFRA = new String[]{INFRA_REST};
-    private static final String[] IMPLEMENTING_INFRA = new String[]{INFRA_JPA, INFRA_EVENTS, INFRA_TIME};
+    private static final String[] IMPLEMENTING_INFRA = new String[]{INFRA_JPA, INFRA_EVENTS, INFRA_TIME, INFRA_SECURITY};
 
     private static final String WHITELIST = "java..";
 
