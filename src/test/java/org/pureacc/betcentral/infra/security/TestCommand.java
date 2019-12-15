@@ -1,7 +1,9 @@
 package org.pureacc.betcentral.infra.security;
 
-import static org.pureacc.betcentral.infra.security.Allow.Role.AUTHENTICATED;
-import static org.pureacc.betcentral.infra.security.Allow.Role.UNAUTHENTICATED;
+import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.AUTHENTICATED;
+import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.UNAUTHENTICATED;
+
+import org.pureacc.betcentral.vocabulary.annotation.Allow;
 
 public interface TestCommand {
 	boolean allowNone();

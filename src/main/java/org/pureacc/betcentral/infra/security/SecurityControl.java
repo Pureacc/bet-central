@@ -1,12 +1,13 @@
 package org.pureacc.betcentral.infra.security;
 
-import static org.pureacc.betcentral.infra.security.Allow.Role.AUTHENTICATED;
-import static org.pureacc.betcentral.infra.security.Allow.Role.UNAUTHENTICATED;
+import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.AUTHENTICATED;
+import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.UNAUTHENTICATED;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.pureacc.betcentral.infra.security.Allow.Role;
+import org.pureacc.betcentral.vocabulary.annotation.Allow;
+import org.pureacc.betcentral.vocabulary.annotation.Allow.Role;
 import org.pureacc.betcentral.infra.security.checks.IsAuthenticated;
 import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException;
 import org.pureacc.betcentral.vocabulary.exception.SystemException;

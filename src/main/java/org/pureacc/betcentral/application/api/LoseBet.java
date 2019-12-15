@@ -1,11 +1,11 @@
 package org.pureacc.betcentral.application.api;
 
-import static org.pureacc.betcentral.infra.security.Allow.Role.AUTHENTICATED;
+import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.AUTHENTICATED;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.pureacc.betcentral.infra.security.Allow;
+import org.pureacc.betcentral.vocabulary.annotation.Allow;
 import org.pureacc.betcentral.vocabulary.BetId;
 
 public interface LoseBet {

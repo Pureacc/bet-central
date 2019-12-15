@@ -5,6 +5,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.pureacc.betcentral.vocabulary.annotation.Allow;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,7 @@ class SecurityAspect {
 		this.securityControl = securityControl;
 	}
 
-	@Pointcut("within(@(@DenyAll *) *)")
+	@Pointcut("within(@(@org.pureacc.betcentral.vocabulary.annotation.DenyAll *) *)")
 	void nestedDenyAllOnClass() {
 	}
 

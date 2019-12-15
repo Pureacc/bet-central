@@ -1,8 +1,8 @@
 package org.pureacc.betcentral.application.api;
 
-import static org.pureacc.betcentral.infra.security.Allow.Role.UNAUTHENTICATED;
+import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.UNAUTHENTICATED;
 
-import org.pureacc.betcentral.infra.security.Allow;
+import org.pureacc.betcentral.vocabulary.annotation.Allow;
 import org.pureacc.betcentral.vocabulary.Euros;
 import org.pureacc.betcentral.vocabulary.UserId;
 import org.pureacc.betcentral.vocabulary.Username;

@@ -1,4 +1,4 @@
-package org.pureacc.betcentral.infra.security;
+package org.pureacc.betcentral.vocabulary.annotation;
 
 import java.lang.annotation.*;
 
