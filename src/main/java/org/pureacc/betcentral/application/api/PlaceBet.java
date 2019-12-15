@@ -1,14 +1,18 @@
 package org.pureacc.betcentral.application.api;
 
+import static org.pureacc.betcentral.infra.security.Allow.Role.AUTHENTICATED;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.pureacc.betcentral.infra.security.Allow;
 import org.pureacc.betcentral.vocabulary.BetId;
 import org.pureacc.betcentral.vocabulary.DecimalOdds;
 import org.pureacc.betcentral.vocabulary.Euros;
 import org.pureacc.betcentral.vocabulary.UserId;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 public interface PlaceBet {
+    @Allow(AUTHENTICATED)
     Response execute(@Valid Request request);
 
     final class Request {

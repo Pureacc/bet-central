@@ -12,6 +12,7 @@ import spock.lang.Unroll
 
 import javax.validation.ConstraintViolationException
 
+import static org.pureacc.betcentral.application.factory.Authentications.authenticate
 import static org.pureacc.betcentral.vocabulary.BetStatus.*
 
 class LoseBetSpec extends ApplicationSpec {
@@ -21,9 +22,10 @@ class LoseBetSpec extends ApplicationSpec {
     BetRepository betRepository
 
     @Unroll
-    def "A user can lose a bet with status #status"() {
-        given: "I am a user with a balance of 50 euros"
+    def "An authenticated user can lose a bet with status #status"() {
+        given: "I am an authenticated user with a balance of 50 euros"
         User user = users.aUser(Euros.of(50))
+        authenticate(user)
         and: "I have placed a bet of 5 euros with status #status"
         Bet bet = bets.aBet(user, Euros.of(5), status)
 
@@ -45,9 +47,10 @@ class LoseBetSpec extends ApplicationSpec {
     }
 
     @Unroll
-    def "A user cannot lose a bet with status #status"() {
-        given: "I am a user with a balance of 50 euros"
+    def "An authenticated user cannot lose a bet with status #status"() {
+        given: "I am an authenticated user with a balance of 50 euros"
         User user = users.aUser(Euros.of(50))
+        authenticate(user)
         and: "I have placed a bet of 5 euros with status #status"
         Bet bet = bets.aBet(user, Euros.of(5), status)
 
@@ -66,7 +69,11 @@ class LoseBetSpec extends ApplicationSpec {
     }
 
     @Unroll
-    def "A user cannot lose a bet with ID #betId"() {
+    def "An authenticated user cannot lose a bet with ID #betId"() {
+        given: "I am an authenticated user"
+        User user = users.aUser()
+        authenticate(user)
+
         when: "I lose a bet with ID #id"
         LoseBet.Request request = LoseBet.Request.newBuilder()
                 .withBetId(betId).build()

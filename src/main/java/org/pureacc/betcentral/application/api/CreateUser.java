@@ -1,12 +1,16 @@
 package org.pureacc.betcentral.application.api;
 
+import static org.pureacc.betcentral.infra.security.Allow.Role.UNAUTHENTICATED;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.pureacc.betcentral.infra.security.Allow;
 import org.pureacc.betcentral.vocabulary.UserId;
 import org.pureacc.betcentral.vocabulary.Username;
 
 public interface CreateUser {
+    @Allow(UNAUTHENTICATED)
     Response execute(@Valid Request request);
 
     final class Request {

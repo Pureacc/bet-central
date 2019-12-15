@@ -17,6 +17,8 @@ class ScenarioSpec extends Specification {
     @Autowired
     CreateUser createUser
     @Autowired
+    Authenticate authenticate
+    @Autowired
     CreateDeposit createDeposit
     @Autowired
     PlaceBet placeBet
@@ -29,9 +31,15 @@ class ScenarioSpec extends Specification {
 
     def "I can create a user, deposit and place bets that win or lose"() {
         when: "I create a user"
+        Username username = Username.of("John Doe")
         CreateUser.Request createUserRequest = CreateUser.Request.newBuilder()
-                .withUsername(Username.of("John Doe")).build()
+                .withUsername(username).build()
         CreateUser.Response createUserResponse = createUser.execute(createUserRequest)
+        and: "I authenticate"
+        Authenticate.Request authenticateRequest = Authenticate.Request.newBuilder()
+                .withUsername(username)
+                .withPassword("dummy").build()
+        authenticate.execute(authenticateRequest)
         and: "I deposit 50 euros"
         CreateDeposit.Request depositRequest = CreateDeposit.Request.newBuilder()
                 .withUserId(createUserResponse.userId)

@@ -12,6 +12,7 @@ import spock.lang.Unroll
 import javax.validation.ConstraintViolationException
 
 import static org.pureacc.betcentral.application.api.CreateDeposit.Request
+import static org.pureacc.betcentral.application.factory.Authentications.authenticate
 
 class CreateDepositSpec extends ApplicationSpec {
     @Autowired
@@ -20,9 +21,10 @@ class CreateDepositSpec extends ApplicationSpec {
     DepositRepository depositRepository
 
     @Unroll
-    def "A user can deposit #euros euros into his account"() {
-        given: "I am a user"
+    def "An authenticated user can deposit #euros euros into his account"() {
+        given: "I am an authenticated user"
         User user = users.aUser()
+        authenticate(user)
 
         when: "I deposit #euros euros into my account"
         Request request = Request.newBuilder().withUserId(user.id).withEuros(euros).build()
@@ -50,9 +52,10 @@ class CreateDepositSpec extends ApplicationSpec {
     }
 
     @Unroll
-    def "A user cannot deposit #euros euros into his account"() {
-        given: "I am a user"
+    def "An authenticated user cannot deposit #euros euros into his account"() {
+        given: "I am an authenticated user"
         User user = users.aUser()
+        authenticate(user)
 
         when: "I deposit #euros euros into my account"
         Request request = Request.newBuilder().withUserId(user.id).withEuros(euros).build()

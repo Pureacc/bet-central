@@ -1,39 +1,43 @@
 package org.pureacc.betcentral.infra.security;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import static org.pureacc.betcentral.infra.security.Allow.Role.AUTHENTICATED;
+import static org.pureacc.betcentral.infra.security.Allow.Role.UNAUTHENTICATED;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.pureacc.betcentral.infra.security.Allow.Role;
 import org.pureacc.betcentral.infra.security.checks.IsAuthenticated;
 import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException;
+import org.pureacc.betcentral.vocabulary.exception.SystemException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SecurityControl {
+class SecurityControl {
 	private final IsAuthenticated isAuthenticated;
 
-	public SecurityControl(IsAuthenticated isAuthenticated) {
+	SecurityControl(IsAuthenticated isAuthenticated) {
 		this.isAuthenticated = isAuthenticated;
 	}
 
-	public void check(Security... security) {
-		Set<Security.Require> requires = new HashSet<>();
-		for (Security s : security) {
-			requires.addAll(Arrays.asList(s.value()));
-			requires.removeAll(Arrays.asList(s.drop()));
-		}
-		validate(requires);
-	}
-
-	private void validate(Set<Security.Require> requires) {
-		if (requires.contains(Security.Require.AUTHENTICATED)) {
-			validateAuthenticated();
-		}
-	}
-
-	private void validateAuthenticated() {
-		if (!isAuthenticated.isAuthenticated()) {
+	public void check(Allow allow) {
+		if (allow == null || !hasAtLeastOneRole(Arrays.asList(allow.value()))) {
 			throw new AccessDeniedException();
 		}
+	}
+
+	private boolean hasAtLeastOneRole(List<Role> roles) {
+		return roles.stream()
+				.anyMatch(this::hasRole);
+	}
+
+	private boolean hasRole(Role role) {
+		if (role == UNAUTHENTICATED) {
+			return !isAuthenticated.isAuthenticated();
+		}
+		if (role == AUTHENTICATED) {
+			return isAuthenticated.isAuthenticated();
+		}
+		throw new SystemException("Unknown role " + role);
 	}
 }

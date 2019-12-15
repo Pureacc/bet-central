@@ -1,6 +1,7 @@
 package org.pureacc.betcentral.application
 
 import org.pureacc.betcentral.application.conf.ApplicationSpecConfiguration
+import org.pureacc.betcentral.application.factory.Authentications
 import org.pureacc.betcentral.application.factory.Bets
 import org.pureacc.betcentral.application.factory.Users
 import org.pureacc.betcentral.application.mock.TestEventPublisher
@@ -28,5 +29,9 @@ class ApplicationSpec extends Specification {
 
     void setup() {
         testEventPublisher.clear()
+    }
+
+    void cleanup() {
+        Authentications.unauthenticate()
     }
 }

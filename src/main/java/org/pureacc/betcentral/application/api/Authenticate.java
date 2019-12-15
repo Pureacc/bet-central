@@ -1,10 +1,14 @@
 package org.pureacc.betcentral.application.api;
 
+import static org.pureacc.betcentral.infra.security.Allow.Role.UNAUTHENTICATED;
+
+import org.pureacc.betcentral.infra.security.Allow;
 import org.pureacc.betcentral.vocabulary.Euros;
 import org.pureacc.betcentral.vocabulary.UserId;
 import org.pureacc.betcentral.vocabulary.Username;
 
 public interface Authenticate {
+	@Allow(UNAUTHENTICATED)
 	Response execute(Request request);
 
 	final class Request {

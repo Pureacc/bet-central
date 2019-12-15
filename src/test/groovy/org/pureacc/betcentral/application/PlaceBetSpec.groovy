@@ -15,6 +15,7 @@ import javax.validation.ConstraintViolationException
 
 import static org.pureacc.betcentral.application.api.PlaceBet.Request
 import static org.pureacc.betcentral.application.api.PlaceBet.Response
+import static org.pureacc.betcentral.application.factory.Authentications.authenticate
 
 class PlaceBetSpec extends ApplicationSpec {
     @Autowired
@@ -23,9 +24,10 @@ class PlaceBetSpec extends ApplicationSpec {
     BetRepository betRepository
 
     @Unroll
-    def "A user with a balance of #balance euros can place a bet with odds #odds for #euros euros"() {
-        given: "I am a user with a balance of #balance euros"
+    def "An authenticated user with a balance of #balance euros can place a bet with odds #odds for #euros euros"() {
+        given: "I am an authenticated user with a balance of #balance euros"
         User user = users.aUser(balance)
+        authenticate(user)
 
         when: "I place a bet with odds #odds for #euros euros"
         Request request = Request.newBuilder()
@@ -58,9 +60,10 @@ class PlaceBetSpec extends ApplicationSpec {
     }
 
     @Unroll
-    def "A user with a balance of #balance euros does not have sufficient funds to place a bet for #euros euros"() {
-        given: "I am a user with a balance of #balance euros"
+    def "An authenticated user with a balance of #balance euros does not have sufficient funds to place a bet for #euros euros"() {
+        given: "I am an authenticated user with a balance of #balance euros"
         User user = users.aUser(balance)
+        authenticate(user)
 
         when: "I place a bet for #euros euros"
         Request request = Request.newBuilder()
@@ -79,9 +82,10 @@ class PlaceBetSpec extends ApplicationSpec {
     }
 
     @Unroll
-    def "A user cannot place a bet with odds #odds for #euros euro"() {
-        given: "I am a user"
+    def "An authenticated user cannot place a bet with odds #odds for #euros euro"() {
+        given: "I am an authenticated user"
         User user = users.aUser()
+        authenticate(user)
 
         when: "I place a bet with odds #odds for #euros euros"
         Request request = Request.newBuilder()

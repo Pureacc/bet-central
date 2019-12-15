@@ -13,6 +13,7 @@ import spock.lang.Unroll
 
 import javax.validation.ConstraintViolationException
 
+import static org.pureacc.betcentral.application.factory.Authentications.authenticate
 import static org.pureacc.betcentral.vocabulary.BetStatus.*
 
 class WinBetSpec extends ApplicationSpec {
@@ -22,9 +23,10 @@ class WinBetSpec extends ApplicationSpec {
     BetRepository betRepository
 
     @Unroll
-    def "A user can win a bet with status #status"() {
-        given: "I am a user with a balance of 50 euros"
+    def "An authenticated user can win a bet with status #status"() {
+        given: "I am an authenticated user with a balance of 50 euros"
         User user = users.aUser(Euros.of(50))
+        authenticate(user)
         and: "I have placed a bet of 5 euros with status #status"
         Bet bet = bets.aBet(user, Euros.of(5), status)
         testEventPublisher.clear()
@@ -53,9 +55,10 @@ class WinBetSpec extends ApplicationSpec {
     }
 
     @Unroll
-    def "A user cannot win a bet with status #status"() {
-        given: "I am a user with a balance of 50 euros"
+    def "An authenticated user cannot win a bet with status #status"() {
+        given: "I am an authenticated user with a balance of 50 euros"
         User user = users.aUser(Euros.of(50))
+        authenticate(user)
         and: "I have placed a bet of 5 euros with status #status"
         Bet bet = bets.aBet(user, Euros.of(5), status)
 
@@ -74,7 +77,10 @@ class WinBetSpec extends ApplicationSpec {
     }
 
     @Unroll
-    def "A user cannot win a bet with ID #betId"() {
+    def "An authenticated user cannot win a bet with ID #betId"() {
+        given: "I am an authenticated user"
+        authenticate(users.aUser())
+
         when: "I win a bet with ID #id"
         WinBet.Request request = WinBet.Request.newBuilder()
                 .withBetId(betId).build()

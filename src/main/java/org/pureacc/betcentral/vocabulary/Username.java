@@ -1,8 +1,9 @@
 package org.pureacc.betcentral.vocabulary;
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
 public final class Username {
     @Size(min = 8, max = 32)
@@ -32,5 +33,10 @@ public final class Username {
     @Override
     public int hashCode() {
         return Objects.hash(value);
+    }
+
+    @Override
+    public String toString() {
+        return value;
     }
 }
