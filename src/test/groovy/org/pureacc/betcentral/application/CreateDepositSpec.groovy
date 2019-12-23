@@ -14,7 +14,7 @@ import javax.validation.ConstraintViolationException
 import static org.pureacc.betcentral.application.api.CreateDeposit.Request
 import static org.pureacc.betcentral.application.factory.Authentications.authenticate
 
-class CreateDepositSpec extends ApplicationSpec {
+class CreateDepositSpec extends AbstractApplicationSpec {
     @Autowired
     CreateDeposit deposit
     @Autowired

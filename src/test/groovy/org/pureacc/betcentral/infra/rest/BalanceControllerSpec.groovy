@@ -1,17 +1,12 @@
 package org.pureacc.betcentral.infra.rest
 
 import org.pureacc.betcentral.application.api.CreateDeposit
-import org.pureacc.betcentral.main.SpringAndReactApplication
 import org.pureacc.betcentral.vocabulary.Euros
 import org.pureacc.betcentral.vocabulary.UserId
 import org.spockframework.spring.SpringBean
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.core.io.Resource
-import org.springframework.test.context.ContextConfiguration
-import org.springframework.test.web.servlet.MockMvc
-import spock.lang.Specification
 import spock.lang.Unroll
 
 import static org.pureacc.betcentral.ResourceReader.asString
@@ -21,11 +16,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest(controllers = BalanceController.class)
-@ContextConfiguration(classes = SpringAndReactApplication)
 @Unroll
-class BalanceControllerSpec extends Specification {
-    @Autowired
-    MockMvc mvc
+class BalanceControllerSpec extends AbstractControllerSpec {
     @SpringBean
     CreateDeposit createDeposit = Mock(CreateDeposit)
     @Value("classpath:web/balance-deposit-request.json")

@@ -11,16 +11,17 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.GenericFilterBean;
 
 @EnableWebSecurity
 @Component
-class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private final AuthenticationSuccessHandler authenticationSuccessHandler;
 	private final AuthenticationFailureHandler authenticationFailureHandler;
-	private final AuthCookieFilter authCookieFilter;
+	private final GenericFilterBean authCookieFilter;
 
-	SecurityConfiguration(AuthenticationSuccessHandler authenticationSuccessHandler,
-			AuthenticationFailureHandler authenticationFailureHandler, AuthCookieFilter authCookieFilter) {
+	WebSecurityConfiguration(AuthenticationSuccessHandler authenticationSuccessHandler,
+			AuthenticationFailureHandler authenticationFailureHandler, GenericFilterBean authCookieFilter) {
 		this.authenticationSuccessHandler = authenticationSuccessHandler;
 		this.authenticationFailureHandler = authenticationFailureHandler;
 		this.authCookieFilter = authCookieFilter;

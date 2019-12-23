@@ -15,7 +15,7 @@ import javax.validation.ConstraintViolationException
 import static org.pureacc.betcentral.application.factory.Authentications.authenticate
 import static org.pureacc.betcentral.vocabulary.BetStatus.*
 
-class LoseBetSpec extends ApplicationSpec {
+class LoseBetSpec extends AbstractApplicationSpec {
     @Autowired
     LoseBet loseBet
     @Autowired

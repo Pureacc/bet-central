@@ -13,7 +13,7 @@ import static org.pureacc.betcentral.application.api.CreateUser.Request
 import static org.pureacc.betcentral.application.api.CreateUser.Response
 import static org.pureacc.betcentral.vocabulary.Username.of
 
-class CreateUserSpec extends ApplicationSpec {
+class CreateUserSpec extends AbstractApplicationSpec {
     private static final int USERNAME_LENGTH_MIN = 8
     private static final int USERNAME_LENGTH_MAX = 32
 

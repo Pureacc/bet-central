@@ -17,7 +17,7 @@ import static org.pureacc.betcentral.application.api.PlaceBet.Request
 import static org.pureacc.betcentral.application.api.PlaceBet.Response
 import static org.pureacc.betcentral.application.factory.Authentications.authenticate
 
-class PlaceBetSpec extends ApplicationSpec {
+class PlaceBetSpec extends AbstractApplicationSpec {
     @Autowired
     PlaceBet placeBet
     @Autowired

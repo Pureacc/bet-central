@@ -5,7 +5,7 @@ import org.pureacc.betcentral.domain.model.User
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll
 
-class GetUserSpec extends ApplicationSpec {
+class GetUserSpec extends AbstractApplicationSpec {
     @Autowired
     GetUser getUser
 

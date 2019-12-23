@@ -16,7 +16,7 @@ import javax.validation.ConstraintViolationException
 import static org.pureacc.betcentral.application.factory.Authentications.authenticate
 import static org.pureacc.betcentral.vocabulary.BetStatus.*
 
-class WinBetSpec extends ApplicationSpec {
+class WinBetSpec extends AbstractApplicationSpec {
     @Autowired
     WinBet winBet
     @Autowired

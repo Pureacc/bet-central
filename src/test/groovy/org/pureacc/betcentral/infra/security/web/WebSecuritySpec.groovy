@@ -1,6 +1,6 @@
 package org.pureacc.betcentral.infra.security.web
 
-import org.pureacc.betcentral.application.ApplicationSpec
+import org.pureacc.betcentral.application.AbstractApplicationSpec
 import org.pureacc.betcentral.application.stub.TestUserRepository
 import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.UserRepository
@@ -19,7 +19,7 @@ import java.util.regex.Pattern
 @Transactional
 @SpringBootTest(classes = SpringAndReactApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(TestController)
-class WebSecuritySpec extends ApplicationSpec {
+class WebSecuritySpec extends AbstractApplicationSpec {
     private static final Pattern COOKIE_PATTERN = Pattern.compile("X-authentication=.*?; Max-Age=14400; Expires=.*?; SameSite=Strict; Path=/; HttpOnly")
 
     @LocalServerPort

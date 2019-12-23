@@ -3,19 +3,14 @@ package org.pureacc.betcentral.infra.rest
 import org.pureacc.betcentral.application.api.LoseBet
 import org.pureacc.betcentral.application.api.PlaceBet
 import org.pureacc.betcentral.application.api.WinBet
-import org.pureacc.betcentral.main.SpringAndReactApplication
 import org.pureacc.betcentral.vocabulary.BetId
 import org.pureacc.betcentral.vocabulary.DecimalOdds
 import org.pureacc.betcentral.vocabulary.Euros
 import org.pureacc.betcentral.vocabulary.UserId
 import org.spockframework.spring.SpringBean
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.core.io.Resource
-import org.springframework.test.context.ContextConfiguration
-import org.springframework.test.web.servlet.MockMvc
-import spock.lang.Specification
 import spock.lang.Unroll
 
 import static org.pureacc.betcentral.ResourceReader.asString
@@ -24,12 +19,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@WebMvcTest(controllers = BetController.class)
-@ContextConfiguration(classes = SpringAndReactApplication)
+@WebMvcTest(controllers = BetController)
 @Unroll
-class BetControllerSpec extends Specification {
-    @Autowired
-    MockMvc mvc
+class BetControllerSpec extends AbstractControllerSpec {
     @SpringBean
     PlaceBet placeBet = Mock(PlaceBet)
     @SpringBean

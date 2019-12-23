@@ -11,7 +11,7 @@ import spock.lang.Unroll
 
 import static org.pureacc.betcentral.application.api.UpdateBalance.Request
 
-class UpdateBalanceSpec extends ApplicationSpec {
+class UpdateBalanceSpec extends AbstractApplicationSpec {
     @Autowired
     UpdateBalance updateBalance
     @Autowired

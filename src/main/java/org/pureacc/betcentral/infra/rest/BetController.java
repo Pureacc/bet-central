@@ -20,7 +20,7 @@ class BetController {
 	private final WinBet winBet;
 	private final LoseBet loseBet;
 
-	public BetController(PlaceBet placeBet, WinBet winBet, LoseBet loseBet) {
+	BetController(PlaceBet placeBet, WinBet winBet, LoseBet loseBet) {
 		this.placeBet = placeBet;
 		this.winBet = winBet;
 		this.loseBet = loseBet;

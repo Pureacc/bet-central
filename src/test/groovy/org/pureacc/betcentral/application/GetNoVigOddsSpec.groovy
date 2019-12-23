@@ -11,7 +11,7 @@ import javax.validation.ConstraintViolationException
 import static org.pureacc.betcentral.application.api.GetNoVigOdds.Request
 import static org.pureacc.betcentral.application.api.GetNoVigOdds.Response
 
-class GetNoVigOddsSpec extends ApplicationSpec {
+class GetNoVigOddsSpec extends AbstractApplicationSpec {
     @Autowired
     GetNoVigOdds getNoVigOdds
 

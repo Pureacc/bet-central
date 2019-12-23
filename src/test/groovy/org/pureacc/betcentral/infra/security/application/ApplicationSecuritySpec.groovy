@@ -1,6 +1,6 @@
 package org.pureacc.betcentral.infra.security.application
 
-import org.pureacc.betcentral.application.ApplicationSpec
+import org.pureacc.betcentral.application.AbstractApplicationSpec
 import org.pureacc.betcentral.infra.security.application.checks.IsAuthenticated
 import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException
 import org.spockframework.spring.SpringBean
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Import
 
 @Import([TestCommandImpl])
-class ApplicationSecuritySpec extends ApplicationSpec {
+class ApplicationSecuritySpec extends AbstractApplicationSpec {
     @Autowired
     TestCommand testCommand
     @SpringBean

@@ -17,7 +17,7 @@ import javax.transaction.Transactional
 @Transactional
 @SpringBootTest(classes = SpringAndReactApplication.class)
 @Import(ApplicationSpecConfiguration)
-class ApplicationSpec extends Specification {
+class AbstractApplicationSpec extends Specification {
     @Autowired
     protected Users users
     @Autowired
