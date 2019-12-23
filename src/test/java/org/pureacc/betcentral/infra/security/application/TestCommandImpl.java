@@ -1,4 +1,4 @@
-package org.pureacc.betcentral.infra.security;
+package org.pureacc.betcentral.infra.security.application;
 
 import org.pureacc.betcentral.application.command.Command;
 

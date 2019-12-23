@@ -1,4 +1,4 @@
-package org.pureacc.betcentral.infra.security;
+package org.pureacc.betcentral.infra.security.application;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;

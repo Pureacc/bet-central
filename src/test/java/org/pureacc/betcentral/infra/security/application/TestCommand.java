@@ -1,4 +1,4 @@
-package org.pureacc.betcentral.infra.security;
+package org.pureacc.betcentral.infra.security.application;
 
 import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.AUTHENTICATED;
 import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.UNAUTHENTICATED;

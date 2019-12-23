@@ -1,4 +1,4 @@
-package org.pureacc.betcentral.infra.security;
+package org.pureacc.betcentral.infra.security.application;
 
 import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.AUTHENTICATED;
 import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.UNAUTHENTICATED;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.pureacc.betcentral.vocabulary.annotation.Allow;
 import org.pureacc.betcentral.vocabulary.annotation.Allow.Role;
-import org.pureacc.betcentral.infra.security.checks.IsAuthenticated;
+import org.pureacc.betcentral.infra.security.application.checks.IsAuthenticated;
 import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException;
 import org.pureacc.betcentral.vocabulary.exception.SystemException;
 import org.springframework.stereotype.Component;

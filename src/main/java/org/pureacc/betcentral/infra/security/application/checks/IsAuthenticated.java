@@ -1,4 +1,4 @@
-package org.pureacc.betcentral.infra.security.checks;
+package org.pureacc.betcentral.infra.security.application.checks;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
