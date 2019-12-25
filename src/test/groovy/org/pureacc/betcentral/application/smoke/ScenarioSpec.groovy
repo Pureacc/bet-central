@@ -4,6 +4,7 @@ import org.pureacc.betcentral.application.api.*
 import org.pureacc.betcentral.main.SpringAndReactApplication
 import org.pureacc.betcentral.vocabulary.DecimalOdds
 import org.pureacc.betcentral.vocabulary.Euros
+import org.pureacc.betcentral.vocabulary.Password
 import org.pureacc.betcentral.vocabulary.Username
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -32,8 +33,10 @@ class ScenarioSpec extends Specification {
     def "I can create a user, deposit and place bets that win or lose"() {
         when: "I create a user"
         Username username = Username.of("John Doe")
+        Password password = Password.of("hunter2")
         CreateUser.Request createUserRequest = CreateUser.Request.newBuilder()
-                .withUsername(username).build()
+                .withUsername(username)
+                .withPassword(password).build()
         CreateUser.Response createUserResponse = createUser.execute(createUserRequest)
         and: "I authenticate"
         Authenticate.Request authenticateRequest = Authenticate.Request.newBuilder()

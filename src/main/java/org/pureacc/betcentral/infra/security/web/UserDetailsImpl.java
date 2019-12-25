@@ -7,7 +7,6 @@ import java.util.Collection;
 import org.pureacc.betcentral.domain.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 class UserDetailsImpl implements UserDetails {
 	private final String username;
@@ -17,7 +16,8 @@ class UserDetailsImpl implements UserDetails {
 	UserDetailsImpl(User user) {
 		this.username = user.getUsername()
 				.getValue();
-		this.password = "{bcrypt}" + new BCryptPasswordEncoder().encode("password");
+		this.password = user.getPassword()
+				.getValue();
 		this.id = user.getId()
 				.getValue();
 	}

@@ -1,24 +1,25 @@
 package org.pureacc.betcentral.domain.model;
 
 import org.pureacc.betcentral.domain.model.snapshot.UserSnapshot;
-import org.pureacc.betcentral.vocabulary.Euros;
-import org.pureacc.betcentral.vocabulary.Operation;
-import org.pureacc.betcentral.vocabulary.UserId;
-import org.pureacc.betcentral.vocabulary.Username;
+import org.pureacc.betcentral.domain.service.PasswordHasher;
+import org.pureacc.betcentral.vocabulary.*;
 
 public class User {
     private UserId userId;
     private Username username;
+    private Password password;
     private Balance balance;
 
-    public User(Username username) {
+    public User(Username username, Password password, PasswordHasher passwordHasher) {
         this.username = username;
+        this.password = passwordHasher.hash(password);
         this.balance = new Balance();
     }
 
     public User(UserSnapshot userSnapshot) {
         this.userId = userSnapshot.getUserId();
         this.username = userSnapshot.getUsername();
+        this.password = userSnapshot.getPassword();
         this.balance = userSnapshot.getBalance();
     }
 
@@ -26,6 +27,7 @@ public class User {
         return UserSnapshot.newBuilder()
                 .withUserId(userId)
                 .withUsername(username)
+                .withPassword(password)
                 .withBalance(balance)
                 .build();
     }
@@ -36,6 +38,10 @@ public class User {
 
     public Username getUsername() {
         return username;
+    }
+
+    public Password getPassword() {
+        return password;
     }
 
     public Balance getBalance() {

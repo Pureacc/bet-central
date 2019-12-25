@@ -38,10 +38,8 @@ public class TestUserRepository implements UserRepository {
 
 	@Override
 	public User save(User user) {
-		UserSnapshot userSnapshot = UserSnapshot.newBuilder()
+		UserSnapshot userSnapshot = UserSnapshot.newBuilder(user.toSnapshot())
 				.withUserId(UserId.of(new Date().getTime()))
-				.withUsername(user.getUsername())
-				.withBalance(user.getBalance())
 				.build();
 		User saveUser = new User(userSnapshot);
 		users.add(saveUser);

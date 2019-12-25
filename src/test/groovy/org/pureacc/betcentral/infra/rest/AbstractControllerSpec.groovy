@@ -1,13 +1,10 @@
 package org.pureacc.betcentral.infra.rest
 
-import org.pureacc.betcentral.domain.model.User
-import org.pureacc.betcentral.domain.model.snapshot.UserSnapshot
+import org.pureacc.betcentral.application.objectmother.UserObjectMother
 import org.pureacc.betcentral.domain.repository.UserRepository
 import org.pureacc.betcentral.infra.security.web.CryptoService
 import org.pureacc.betcentral.infra.security.web.UserDetailsImpl
 import org.pureacc.betcentral.main.SpringAndReactApplication
-import org.pureacc.betcentral.vocabulary.UserId
-import org.pureacc.betcentral.vocabulary.Username
 import org.spockframework.spring.StubBeans
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -40,8 +37,7 @@ class AbstractControllerSpec extends Specification {
             new GenericFilterBean() {
                 @Override
                 void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-                    UserSnapshot userSnapshot = UserSnapshot.newBuilder().withUserId(UserId.of(1L)).withUsername(Username.of("John Doe")).build()
-                    UserDetails userDetails = new UserDetailsImpl(new User(userSnapshot))
+                    UserDetails userDetails = new UserDetailsImpl(UserObjectMother.aUser())
                     SecurityContextHolder.getContext()
                             .setAuthentication(new UsernamePasswordAuthenticationToken(userDetails, null,
                                     userDetails.getAuthorities()))

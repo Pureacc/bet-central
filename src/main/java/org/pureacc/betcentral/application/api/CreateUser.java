@@ -5,6 +5,7 @@ import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.UNAUTHENTI
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.pureacc.betcentral.vocabulary.Password;
 import org.pureacc.betcentral.vocabulary.annotation.Allow;
 import org.pureacc.betcentral.vocabulary.UserId;
 import org.pureacc.betcentral.vocabulary.Username;
@@ -17,13 +18,21 @@ public interface CreateUser {
         @Valid
         @NotNull
         private final Username username;
+        @Valid
+        @NotNull
+        private final Password password;
 
         private Request(Builder builder) {
             username = builder.username;
+            password = builder.password;
         }
 
         public Username getUsername() {
             return username;
+        }
+
+        public Password getPassword() {
+            return password;
         }
 
         public static Builder newBuilder() {
@@ -32,12 +41,18 @@ public interface CreateUser {
 
         public static final class Builder {
             private Username username;
+            private Password password;
 
             private Builder() {
             }
 
             public Builder withUsername(Username username) {
                 this.username = username;
+                return this;
+            }
+
+            public Builder withPassword(Password password) {
+                this.password = password;
                 return this;
             }
 

@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional
 
 import java.util.regex.Pattern
 
+import static org.pureacc.betcentral.application.objectmother.UserObjectMother.RAW_PASSWORD
+
 @Transactional
 @SpringBootTest(classes = SpringAndReactApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(TestController)
@@ -32,10 +34,9 @@ class WebSecuritySpec extends AbstractApplicationSpec {
     def "When I POST the login endpoint with valid credentials I receive an authentication cookie"() {
         given: "I am a user"
         User user = users.aUser()
-        String password = "password"
 
         when: "I POST the login endpoint using my valid credentials"
-        ResponseEntity response = login(user.username.value, password)
+        ResponseEntity response = login(user.username.value, RAW_PASSWORD)
 
         then: "I receive an authentication cookie"
         String cookie = response.getHeaders().getFirst("Set-Cookie")
@@ -44,7 +45,7 @@ class WebSecuritySpec extends AbstractApplicationSpec {
 
     def "When I POST the login endpoint with an invalid username I get a 400 Bad Request with error message"() {
         when: "I POST the login endpoint using an invalid username"
-        ResponseEntity response = login("unknown", "password")
+        ResponseEntity response = login("unknown", RAW_PASSWORD)
 
         then: "I get an error message"
         response.statusCode == HttpStatus.BAD_REQUEST
@@ -78,9 +79,8 @@ class WebSecuritySpec extends AbstractApplicationSpec {
     def "When I call a REST endpoint having first authenticated I receive a 200 Ok"() {
         given: "I have valid credentials"
         User user = users.aUser()
-        String password = "password"
         and: "I have authenticated and received an authentication cookie"
-        ResponseEntity authenticationResponse = login(user.username.value, password)
+        ResponseEntity authenticationResponse = login(user.username.value, RAW_PASSWORD)
         String authenticationCookie = authenticationResponse.getHeaders().getFirst(HttpHeaders.SET_COOKIE)
 
         when: "I call the REST endpoint using the authentication cookie"

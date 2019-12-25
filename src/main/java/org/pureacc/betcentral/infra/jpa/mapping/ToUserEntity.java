@@ -12,6 +12,7 @@ public class ToUserEntity {
             userEntity.setId(userSnapshot.getUserId().getValue());
         }
         userEntity.setUsername(userSnapshot.getUsername());
+        userEntity.setPassword(userSnapshot.getPassword());
         userEntity.setBalance(ToBalanceEntity.map(userSnapshot.getBalance()));
         return userEntity;
     }

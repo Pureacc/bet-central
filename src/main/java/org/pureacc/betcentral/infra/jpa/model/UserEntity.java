@@ -1,8 +1,9 @@
 package org.pureacc.betcentral.infra.jpa.model;
 
-import org.pureacc.betcentral.vocabulary.Username;
-
 import javax.persistence.*;
+
+import org.pureacc.betcentral.vocabulary.Password;
+import org.pureacc.betcentral.vocabulary.Username;
 
 @Entity
 @Table(name = "user")
@@ -11,6 +12,7 @@ public class UserEntity {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
     private String username;
+    private String password;
     @Embedded
     private BalanceEntity balance;
 
@@ -28,6 +30,14 @@ public class UserEntity {
 
     public void setUsername(Username username) {
         this.username = username.getValue();
+    }
+
+    public Password getPassword() {
+        return Password.of(password);
+    }
+
+    public void setPassword(Password password) {
+        this.password = password.getValue();
     }
 
     public BalanceEntity getBalance() {

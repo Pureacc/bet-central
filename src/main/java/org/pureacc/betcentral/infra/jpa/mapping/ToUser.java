@@ -10,6 +10,7 @@ public class ToUser {
         UserSnapshot userSnapshot = UserSnapshot.newBuilder()
                 .withUserId(new UserId(userEntity.getId()))
                 .withUsername(userEntity.getUsername())
+                .withPassword(userEntity.getPassword())
                 .withBalance(ToBalance.map(userEntity.getBalance()))
                 .build();
         return new User(userSnapshot);

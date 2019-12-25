@@ -4,6 +4,7 @@ import org.pureacc.betcentral.application.api.Authenticate;
 import org.pureacc.betcentral.application.api.CreateUser;
 import org.pureacc.betcentral.application.api.GetUser;
 import org.pureacc.betcentral.vocabulary.Euros;
+import org.pureacc.betcentral.vocabulary.Password;
 import org.pureacc.betcentral.vocabulary.UserId;
 import org.pureacc.betcentral.vocabulary.Username;
 import org.springframework.web.bind.annotation.*;
@@ -54,14 +55,20 @@ class UserController {
 
 	static final class RegisterWebRequest {
 		private final String username;
+		private final String password;
 
 		@JsonCreator
-		RegisterWebRequest(@JsonProperty("username") String username) {
+		RegisterWebRequest(@JsonProperty("username") String username, @JsonProperty("password") String password) {
 			this.username = username;
+			this.password = password;
 		}
 
 		public Username getUsername() {
 			return Username.of(username);
+		}
+
+		public Password getPassword() {
+			return Password.of(password);
 		}
 	}
 
