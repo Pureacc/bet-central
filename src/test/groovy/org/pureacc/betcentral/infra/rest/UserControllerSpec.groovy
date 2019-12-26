@@ -1,6 +1,6 @@
 package org.pureacc.betcentral.infra.rest
 
-import org.pureacc.betcentral.application.api.Authenticate
+
 import org.pureacc.betcentral.application.api.CreateUser
 import org.pureacc.betcentral.application.api.GetUser
 import org.pureacc.betcentral.vocabulary.Euros
@@ -26,8 +26,6 @@ class UserControllerSpec extends AbstractControllerSpec {
     CreateUser createUser = Mock(CreateUser)
     @SpringBean
     GetUser getUser = Mock(GetUser)
-    @SpringBean
-    Authenticate authenticate = Mock(Authenticate)
     @Value("classpath:web/user-register-request.json")
     Resource userRegisterRequest
 

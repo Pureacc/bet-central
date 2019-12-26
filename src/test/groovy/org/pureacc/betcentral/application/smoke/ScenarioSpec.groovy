@@ -8,17 +8,19 @@ import org.pureacc.betcentral.vocabulary.Password
 import org.pureacc.betcentral.vocabulary.Username
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.security.authentication.TestingAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
 import spock.lang.Specification
 
 import javax.transaction.Transactional
+
+import static java.util.Collections.emptyList
 
 @Transactional
 @SpringBootTest(classes = SpringAndReactApplication.class)
 class ScenarioSpec extends Specification {
     @Autowired
     CreateUser createUser
-    @Autowired
-    Authenticate authenticate
     @Autowired
     CreateDeposit createDeposit
     @Autowired
@@ -38,11 +40,9 @@ class ScenarioSpec extends Specification {
                 .withUsername(username)
                 .withPassword(password).build()
         CreateUser.Response createUserResponse = createUser.execute(createUserRequest)
-        and: "I authenticate"
-        Authenticate.Request authenticateRequest = Authenticate.Request.newBuilder()
-                .withUsername(username)
-                .withPassword("dummy").build()
-        authenticate.execute(authenticateRequest)
+        and: "I am authenticated as that user"
+        SecurityContextHolder.getContext()
+                .setAuthentication(new TestingAuthenticationToken(username.value, password.value, emptyList()));
         and: "I deposit 50 euros"
         CreateDeposit.Request depositRequest = CreateDeposit.Request.newBuilder()
                 .withUserId(createUserResponse.userId)
