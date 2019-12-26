@@ -1,6 +1,8 @@
-package org.pureacc.betcentral.application
+package org.pureacc.betcentral.application.query
 
+import org.pureacc.betcentral.application.AbstractApplicationSpec
 import org.pureacc.betcentral.application.api.GetNoVigOdds
+import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.vocabulary.DecimalOdds
 import org.pureacc.betcentral.vocabulary.Percentage
 import org.springframework.beans.factory.annotation.Autowired
@@ -10,6 +12,8 @@ import javax.validation.ConstraintViolationException
 
 import static org.pureacc.betcentral.application.api.GetNoVigOdds.Request
 import static org.pureacc.betcentral.application.api.GetNoVigOdds.Response
+import static org.pureacc.betcentral.application.factory.Authentications.authenticate
+import static org.pureacc.betcentral.application.factory.Authentications.unauthenticate
 
 class GetNoVigOddsSpec extends AbstractApplicationSpec {
     @Autowired
@@ -55,5 +59,30 @@ class GetNoVigOddsSpec extends AbstractApplicationSpec {
         where:
         oddsA                | oddsB
         DecimalOdds.of(0.90) | DecimalOdds.of(2.18)
+    }
+
+    def "An authenticated user has access"() {
+        given: "I am authenticated"
+        User user = users.aUser()
+        authenticate(user)
+
+        when: "I call the use case"
+        Request request = Request.newBuilder().withOddsA(DecimalOdds.of(2)).withOddsB(DecimalOdds.of(2)).build()
+        Response response = getNoVigOdds.execute(request)
+
+        then: "I receive a successful response"
+        response
+    }
+
+    def "An unauthenticated user has access"() {
+        given: "I am unauthenticated"
+        unauthenticate()
+
+        when: "I call the use case"
+        Request request = Request.newBuilder().withOddsA(DecimalOdds.of(2)).withOddsB(DecimalOdds.of(2)).build()
+        Response response = getNoVigOdds.execute(request)
+
+        then: "I receive a successful response"
+        response
     }
 }

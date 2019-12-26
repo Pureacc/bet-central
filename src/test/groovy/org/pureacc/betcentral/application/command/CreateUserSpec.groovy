@@ -1,10 +1,12 @@
-package org.pureacc.betcentral.application
+package org.pureacc.betcentral.application.command
 
+import org.pureacc.betcentral.application.AbstractApplicationSpec
 import org.pureacc.betcentral.application.api.CreateUser
 import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.UserRepository
 import org.pureacc.betcentral.vocabulary.Password
 import org.pureacc.betcentral.vocabulary.Username
+import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import spock.lang.Unroll
@@ -15,6 +17,8 @@ import java.util.regex.Pattern
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic
 import static org.pureacc.betcentral.application.api.CreateUser.Request
 import static org.pureacc.betcentral.application.api.CreateUser.Response
+import static org.pureacc.betcentral.application.factory.Authentications.authenticate
+import static org.pureacc.betcentral.application.factory.Authentications.unauthenticate
 
 class CreateUserSpec extends AbstractApplicationSpec {
     private static final Pattern PASSWORD_PREFIX_PATTERN = Pattern.compile("\\{.+?}")
@@ -27,7 +31,10 @@ class CreateUserSpec extends AbstractApplicationSpec {
     UserRepository userRepository
 
     @Unroll
-    def "I can create a new user with username #username and password #password"() {
+    def "An unauthenticated user can create a new user with username #username and password #password"() {
+        given: "I am unauthenticated"
+        unauthenticate()
+
         when: "I create a new user with username #username and password #password"
         Request request = Request.newBuilder().withUsername(username).withPassword(password).build()
         Response response = createUser.execute(request)
@@ -51,7 +58,10 @@ class CreateUserSpec extends AbstractApplicationSpec {
     }
 
     @Unroll
-    def "I cannot create a new user with username #username and password #password"() {
+    def "An unauthenticated user cannot create a new user with username #username and password #password"() {
+        given: "I am unauthenticated"
+        unauthenticate()
+
         when: "I create a new user with username #username and password #password"
         Request request = Request.newBuilder().withUsername(username).withPassword(password).build()
         createUser.execute(request)
@@ -70,5 +80,17 @@ class CreateUserSpec extends AbstractApplicationSpec {
         Username.of("Bettor420")                               | Password.of("")
         Username.of("Bettor420")                               | Password.of("   ")
         Username.of("Bettor420")                               | Password.of(null)
+    }
+
+    def "An authenticated user's access is denied"() {
+        given: "I am authenticated"
+        User user = users.aUser()
+        authenticate(user)
+
+        when: "I call the use case"
+        createUser.execute(null)
+
+        then: "Access is denied"
+        thrown AccessDeniedException
     }
 }

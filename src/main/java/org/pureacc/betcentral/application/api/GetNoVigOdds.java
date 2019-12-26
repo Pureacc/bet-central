@@ -1,12 +1,17 @@
 package org.pureacc.betcentral.application.api;
 
-import org.pureacc.betcentral.vocabulary.DecimalOdds;
-import org.pureacc.betcentral.vocabulary.Percentage;
+import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.AUTHENTICATED;
+import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.UNAUTHENTICATED;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.pureacc.betcentral.vocabulary.DecimalOdds;
+import org.pureacc.betcentral.vocabulary.Percentage;
+import org.pureacc.betcentral.vocabulary.annotation.Allow;
+
 public interface GetNoVigOdds {
+    @Allow({UNAUTHENTICATED, AUTHENTICATED})
     Response execute(@Valid Request request);
 
     final class Request {

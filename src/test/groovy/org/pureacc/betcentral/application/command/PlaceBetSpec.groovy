@@ -1,5 +1,6 @@
-package org.pureacc.betcentral.application
+package org.pureacc.betcentral.application.command
 
+import org.pureacc.betcentral.application.AbstractApplicationSpec
 import org.pureacc.betcentral.application.api.PlaceBet
 import org.pureacc.betcentral.domain.events.BetPlacedEvent
 import org.pureacc.betcentral.domain.model.Bet
@@ -7,6 +8,7 @@ import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.BetRepository
 import org.pureacc.betcentral.vocabulary.DecimalOdds
 import org.pureacc.betcentral.vocabulary.Euros
+import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException
 import org.pureacc.betcentral.vocabulary.exception.DomainException
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll
@@ -16,6 +18,7 @@ import javax.validation.ConstraintViolationException
 import static org.pureacc.betcentral.application.api.PlaceBet.Request
 import static org.pureacc.betcentral.application.api.PlaceBet.Response
 import static org.pureacc.betcentral.application.factory.Authentications.authenticate
+import static org.pureacc.betcentral.application.factory.Authentications.unauthenticate
 
 class PlaceBetSpec extends AbstractApplicationSpec {
     @Autowired
@@ -103,5 +106,16 @@ class PlaceBetSpec extends AbstractApplicationSpec {
         DecimalOdds.of(-2)   | Euros.of(5)
         DecimalOdds.of(2)    | Euros.of(-1)
         DecimalOdds.of(2)    | Euros.of(0)
+    }
+
+    def "An unauthenticated user's access is denied"() {
+        given: "I am unauthenticated"
+        unauthenticate()
+
+        when: "I call the use case"
+        placeBet.execute(null)
+
+        then: "Access is denied"
+        thrown AccessDeniedException
     }
 }

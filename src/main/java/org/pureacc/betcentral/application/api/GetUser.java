@@ -1,13 +1,17 @@
 package org.pureacc.betcentral.application.api;
 
-import org.pureacc.betcentral.vocabulary.Euros;
-import org.pureacc.betcentral.vocabulary.UserId;
-import org.pureacc.betcentral.vocabulary.Username;
+import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.AUTHENTICATED;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.pureacc.betcentral.vocabulary.Euros;
+import org.pureacc.betcentral.vocabulary.UserId;
+import org.pureacc.betcentral.vocabulary.Username;
+import org.pureacc.betcentral.vocabulary.annotation.Allow;
+
 public interface GetUser {
+    @Allow(AUTHENTICATED)
     Response execute(Request request);
 
     final class Request {

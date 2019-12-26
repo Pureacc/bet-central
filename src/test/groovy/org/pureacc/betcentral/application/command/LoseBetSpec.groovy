@@ -1,11 +1,13 @@
-package org.pureacc.betcentral.application
+package org.pureacc.betcentral.application.command
 
+import org.pureacc.betcentral.application.AbstractApplicationSpec
 import org.pureacc.betcentral.application.api.LoseBet
 import org.pureacc.betcentral.domain.model.Bet
 import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.BetRepository
 import org.pureacc.betcentral.vocabulary.BetId
 import org.pureacc.betcentral.vocabulary.Euros
+import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException
 import org.pureacc.betcentral.vocabulary.exception.DomainException
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll
@@ -13,6 +15,7 @@ import spock.lang.Unroll
 import javax.validation.ConstraintViolationException
 
 import static org.pureacc.betcentral.application.factory.Authentications.authenticate
+import static org.pureacc.betcentral.application.factory.Authentications.unauthenticate
 import static org.pureacc.betcentral.vocabulary.BetStatus.*
 
 class LoseBetSpec extends AbstractApplicationSpec {
@@ -87,5 +90,16 @@ class LoseBetSpec extends AbstractApplicationSpec {
         null         | _
         BetId.of(-1) | _
         BetId.of(0)  | _
+    }
+
+    def "An unauthenticated user's access is denied"() {
+        given: "I am unauthenticated"
+        unauthenticate()
+
+        when: "I call the use case"
+        loseBet.execute(null)
+
+        then: "Access is denied"
+        thrown AccessDeniedException
     }
 }

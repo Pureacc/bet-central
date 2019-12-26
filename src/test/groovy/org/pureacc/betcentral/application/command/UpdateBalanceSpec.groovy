@@ -1,5 +1,6 @@
-package org.pureacc.betcentral.application
+package org.pureacc.betcentral.application.command
 
+import org.pureacc.betcentral.application.AbstractApplicationSpec
 import org.pureacc.betcentral.application.api.UpdateBalance
 import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.UserRepository
