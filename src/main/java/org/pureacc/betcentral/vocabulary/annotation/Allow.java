@@ -10,7 +10,8 @@ import java.lang.annotation.Target;
 public @interface Allow {
 	enum Role {
 		UNAUTHENTICATED,
-		AUTHENTICATED
+		AUTHENTICATED,
+		SYSTEM
 	}
 
 	Allow.Role[] value();

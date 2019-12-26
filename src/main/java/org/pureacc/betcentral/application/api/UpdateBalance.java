@@ -1,19 +1,17 @@
 package org.pureacc.betcentral.application.api;
 
-import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.AUTHENTICATED;
-import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.UNAUTHENTICATED;
+import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.SYSTEM;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.pureacc.betcentral.vocabulary.annotation.Allow;
 import org.pureacc.betcentral.vocabulary.Euros;
 import org.pureacc.betcentral.vocabulary.Operation;
 import org.pureacc.betcentral.vocabulary.UserId;
+import org.pureacc.betcentral.vocabulary.annotation.Allow;
 
-//TODO system security
 public interface UpdateBalance {
-	@Allow({ UNAUTHENTICATED, AUTHENTICATED})
+	@Allow({ SYSTEM })
 	void execute(@Valid Request request);
 
 	final class Request {

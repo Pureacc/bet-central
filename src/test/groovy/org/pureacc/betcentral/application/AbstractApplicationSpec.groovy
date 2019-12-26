@@ -6,6 +6,8 @@ import org.pureacc.betcentral.application.factory.Bets
 import org.pureacc.betcentral.application.factory.Users
 import org.pureacc.betcentral.application.mock.TestEventPublisher
 import org.pureacc.betcentral.application.stub.TestTime
+import org.pureacc.betcentral.domain.service.DomainEventPublisher
+import org.pureacc.betcentral.domain.service.DomainTime
 import org.pureacc.betcentral.main.SpringAndReactApplication
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -28,6 +30,8 @@ class AbstractApplicationSpec extends Specification {
     protected TestTime testTime
 
     void setup() {
+        DomainEventPublisher.setPublisher(testEventPublisher)
+        DomainTime.setTime(testTime);
         testEventPublisher.clear()
     }
 

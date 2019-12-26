@@ -23,4 +23,9 @@ public class TestCommandImpl implements TestCommand {
 	public boolean allowUnauthenticatedAndAuthenticated() {
 		return true;
 	}
+
+	@Override
+	public boolean allowSystem() {
+		return true;
+	}
 }

@@ -23,4 +23,9 @@ public class TestQueryImpl implements TestQuery {
 	public boolean allowUnauthenticatedAndAuthenticated() {
 		return true;
 	}
+
+	@Override
+	public boolean allowSystem() {
+		return true;
+	}
 }

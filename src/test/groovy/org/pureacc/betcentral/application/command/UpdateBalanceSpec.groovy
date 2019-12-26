@@ -2,15 +2,19 @@ package org.pureacc.betcentral.application.command
 
 import org.pureacc.betcentral.application.AbstractApplicationSpec
 import org.pureacc.betcentral.application.api.UpdateBalance
+import org.pureacc.betcentral.application.objectmother.UserObjectMother
 import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.UserRepository
+import org.pureacc.betcentral.infra.security.application.checks.HasAuthority
 import org.pureacc.betcentral.vocabulary.Euros
 import org.pureacc.betcentral.vocabulary.Operation
+import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException
 import org.pureacc.betcentral.vocabulary.exception.DomainException
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll
 
 import static org.pureacc.betcentral.application.api.UpdateBalance.Request
+import static org.pureacc.betcentral.application.factory.Authentications.authenticate
 
 class UpdateBalanceSpec extends AbstractApplicationSpec {
     @Autowired
@@ -20,7 +24,10 @@ class UpdateBalanceSpec extends AbstractApplicationSpec {
 
     @Unroll
     def "The system can #operation #euros euros to a user's balance of #balance euros"() {
-        given: "A user with a balance of #balance euros"
+        given: "The system has the SYSTEM authority"
+        User system = UserObjectMother.aUser()
+        authenticate(system, HasAuthority.Authority.SYSTEM)
+        and: "A user with a balance of #balance euros"
         User user = users.aUser(balance)
 
         when: "The system #operation #euros euros to the user's balance"
@@ -42,7 +49,10 @@ class UpdateBalanceSpec extends AbstractApplicationSpec {
 
     @Unroll
     def "The system cannot SUBSTRACT #euros euros from a user's balance of #balance euros"() {
-        given: "A user with a balance of #balance euros"
+        given: "The system has the SYSTEM authority"
+        User system = UserObjectMother.aUser()
+        authenticate(system, HasAuthority.Authority.SYSTEM)
+        and: "A user with a balance of #balance euros"
         User user = users.aUser(balance)
 
         when: "The system substracts #euros euros from the user's balance"
@@ -59,5 +69,17 @@ class UpdateBalanceSpec extends AbstractApplicationSpec {
         balance      | operation           | euros
         Euros.of(0)  | Operation.SUBSTRACT       | Euros.of(5)
         Euros.of(10) | Operation.SUBSTRACT | Euros.of(15)
+    }
+
+    def "A user without the SYSTEM authority is denied access"() {
+        given: "I am a user without the SYSTEM authority"
+        User user = users.aUser()
+        authenticate(user)
+
+        when: "I call the use case"
+        updateBalance.execute(null)
+
+        then: "Access is denied"
+        thrown AccessDeniedException
     }
 }

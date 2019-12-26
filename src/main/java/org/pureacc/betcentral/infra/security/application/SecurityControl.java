@@ -1,14 +1,13 @@
 package org.pureacc.betcentral.infra.security.application;
 
-import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.AUTHENTICATED;
-import static org.pureacc.betcentral.vocabulary.annotation.Allow.Role.UNAUTHENTICATED;
-
 import java.util.Arrays;
 import java.util.List;
 
+import org.pureacc.betcentral.infra.security.application.checks.HasAuthority;
+import org.pureacc.betcentral.infra.security.application.checks.HasAuthority.Authority;
+import org.pureacc.betcentral.infra.security.application.checks.IsAuthenticated;
 import org.pureacc.betcentral.vocabulary.annotation.Allow;
 import org.pureacc.betcentral.vocabulary.annotation.Allow.Role;
-import org.pureacc.betcentral.infra.security.application.checks.IsAuthenticated;
 import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException;
 import org.pureacc.betcentral.vocabulary.exception.SystemException;
 import org.springframework.stereotype.Component;
@@ -16,9 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 class SecurityControl {
 	private final IsAuthenticated isAuthenticated;
+	private final HasAuthority hasAuthority;
 
-	SecurityControl(IsAuthenticated isAuthenticated) {
+	SecurityControl(IsAuthenticated isAuthenticated, HasAuthority hasAuthority) {
 		this.isAuthenticated = isAuthenticated;
+		this.hasAuthority = hasAuthority;
 	}
 
 	public void check(Allow allow) {
@@ -33,12 +34,15 @@ class SecurityControl {
 	}
 
 	private boolean hasRole(Role role) {
-		if (role == UNAUTHENTICATED) {
+		switch (role) {
+		case UNAUTHENTICATED:
 			return !isAuthenticated.isAuthenticated();
-		}
-		if (role == AUTHENTICATED) {
+		case AUTHENTICATED:
 			return isAuthenticated.isAuthenticated();
+		case SYSTEM:
+			return hasAuthority.hasAuthority(Authority.SYSTEM);
+		default:
+			throw new SystemException("Unknown role " + role);
 		}
-		throw new SystemException("Unknown role " + role);
 	}
 }
