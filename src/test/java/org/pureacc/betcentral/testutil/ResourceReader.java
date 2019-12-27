@@ -1,4 +1,4 @@
-package org.pureacc.betcentral;
+package org.pureacc.betcentral.testutil;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 

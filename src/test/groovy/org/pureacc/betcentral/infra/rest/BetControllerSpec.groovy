@@ -13,7 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.core.io.Resource
 import spock.lang.Unroll
 
-import static org.pureacc.betcentral.ResourceReader.asString
+import static org.pureacc.betcentral.testutil.ResourceReader.asString
 import static org.springframework.http.MediaType.APPLICATION_JSON
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath

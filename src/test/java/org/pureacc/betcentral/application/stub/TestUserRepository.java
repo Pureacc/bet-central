@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import org.pureacc.betcentral.TestException;
+import org.pureacc.betcentral.vocabulary.TestException;
 import org.pureacc.betcentral.domain.model.User;
 import org.pureacc.betcentral.domain.model.snapshot.UserSnapshot;
 import org.pureacc.betcentral.domain.repository.UserRepository;

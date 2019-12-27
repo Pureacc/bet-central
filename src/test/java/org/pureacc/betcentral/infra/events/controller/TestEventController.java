@@ -1,6 +1,6 @@
 package org.pureacc.betcentral.infra.events.controller;
 
-import org.pureacc.betcentral.TestException;
+import org.pureacc.betcentral.vocabulary.TestException;
 import org.pureacc.betcentral.domain.events.Event;
 import org.pureacc.betcentral.infra.security.application.checks.HasAuthority;
 import org.springframework.context.event.EventListener;
