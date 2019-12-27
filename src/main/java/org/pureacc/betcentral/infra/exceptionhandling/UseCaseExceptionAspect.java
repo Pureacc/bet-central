@@ -1,5 +1,7 @@
 package org.pureacc.betcentral.infra.exceptionhandling;
 
+import javax.validation.ConstraintViolationException;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -40,6 +42,8 @@ class UseCaseExceptionAspect {
 		} catch (DomainException domainException) {
 			String message = errorTranslator.translate(domainException);
 			throw new UserException(message);
+		} catch (ConstraintViolationException constraintViolationException) {
+			throw new UserException(constraintViolationException.getMessage());
 		} catch (SystemException systemException) {
 			String message = errorTranslator.translate("error.generic");
 			LOGGER.error(message, systemException);
