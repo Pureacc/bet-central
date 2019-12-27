@@ -10,6 +10,7 @@ import org.pureacc.betcentral.vocabulary.exception.UserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// TODO: translate ConstraintViolationException
 @Aspect
 class UseCaseExceptionAspect {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UseCaseExceptionAspect.class);

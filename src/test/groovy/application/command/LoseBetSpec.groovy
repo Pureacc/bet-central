@@ -8,7 +8,7 @@ import org.pureacc.betcentral.domain.repository.BetRepository
 import org.pureacc.betcentral.vocabulary.BetId
 import org.pureacc.betcentral.vocabulary.Euros
 import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException
-import org.pureacc.betcentral.vocabulary.exception.DomainException
+import org.pureacc.betcentral.vocabulary.exception.UserException
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll
 
@@ -63,7 +63,8 @@ class LoseBetSpec extends AbstractApplicationSpec {
         loseBet.execute(request)
 
         then: "An exception is thrown"
-        thrown DomainException
+        UserException exception = thrown UserException
+        exception.message == "The bet status is invalid"
 
         where:
         status | _

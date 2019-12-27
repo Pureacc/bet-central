@@ -1,20 +1,20 @@
 package application.command
 
 import application.AbstractApplicationSpec
-import org.pureacc.betcentral.application.api.UpdateBalance
 import application.objectmother.UserObjectMother
+import org.pureacc.betcentral.application.api.UpdateBalance
 import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.UserRepository
 import org.pureacc.betcentral.infra.security.application.checks.HasAuthority
 import org.pureacc.betcentral.vocabulary.Euros
 import org.pureacc.betcentral.vocabulary.Operation
 import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException
-import org.pureacc.betcentral.vocabulary.exception.DomainException
+import org.pureacc.betcentral.vocabulary.exception.UserException
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll
 
-import static org.pureacc.betcentral.application.api.UpdateBalance.Request
 import static application.factory.Authentications.authenticate
+import static org.pureacc.betcentral.application.api.UpdateBalance.Request
 
 class UpdateBalanceSpec extends AbstractApplicationSpec {
     @Autowired
@@ -63,11 +63,12 @@ class UpdateBalanceSpec extends AbstractApplicationSpec {
         updateBalance.execute(request)
 
         then: "An exception is thrown"
-        thrown DomainException
+        UserException exception = thrown UserException
+        exception.message == "Your balance of ${balance} euros is insufficient"
 
         where:
         balance      | operation           | euros
-        Euros.of(0)  | Operation.SUBSTRACT       | Euros.of(5)
+        Euros.of(0)  | Operation.SUBSTRACT | Euros.of(5)
         Euros.of(10) | Operation.SUBSTRACT | Euros.of(15)
     }
 

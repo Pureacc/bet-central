@@ -9,16 +9,16 @@ import org.pureacc.betcentral.domain.repository.BetRepository
 import org.pureacc.betcentral.vocabulary.DecimalOdds
 import org.pureacc.betcentral.vocabulary.Euros
 import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException
-import org.pureacc.betcentral.vocabulary.exception.DomainException
+import org.pureacc.betcentral.vocabulary.exception.UserException
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll
 
 import javax.validation.ConstraintViolationException
 
-import static org.pureacc.betcentral.application.api.PlaceBet.Request
-import static org.pureacc.betcentral.application.api.PlaceBet.Response
 import static application.factory.Authentications.authenticate
 import static application.factory.Authentications.unauthenticate
+import static org.pureacc.betcentral.application.api.PlaceBet.Request
+import static org.pureacc.betcentral.application.api.PlaceBet.Response
 
 class PlaceBetSpec extends AbstractApplicationSpec {
     @Autowired
@@ -76,7 +76,8 @@ class PlaceBetSpec extends AbstractApplicationSpec {
         placeBet.execute(request)
 
         then: "An exception is thrown"
-        thrown DomainException
+        UserException exception = thrown UserException
+        exception.message == "Your balance of ${balance} euros is insufficient"
 
         where:
         balance        | euros

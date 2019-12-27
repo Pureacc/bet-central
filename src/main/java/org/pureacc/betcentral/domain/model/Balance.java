@@ -32,7 +32,7 @@ public class Balance {
     }
 
     void validateSufficient(Euros euros) {
-        if (this.euros.isAtLeast(euros)) {
+        if (this.euros.isLessThan(euros)) {
             throw new DomainException("user.balance.insufficient", this.euros);
         }
     }

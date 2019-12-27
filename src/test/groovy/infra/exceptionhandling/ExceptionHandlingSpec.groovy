@@ -35,7 +35,7 @@ class ExceptionHandlingSpec extends Specification {
         where:
         key                         | params       || message
         "bet.status.invalid"        | null         || "The bet status is invalid"
-        "user.balance.insufficient" | Euros.of(50) || "Your user balance of 50.0 euros is insufficient"
+        "user.balance.insufficient" | Euros.of(50) || "Your balance of 50.0 euros is insufficient"
         "unknown.key"               | null         || "unknown.key"
     }
 
@@ -60,7 +60,7 @@ class ExceptionHandlingSpec extends Specification {
         where:
         key                         | params       || message
         "bet.status.invalid"        | null         || "The bet status is invalid"
-        "user.balance.insufficient" | Euros.of(50) || "Your user balance of 50.0 euros is insufficient"
+        "user.balance.insufficient" | Euros.of(50) || "Your balance of 50.0 euros is insufficient"
         "unknown.key"               | null         || "unknown.key"
     }
 
