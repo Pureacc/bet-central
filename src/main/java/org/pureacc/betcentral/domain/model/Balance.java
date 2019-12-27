@@ -27,14 +27,13 @@ public class Balance {
     }
 
     void substract(Euros euros) {
-        if (isSufficient(euros)) {
-            this.euros.substract(euros);
-        } else {
-            throw new DomainException();
-        }
+        validateSufficient(euros);
+        this.euros.substract(euros);
     }
 
-    boolean isSufficient(Euros euros) {
-        return this.euros.isAtLeast(euros);
+    void validateSufficient(Euros euros) {
+        if (this.euros.isAtLeast(euros)) {
+            throw new DomainException("user.balance.insufficient", this.euros);
+        }
     }
 }

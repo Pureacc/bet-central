@@ -59,7 +59,7 @@ public class User {
         }
     }
 
-    boolean isBalanceSufficient(Euros euros) {
-        return balance.isSufficient(euros);
+    void validateSufficientBalance(Euros euros) {
+        balance.validateSufficient(euros);
     }
 }

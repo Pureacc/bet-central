@@ -28,16 +28,13 @@ public class Bet {
 	private BetStatus status;
 
 	public Bet(User user, DecimalOdds odds, Euros stake) {
-		if (user.isBalanceSufficient(stake)) {
-			this.user = user;
-			this.odds = odds;
-			this.stake = stake;
-			this.placedDate = now();
-			this.status = PENDING;
-			publishBetPlacedEvent();
-		} else {
-			throw new DomainException();
-		}
+		user.validateSufficientBalance(stake);
+		this.user = user;
+		this.odds = odds;
+		this.stake = stake;
+		this.placedDate = now();
+		this.status = PENDING;
+		publishBetPlacedEvent();
 	}
 
 	public Bet(BetSnapshot betSnapshot) {
@@ -75,24 +72,26 @@ public class Bet {
 	}
 
 	public void win() {
-		if (status != PENDING) {
-			throw new DomainException();
-		}
+		validatePending();
 		resolveDate = now();
 		status = WON;
 		publishBetWonEvent();
 	}
 
 	public void lose() {
-		if (status != PENDING) {
-			throw new DomainException();
-		}
+		validatePending();
 		resolveDate = now();
 		status = LOST;
 	}
 
 	private Euros getPotentialPayout() {
 		return odds.calculate(stake);
+	}
+
+	private void validatePending() {
+		if (status != PENDING) {
+			throw new DomainException("bet.status.invalid");
+		}
 	}
 
 	private void publishBetPlacedEvent() {
