@@ -12,9 +12,7 @@ export default function user(state = {}, action) {
         case AUTHENTICATE_FULFILLED:
             return {
                 ...state,
-                id: action.payload.data.userId,
-                name: action.payload.data.username,
-                balance: action.payload.data.balance
+                id: action.payload.data
             };
         case AUTHENTICATE_REJECTED:
             return state;

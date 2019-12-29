@@ -84,7 +84,7 @@ class LoseBetSpec extends AbstractApplicationSpec {
         loseBet.execute(request)
 
         then: "An exception is thrown"
-        thrown ConstraintViolationException
+        thrown UserException
 
         where:
         betId        | _

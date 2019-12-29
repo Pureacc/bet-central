@@ -1,5 +1,7 @@
 package org.pureacc.betcentral.vocabulary;
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotBlank;
 
 public final class Password {
@@ -16,5 +18,20 @@ public final class Password {
 
 	public static Password of(String value) {
 		return new Password(value);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Password password = (Password) o;
+		return Objects.equals(value, password.value);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(value);
 	}
 }

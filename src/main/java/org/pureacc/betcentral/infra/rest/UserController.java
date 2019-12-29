@@ -25,6 +25,7 @@ class UserController {
 	public RegisterWebResponse register(@RequestBody RegisterWebRequest webRequest) {
 		CreateUser.Request request = CreateUser.Request.newBuilder()
 				.withUsername(webRequest.getUsername())
+				.withPassword(webRequest.getPassword())
 				.build();
 		CreateUser.Response response = createUser.execute(request);
 		return new RegisterWebResponse(response.getUserId()

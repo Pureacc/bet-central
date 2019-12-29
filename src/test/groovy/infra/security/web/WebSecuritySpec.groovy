@@ -8,16 +8,20 @@ import org.pureacc.betcentral.domain.repository.UserRepository
 import org.pureacc.betcentral.main.SpringAndReactApplication
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.context.annotation.Import
+import org.springframework.core.io.Resource
 import org.springframework.http.*
 import org.springframework.transaction.annotation.Transactional
 
 import java.util.regex.Pattern
 
 import static application.objectmother.UserObjectMother.RAW_PASSWORD
+import static org.springframework.http.MediaType.APPLICATION_JSON
+import static testutil.ResourceReader.asString
 
 @Transactional
 @SpringBootTest(classes = SpringAndReactApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -31,6 +35,8 @@ class WebSecuritySpec extends AbstractApplicationSpec {
     private TestRestTemplate restTemplate
     @SpringBean
     private UserRepository userRepository = new TestUserRepository()
+    @Value("classpath:web/user-register-request.json")
+    Resource userRegisterRequest
 
     def "When I POST the login endpoint with valid credentials I receive an authentication cookie"() {
         given: "I am a user"
@@ -42,6 +48,8 @@ class WebSecuritySpec extends AbstractApplicationSpec {
         then: "I receive an authentication cookie"
         String cookie = response.getHeaders().getFirst("Set-Cookie")
         COOKIE_PATTERN.matcher(cookie).matches()
+        and: "I receive my user id"
+        response.body == "${user.id.value}"
     }
 
     def "When I POST the login endpoint with an invalid username I get a 400 Bad Request with error message"() {
@@ -93,6 +101,19 @@ class WebSecuritySpec extends AbstractApplicationSpec {
         then: "I receive a 200 Ok"
         response.statusCode == HttpStatus.OK
         response.body == "Hello World!"
+    }
+
+    def "I can call the user registration endpoint without being authenticated"() {
+        given: "I am not authenticated"
+
+        when: "I call the REST endpoint"
+        HttpHeaders headers = new HttpHeaders()
+        headers.setContentType(APPLICATION_JSON)
+        HttpEntity<String> entity = new HttpEntity<String>(asString(userRegisterRequest), headers)
+        ResponseEntity response = restTemplate.exchange("http://localhost:${port}/api/user/register", HttpMethod.POST, entity, String.class)
+
+        then: "I receive a 200 Ok"
+        response.statusCode == HttpStatus.OK
     }
 
     private ResponseEntity login(String username, String password) {

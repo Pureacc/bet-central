@@ -46,7 +46,9 @@ class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		  .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
 		  .deleteCookies(AuthCookieFilter.COOKIE_NAME)
 		  .permitAll()
-		.and().authorizeRequests().anyRequest().authenticated()
+		.and().authorizeRequests()
+				.antMatchers("/api/user/register").permitAll()
+				.anyRequest().authenticated()
 		.and().exceptionHandling()
 			  .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
 		.and().addFilterBefore(this.authCookieFilter, UsernamePasswordAuthenticationFilter.class);

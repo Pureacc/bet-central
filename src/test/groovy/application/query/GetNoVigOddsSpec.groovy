@@ -5,15 +5,14 @@ import org.pureacc.betcentral.application.api.GetNoVigOdds
 import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.vocabulary.DecimalOdds
 import org.pureacc.betcentral.vocabulary.Percentage
+import org.pureacc.betcentral.vocabulary.exception.UserException
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll
 
-import javax.validation.ConstraintViolationException
-
-import static org.pureacc.betcentral.application.api.GetNoVigOdds.Request
-import static org.pureacc.betcentral.application.api.GetNoVigOdds.Response
 import static application.factory.Authentications.authenticate
 import static application.factory.Authentications.unauthenticate
+import static org.pureacc.betcentral.application.api.GetNoVigOdds.Request
+import static org.pureacc.betcentral.application.api.GetNoVigOdds.Response
 
 class GetNoVigOddsSpec extends AbstractApplicationSpec {
     @Autowired
@@ -54,7 +53,7 @@ class GetNoVigOddsSpec extends AbstractApplicationSpec {
         getNoVigOdds.execute(request)
 
         then: "An exception is thrown"
-        thrown ConstraintViolationException
+        thrown UserException
 
         where:
         oddsA                | oddsB

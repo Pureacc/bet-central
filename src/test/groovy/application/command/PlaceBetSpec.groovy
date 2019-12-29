@@ -99,7 +99,7 @@ class PlaceBetSpec extends AbstractApplicationSpec {
         placeBet.execute(request)
 
         then: "An exception is thrown"
-        thrown ConstraintViolationException
+        thrown UserException
 
         where:
         odds                 | euros

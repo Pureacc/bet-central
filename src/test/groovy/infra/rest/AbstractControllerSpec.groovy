@@ -1,9 +1,9 @@
 package infra.rest
 
 import application.objectmother.UserObjectMother
-import org.pureacc.betcentral.domain.repository.UserRepository
 import org.pureacc.betcentral.infra.security.web.CryptoService
 import org.pureacc.betcentral.infra.security.web.UserDetailsImpl
+import org.pureacc.betcentral.infra.security.web.UserService
 import org.pureacc.betcentral.main.SpringAndReactApplication
 import org.spockframework.spring.StubBeans
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,7 +24,7 @@ import javax.servlet.ServletException
 import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
 
-@StubBeans([UserRepository, CryptoService, AuthenticationSuccessHandler, AuthenticationFailureHandler])
+@StubBeans([UserService, CryptoService, AuthenticationSuccessHandler, AuthenticationFailureHandler])
 @ContextConfiguration(classes = [SpringAndReactApplication, ControllerSpecConfiguration])
 class AbstractControllerSpec extends Specification {
     @Autowired

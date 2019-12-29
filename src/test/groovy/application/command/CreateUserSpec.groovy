@@ -7,18 +7,18 @@ import org.pureacc.betcentral.domain.repository.UserRepository
 import org.pureacc.betcentral.vocabulary.Password
 import org.pureacc.betcentral.vocabulary.Username
 import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException
+import org.pureacc.betcentral.vocabulary.exception.UserException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import spock.lang.Unroll
 
-import javax.validation.ConstraintViolationException
 import java.util.regex.Pattern
 
+import static application.factory.Authentications.authenticate
+import static application.factory.Authentications.unauthenticate
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic
 import static org.pureacc.betcentral.application.api.CreateUser.Request
 import static org.pureacc.betcentral.application.api.CreateUser.Response
-import static application.factory.Authentications.authenticate
-import static application.factory.Authentications.unauthenticate
 
 class CreateUserSpec extends AbstractApplicationSpec {
     private static final Pattern PASSWORD_PREFIX_PATTERN = Pattern.compile("\\{.+?}")
@@ -67,7 +67,7 @@ class CreateUserSpec extends AbstractApplicationSpec {
         createUser.execute(request)
 
         then: "An exception is thrown"
-        thrown ConstraintViolationException
+        thrown UserException
 
         where:
         username                                               | password

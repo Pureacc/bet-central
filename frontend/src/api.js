@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 export function authenticate(username, password) {
-    return Axios.post(`/api/user/authenticate`, {username: username, password: password});
+    return Axios.post(`/login?username=${username}&password=${password}`);
 }
 
 export function deposit(userId, euros) {

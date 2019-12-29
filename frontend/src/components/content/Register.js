@@ -30,7 +30,8 @@ class Register extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         const register = {
-            "username": this.state.username
+            "username": this.state.username,
+            "password": this.state.password
         };
         Axios.post(`/api/user/register`, register)
             .then(() => {

@@ -91,7 +91,7 @@ class WinBetSpec extends AbstractApplicationSpec {
         winBet.execute(request)
 
         then: "An exception is thrown"
-        thrown ConstraintViolationException
+        thrown UserException
 
         where:
         betId        | _

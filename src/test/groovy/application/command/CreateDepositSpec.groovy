@@ -8,6 +8,7 @@ import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.DepositRepository
 import org.pureacc.betcentral.vocabulary.Euros
 import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException
+import org.pureacc.betcentral.vocabulary.exception.UserException
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll
 
@@ -65,7 +66,7 @@ class CreateDepositSpec extends AbstractApplicationSpec {
         deposit.execute(request)
 
         then: "An exception is thrown"
-        thrown ConstraintViolationException
+        thrown UserException
 
         where:
         euros        | _

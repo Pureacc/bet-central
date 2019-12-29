@@ -67,5 +67,7 @@ class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 		//		}
 
 		response.addHeader("Set-Cookie", String.join("; ", headerValues));
+		response.getWriter()
+				.print(userDetails.getId());
 	}
 }

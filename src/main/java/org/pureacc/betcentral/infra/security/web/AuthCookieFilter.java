@@ -11,7 +11,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.pureacc.betcentral.domain.model.User;
-import org.pureacc.betcentral.domain.repository.UserRepository;
 import org.pureacc.betcentral.vocabulary.UserId;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,12 +23,12 @@ import org.springframework.web.filter.GenericFilterBean;
 class AuthCookieFilter extends GenericFilterBean {
 	final static String COOKIE_NAME = "X-authentication";
 
-	private final UserRepository userRepository;
+	private final UserService userService;
 	private final CryptoService cryptoService;
 	private final UserDetailsChecker userDetailsChecker = new AccountStatusUserDetailsChecker();
 
-	AuthCookieFilter(UserRepository userRepository, CryptoService cryptoService) {
-		this.userRepository = userRepository;
+	AuthCookieFilter(UserService userService, CryptoService cryptoService) {
+		this.userService = userService;
 		this.cryptoService = cryptoService;
 	}
 
@@ -52,7 +51,7 @@ class AuthCookieFilter extends GenericFilterBean {
 						if (Instant.now()
 								.getEpochSecond() < expiresAtEpochSeconds) {
 							try {
-								User user = userRepository.get(UserId.of(Long.parseLong(appUserIdString)));
+								User user = userService.get(UserId.of(Long.parseLong(appUserIdString)));
 								UserDetailsImpl userDetails = new UserDetailsImpl(user);
 								this.userDetailsChecker.check(userDetails);
 
