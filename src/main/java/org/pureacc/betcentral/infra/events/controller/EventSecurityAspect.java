@@ -1,7 +1,7 @@
 package org.pureacc.betcentral.infra.events.controller;
 
 import static java.util.Collections.singletonList;
-import static org.pureacc.betcentral.infra.security.application.checks.HasAuthority.Authority.SYSTEM;
+import static org.pureacc.betcentral.infra.security.web.AuthenticationService.Authority.SYSTEM;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

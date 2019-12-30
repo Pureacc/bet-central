@@ -28,4 +28,9 @@ public class TestQueryImpl implements TestQuery {
 	public boolean allowSystem() {
 		return true;
 	}
+
+	@Override
+	public boolean securedResourceUser(TestUserRequest request) {
+		return true;
+	}
 }

@@ -4,7 +4,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 import org.pureacc.betcentral.domain.model.User;
-import org.pureacc.betcentral.infra.security.application.checks.HasAuthority;
+import org.pureacc.betcentral.infra.security.web.AuthenticationService;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +15,7 @@ public class Authentications {
 				.setAuthentication(new TestingAuthenticationToken(user.getUsername(), "password", emptyList()));
 	}
 
-	public static void authenticate(User user, HasAuthority.Authority authority) {
+	public static void authenticate(User user, AuthenticationService.Authority authority) {
 		SecurityContextHolder.getContext()
 				.setAuthentication(new TestingAuthenticationToken(user.getUsername(), "password",
 						singletonList(new SimpleGrantedAuthority(authority.name()))));

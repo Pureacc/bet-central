@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@DenyAll
+@Secured
 @Transactional
 @Validated
 @Component

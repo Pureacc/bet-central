@@ -4,5 +4,5 @@ import java.lang.annotation.*;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DenyAll {
+public @interface Secured {
 }

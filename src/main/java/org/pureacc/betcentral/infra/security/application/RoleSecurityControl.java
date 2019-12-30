@@ -3,23 +3,19 @@ package org.pureacc.betcentral.infra.security.application;
 import java.util.Arrays;
 import java.util.List;
 
-import org.pureacc.betcentral.infra.security.application.checks.HasAuthority;
-import org.pureacc.betcentral.infra.security.application.checks.HasAuthority.Authority;
-import org.pureacc.betcentral.infra.security.application.checks.IsAuthenticated;
+import org.pureacc.betcentral.infra.security.AccessDeniedException;
+import org.pureacc.betcentral.infra.security.web.AuthenticationService;
 import org.pureacc.betcentral.vocabulary.annotation.Allow;
 import org.pureacc.betcentral.vocabulary.annotation.Allow.Role;
-import org.pureacc.betcentral.infra.security.AccessDeniedException;
 import org.pureacc.betcentral.vocabulary.exception.SystemException;
 import org.springframework.stereotype.Component;
 
 @Component
-class SecurityControl {
-	private final IsAuthenticated isAuthenticated;
-	private final HasAuthority hasAuthority;
+class RoleSecurityControl {
+	private final AuthenticationService authenticationService;
 
-	SecurityControl(IsAuthenticated isAuthenticated, HasAuthority hasAuthority) {
-		this.isAuthenticated = isAuthenticated;
-		this.hasAuthority = hasAuthority;
+	RoleSecurityControl(AuthenticationService authenticationService) {
+		this.authenticationService = authenticationService;
 	}
 
 	public void check(Allow allow) {
@@ -36,11 +32,11 @@ class SecurityControl {
 	private boolean hasRole(Role role) {
 		switch (role) {
 		case UNAUTHENTICATED:
-			return !isAuthenticated.isAuthenticated();
+			return !authenticationService.isAuthenticated();
 		case AUTHENTICATED:
-			return isAuthenticated.isAuthenticated();
+			return authenticationService.isAuthenticated();
 		case SYSTEM:
-			return hasAuthority.hasAuthority(Authority.SYSTEM);
+			return authenticationService.hasAuthority(AuthenticationService.Authority.SYSTEM);
 		default:
 			throw new SystemException("Unknown role " + role);
 		}

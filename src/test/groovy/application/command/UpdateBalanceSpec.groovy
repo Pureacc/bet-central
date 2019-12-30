@@ -5,10 +5,10 @@ import application.objectmother.UserObjectMother
 import org.pureacc.betcentral.application.api.UpdateBalance
 import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.UserRepository
-import org.pureacc.betcentral.infra.security.application.checks.HasAuthority
+import org.pureacc.betcentral.infra.security.AccessDeniedException
+import org.pureacc.betcentral.infra.security.web.AuthenticationService
 import org.pureacc.betcentral.vocabulary.Euros
 import org.pureacc.betcentral.vocabulary.Operation
-import org.pureacc.betcentral.infra.security.AccessDeniedException
 import org.pureacc.betcentral.vocabulary.exception.UserException
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll
@@ -26,7 +26,7 @@ class UpdateBalanceSpec extends AbstractApplicationSpec {
     def "The system can #operation #euros euros to a user's balance of #balance euros"() {
         given: "The system has the SYSTEM authority"
         User system = UserObjectMother.aUser()
-        authenticate(system, HasAuthority.Authority.SYSTEM)
+        authenticate(system, AuthenticationService.Authority.SYSTEM)
         and: "A user with a balance of #balance euros"
         User user = users.aUser(balance)
 
@@ -51,7 +51,7 @@ class UpdateBalanceSpec extends AbstractApplicationSpec {
     def "The system cannot SUBSTRACT #euros euros from a user's balance of #balance euros"() {
         given: "The system has the SYSTEM authority"
         User system = UserObjectMother.aUser()
-        authenticate(system, HasAuthority.Authority.SYSTEM)
+        authenticate(system, AuthenticationService.Authority.SYSTEM)
         and: "A user with a balance of #balance euros"
         User user = users.aUser(balance)
 
