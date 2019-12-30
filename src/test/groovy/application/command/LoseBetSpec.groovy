@@ -5,9 +5,9 @@ import org.pureacc.betcentral.application.api.LoseBet
 import org.pureacc.betcentral.domain.model.Bet
 import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.BetRepository
+import org.pureacc.betcentral.infra.security.AccessDeniedException
 import org.pureacc.betcentral.vocabulary.BetId
 import org.pureacc.betcentral.vocabulary.Euros
-import org.pureacc.betcentral.infra.security.AccessDeniedException
 import org.pureacc.betcentral.vocabulary.exception.UserException
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll

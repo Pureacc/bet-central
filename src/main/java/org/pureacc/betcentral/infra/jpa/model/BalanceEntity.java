@@ -4,13 +4,13 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class BalanceEntity {
-    private double euros;
+	private double euros;
 
-    public double getEuros() {
-        return euros;
-    }
+	public double getEuros() {
+		return euros;
+	}
 
-    public void setEuros(double euros) {
-        this.euros = euros;
-    }
+	public void setEuros(double euros) {
+		this.euros = euros;
+	}
 }

@@ -6,12 +6,12 @@ import org.pureacc.betcentral.infra.jpa.model.DepositEntity;
 import org.pureacc.betcentral.vocabulary.Euros;
 
 public class ToDeposit {
-    public static Deposit map(DepositEntity depositEntity) {
-        DepositSnapshot depositSnapshot = DepositSnapshot.newBuilder()
-                .withUser(ToUser.map(depositEntity.getUser()))
-                .withEuros(Euros.of(depositEntity.getEuros()))
-                .withDate(depositEntity.getDate())
-                .build();
-        return new Deposit(depositSnapshot);
-    }
+	public static Deposit map(DepositEntity depositEntity) {
+		DepositSnapshot depositSnapshot = DepositSnapshot.newBuilder()
+				.withUser(ToUser.map(depositEntity.getUser()))
+				.withEuros(Euros.of(depositEntity.getEuros()))
+				.withDate(depositEntity.getDate())
+				.build();
+		return new Deposit(depositSnapshot);
+	}
 }

@@ -8,15 +8,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 class SpringEventPublisher implements EventPublisher {
-    private final ApplicationEventPublisher applicationEventPublisher;
+	private final ApplicationEventPublisher applicationEventPublisher;
 
-    SpringEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        this.applicationEventPublisher = applicationEventPublisher;
-        DomainEventPublisher.setPublisher(this);
-    }
+	SpringEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+		this.applicationEventPublisher = applicationEventPublisher;
+		DomainEventPublisher.setPublisher(this);
+	}
 
-    @Override
-    public void publish(Event event) {
-        applicationEventPublisher.publishEvent(event);
-    }
+	@Override
+	public void publish(Event event) {
+		applicationEventPublisher.publishEvent(event);
+	}
 }

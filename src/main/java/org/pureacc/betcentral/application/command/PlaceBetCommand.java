@@ -9,19 +9,21 @@ import org.pureacc.betcentral.vocabulary.annotation.Command;
 
 @Command
 class PlaceBetCommand implements PlaceBet {
-    private final BetRepository betRepository;
-    private final UserRepository userRepository;
+	private final BetRepository betRepository;
+	private final UserRepository userRepository;
 
-    PlaceBetCommand(BetRepository betRepository, UserRepository userRepository) {
-        this.betRepository = betRepository;
-        this.userRepository = userRepository;
-    }
+	PlaceBetCommand(BetRepository betRepository, UserRepository userRepository) {
+		this.betRepository = betRepository;
+		this.userRepository = userRepository;
+	}
 
-    @Override
-    public Response execute(Request request) {
-        User user = userRepository.get(request.getUserId());
-        Bet bet = new Bet(user, request.getOdds(), request.getEuros());
-        Bet savedBet = betRepository.save(bet);
-        return Response.newBuilder().withBetId(savedBet.getId()).build();
-    }
+	@Override
+	public Response execute(Request request) {
+		User user = userRepository.get(request.getUserId());
+		Bet bet = new Bet(user, request.getOdds(), request.getEuros());
+		Bet savedBet = betRepository.save(bet);
+		return Response.newBuilder()
+				.withBetId(savedBet.getId())
+				.build();
+	}
 }

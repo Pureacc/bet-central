@@ -27,6 +27,7 @@ class ResourceSecurityControl {
 		if (resourceValue.getClass() == UserId.class) {
 			return authenticatedUserId.equals(resourceValue);
 		}
-		throw new SystemException(format("Missing security rule for secured resource with type '%s'", resourceValue.getClass()));
+		throw new SystemException(
+				format("Missing security rule for secured resource with type '%s'", resourceValue.getClass()));
 	}
 }

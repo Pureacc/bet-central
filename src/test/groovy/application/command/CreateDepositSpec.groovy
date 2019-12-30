@@ -6,15 +6,15 @@ import org.pureacc.betcentral.domain.events.DepositEvent
 import org.pureacc.betcentral.domain.model.Deposit
 import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.DepositRepository
-import org.pureacc.betcentral.vocabulary.Euros
 import org.pureacc.betcentral.infra.security.AccessDeniedException
+import org.pureacc.betcentral.vocabulary.Euros
 import org.pureacc.betcentral.vocabulary.exception.UserException
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll
 
-import static org.pureacc.betcentral.application.api.CreateDeposit.Request
 import static infra.security.web.Authentications.authenticate
 import static infra.security.web.Authentications.unauthenticate
+import static org.pureacc.betcentral.application.api.CreateDeposit.Request
 
 class CreateDepositSpec extends AbstractApplicationSpec {
     @Autowired

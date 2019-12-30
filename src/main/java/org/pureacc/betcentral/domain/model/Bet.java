@@ -7,6 +7,7 @@ import static org.pureacc.betcentral.vocabulary.BetStatus.WON;
 
 import java.util.Date;
 
+import org.pureacc.betcentral.domain.DomainException;
 import org.pureacc.betcentral.domain.events.BetPlacedEvent;
 import org.pureacc.betcentral.domain.events.BetWonEvent;
 import org.pureacc.betcentral.domain.events.Event;
@@ -16,7 +17,6 @@ import org.pureacc.betcentral.vocabulary.BetId;
 import org.pureacc.betcentral.vocabulary.BetStatus;
 import org.pureacc.betcentral.vocabulary.DecimalOdds;
 import org.pureacc.betcentral.vocabulary.Euros;
-import org.pureacc.betcentral.domain.DomainException;
 
 public class Bet {
 	private BetId betId;
@@ -100,7 +100,7 @@ public class Bet {
 				.withOdds(odds)
 				.withEuros(stake)
 				.build();
-        DomainEventPublisher.publish(event);
+		DomainEventPublisher.publish(event);
 	}
 
 	private void publishBetWonEvent() {

@@ -1,78 +1,79 @@
 package org.pureacc.betcentral.infra.jpa.model;
 
-import org.pureacc.betcentral.vocabulary.BetStatus;
+import java.util.Date;
 
 import javax.persistence.*;
-import java.util.Date;
+
+import org.pureacc.betcentral.vocabulary.BetStatus;
 
 @Entity
 @Table(name = "bet")
 public class BetEntity {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
-    @ManyToOne
-    private UserEntity user;
-    private double odds;
-    private double euros;
-    private Date placedDate;
-    private Date resolveDate;
-    @Enumerated(EnumType.STRING)
-    private BetStatus status;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	@ManyToOne
+	private UserEntity user;
+	private double odds;
+	private double euros;
+	private Date placedDate;
+	private Date resolveDate;
+	@Enumerated(EnumType.STRING)
+	private BetStatus status;
 
-    public long getId() {
-        return id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public UserEntity getUser() {
-        return user;
-    }
+	public UserEntity getUser() {
+		return user;
+	}
 
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
 
-    public double getOdds() {
-        return odds;
-    }
+	public double getOdds() {
+		return odds;
+	}
 
-    public void setOdds(double odds) {
-        this.odds = odds;
-    }
+	public void setOdds(double odds) {
+		this.odds = odds;
+	}
 
-    public double getEuros() {
-        return euros;
-    }
+	public double getEuros() {
+		return euros;
+	}
 
-    public void setEuros(double euros) {
-        this.euros = euros;
-    }
+	public void setEuros(double euros) {
+		this.euros = euros;
+	}
 
-    public Date getPlacedDate() {
-        return placedDate;
-    }
+	public Date getPlacedDate() {
+		return placedDate;
+	}
 
-    public void setPlacedDate(Date placedDate) {
-        this.placedDate = placedDate;
-    }
+	public void setPlacedDate(Date placedDate) {
+		this.placedDate = placedDate;
+	}
 
-    public Date getResolveDate() {
-        return resolveDate;
-    }
+	public Date getResolveDate() {
+		return resolveDate;
+	}
 
-    public void setResolveDate(Date resolveDate) {
-        this.resolveDate = resolveDate;
-    }
+	public void setResolveDate(Date resolveDate) {
+		this.resolveDate = resolveDate;
+	}
 
-    public BetStatus getStatus() {
-        return status;
-    }
+	public BetStatus getStatus() {
+		return status;
+	}
 
-    public void setStatus(BetStatus status) {
-        this.status = status;
-    }
+	public void setStatus(BetStatus status) {
+		this.status = status;
+	}
 }

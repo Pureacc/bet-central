@@ -10,43 +10,46 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 class GetNoVigOddsController {
-    private final GetNoVigOdds getNoVigOdds;
+	private final GetNoVigOdds getNoVigOdds;
 
-    GetNoVigOddsController(GetNoVigOdds getNoVigOdds) {
-        this.getNoVigOdds = getNoVigOdds;
-    }
+	GetNoVigOddsController(GetNoVigOdds getNoVigOdds) {
+		this.getNoVigOdds = getNoVigOdds;
+	}
 
-    @GetMapping("/api/calculate/novig")
-    protected WebResponse get(@RequestParam double oddsA, @RequestParam double oddsB) {
-        Request request = Request.newBuilder()
-                .withOddsA(DecimalOdds.of(oddsA))
-                .withOddsB(DecimalOdds.of(oddsB))
-                .build();
-        Response response = getNoVigOdds.execute(request);
-        return new WebResponse(response);
-    }
+	@GetMapping("/api/calculate/novig")
+	protected WebResponse get(@RequestParam double oddsA, @RequestParam double oddsB) {
+		Request request = Request.newBuilder()
+				.withOddsA(DecimalOdds.of(oddsA))
+				.withOddsB(DecimalOdds.of(oddsB))
+				.build();
+		Response response = getNoVigOdds.execute(request);
+		return new WebResponse(response);
+	}
 
-    private static final class WebResponse {
-        private final double vigPercentage;
-        private final double noVigOddsA;
-        private final double noVigOddsB;
+	private static final class WebResponse {
+		private final double vigPercentage;
+		private final double noVigOddsA;
+		private final double noVigOddsB;
 
-        WebResponse(Response response) {
-            this.vigPercentage = response.getVig().getValue();
-            this.noVigOddsA = response.getNoVigOddsA().getOdds();
-            this.noVigOddsB = response.getNoVigOddsB().getOdds();
-        }
+		WebResponse(Response response) {
+			this.vigPercentage = response.getVig()
+					.getValue();
+			this.noVigOddsA = response.getNoVigOddsA()
+					.getOdds();
+			this.noVigOddsB = response.getNoVigOddsB()
+					.getOdds();
+		}
 
-        public double getVigPercentage() {
-            return vigPercentage;
-        }
+		public double getVigPercentage() {
+			return vigPercentage;
+		}
 
-        public double getNoVigOddsA() {
-            return noVigOddsA;
-        }
+		public double getNoVigOddsA() {
+			return noVigOddsA;
+		}
 
-        public double getNoVigOddsB() {
-            return noVigOddsB;
-        }
-    }
+		public double getNoVigOddsB() {
+			return noVigOddsB;
+		}
+	}
 }

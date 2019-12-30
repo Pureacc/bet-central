@@ -7,16 +7,16 @@ import org.pureacc.betcentral.vocabulary.annotation.Command;
 
 @Command
 class LoseBetCommand implements LoseBet {
-    private final BetRepository betRepository;
+	private final BetRepository betRepository;
 
-    LoseBetCommand(BetRepository betRepository) {
-        this.betRepository = betRepository;
-    }
+	LoseBetCommand(BetRepository betRepository) {
+		this.betRepository = betRepository;
+	}
 
-    @Override
-    public void execute(Request request) {
-        Bet bet = betRepository.get(request.getBetId());
-        bet.lose();
-        betRepository.save(bet);
-    }
+	@Override
+	public void execute(Request request) {
+		Bet bet = betRepository.get(request.getBetId());
+		bet.lose();
+		betRepository.save(bet);
+	}
 }

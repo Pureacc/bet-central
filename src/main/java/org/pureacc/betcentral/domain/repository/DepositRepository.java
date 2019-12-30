@@ -1,12 +1,12 @@
 package org.pureacc.betcentral.domain.repository;
 
+import java.util.List;
+
 import org.pureacc.betcentral.domain.model.Deposit;
 import org.pureacc.betcentral.vocabulary.UserId;
 
-import java.util.List;
-
 public interface DepositRepository {
-    List<Deposit> findByUser(UserId userId);
+	List<Deposit> findByUser(UserId userId);
 
-    void save(Deposit deposit);
+	void save(Deposit deposit);
 }

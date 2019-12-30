@@ -5,12 +5,13 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import vocabulary.TestException;
 import org.pureacc.betcentral.domain.model.User;
 import org.pureacc.betcentral.domain.model.snapshot.UserSnapshot;
 import org.pureacc.betcentral.domain.repository.UserRepository;
 import org.pureacc.betcentral.vocabulary.UserId;
 import org.pureacc.betcentral.vocabulary.Username;
+
+import vocabulary.TestException;
 
 public class TestUserRepository implements UserRepository {
 	private Set<User> users = new HashSet<>();

@@ -7,18 +7,19 @@ import org.pureacc.betcentral.vocabulary.annotation.Query;
 
 @Query
 class GetUserQuery implements GetUser {
-    private final UserRepository userRepository;
+	private final UserRepository userRepository;
 
-    GetUserQuery(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+	GetUserQuery(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 
-    @Override
-    public Response execute(Request request) {
-        User user = userRepository.get(request.getUserId());
-        return Response.newBuilder()
-                .withUsername(user.getUsername())
-                .withBalance(user.getBalance().getEuros())
-                .build();
-    }
+	@Override
+	public Response execute(Request request) {
+		User user = userRepository.get(request.getUserId());
+		return Response.newBuilder()
+				.withUsername(user.getUsername())
+				.withBalance(user.getBalance()
+						.getEuros())
+				.build();
+	}
 }

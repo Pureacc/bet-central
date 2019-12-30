@@ -5,61 +5,61 @@ import org.pureacc.betcentral.domain.service.PasswordHasher;
 import org.pureacc.betcentral.vocabulary.*;
 
 public class User {
-    private UserId userId;
-    private Username username;
-    private Password password;
-    private Balance balance;
+	private UserId userId;
+	private Username username;
+	private Password password;
+	private Balance balance;
 
-    public User(Username username, Password password, PasswordHasher passwordHasher) {
-        this.username = username;
-        this.password = passwordHasher.hash(password);
-        this.balance = new Balance();
-    }
+	public User(Username username, Password password, PasswordHasher passwordHasher) {
+		this.username = username;
+		this.password = passwordHasher.hash(password);
+		this.balance = new Balance();
+	}
 
-    public User(UserSnapshot userSnapshot) {
-        this.userId = userSnapshot.getUserId();
-        this.username = userSnapshot.getUsername();
-        this.password = userSnapshot.getPassword();
-        this.balance = userSnapshot.getBalance();
-    }
+	public User(UserSnapshot userSnapshot) {
+		this.userId = userSnapshot.getUserId();
+		this.username = userSnapshot.getUsername();
+		this.password = userSnapshot.getPassword();
+		this.balance = userSnapshot.getBalance();
+	}
 
-    public UserSnapshot toSnapshot() {
-        return UserSnapshot.newBuilder()
-                .withUserId(userId)
-                .withUsername(username)
-                .withPassword(password)
-                .withBalance(balance)
-                .build();
-    }
+	public UserSnapshot toSnapshot() {
+		return UserSnapshot.newBuilder()
+				.withUserId(userId)
+				.withUsername(username)
+				.withPassword(password)
+				.withBalance(balance)
+				.build();
+	}
 
-    public UserId getId() {
-        return userId;
-    }
+	public UserId getId() {
+		return userId;
+	}
 
-    public Username getUsername() {
-        return username;
-    }
+	public Username getUsername() {
+		return username;
+	}
 
-    public Password getPassword() {
-        return password;
-    }
+	public Password getPassword() {
+		return password;
+	}
 
-    public Balance getBalance() {
-        return balance;
-    }
+	public Balance getBalance() {
+		return balance;
+	}
 
-    public void updateBalance(Euros euros, Operation operation) {
-        switch (operation) {
-        case ADD:
-            balance.add(euros);
-            break;
-        case SUBSTRACT:
-            balance.substract(euros);
-            break;
-        }
-    }
+	public void updateBalance(Euros euros, Operation operation) {
+		switch (operation) {
+		case ADD:
+			balance.add(euros);
+			break;
+		case SUBSTRACT:
+			balance.substract(euros);
+			break;
+		}
+	}
 
-    void validateSufficientBalance(Euros euros) {
-        balance.validateSufficient(euros);
-    }
+	void validateSufficientBalance(Euros euros) {
+		balance.validateSufficient(euros);
+	}
 }

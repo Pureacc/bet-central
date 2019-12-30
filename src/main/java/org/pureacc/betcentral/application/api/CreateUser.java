@@ -6,91 +6,91 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.pureacc.betcentral.vocabulary.Password;
-import org.pureacc.betcentral.vocabulary.annotation.Allow;
 import org.pureacc.betcentral.vocabulary.UserId;
 import org.pureacc.betcentral.vocabulary.Username;
+import org.pureacc.betcentral.vocabulary.annotation.Allow;
 
 public interface CreateUser {
-    @Allow(UNAUTHENTICATED)
-    Response execute(@Valid Request request);
+	@Allow(UNAUTHENTICATED)
+	Response execute(@Valid Request request);
 
-    final class Request {
-        @Valid
-        @NotNull
-        private final Username username;
-        @Valid
-        @NotNull
-        private final Password password;
+	final class Request {
+		@Valid
+		@NotNull
+		private final Username username;
+		@Valid
+		@NotNull
+		private final Password password;
 
-        private Request(Builder builder) {
-            username = builder.username;
-            password = builder.password;
-        }
+		private Request(Builder builder) {
+			username = builder.username;
+			password = builder.password;
+		}
 
-        public Username getUsername() {
-            return username;
-        }
+		public Username getUsername() {
+			return username;
+		}
 
-        public Password getPassword() {
-            return password;
-        }
+		public Password getPassword() {
+			return password;
+		}
 
-        public static Builder newBuilder() {
-            return new Builder();
-        }
+		public static Builder newBuilder() {
+			return new Builder();
+		}
 
-        public static final class Builder {
-            private Username username;
-            private Password password;
+		public static final class Builder {
+			private Username username;
+			private Password password;
 
-            private Builder() {
-            }
+			private Builder() {
+			}
 
-            public Builder withUsername(Username username) {
-                this.username = username;
-                return this;
-            }
+			public Builder withUsername(Username username) {
+				this.username = username;
+				return this;
+			}
 
-            public Builder withPassword(Password password) {
-                this.password = password;
-                return this;
-            }
+			public Builder withPassword(Password password) {
+				this.password = password;
+				return this;
+			}
 
-            public Request build() {
-                return new Request(this);
-            }
-        }
-    }
+			public Request build() {
+				return new Request(this);
+			}
+		}
+	}
 
-    final class Response {
-        private final UserId userId;
+	final class Response {
+		private final UserId userId;
 
-        private Response(Builder builder) {
-            userId = builder.userId;
-        }
+		private Response(Builder builder) {
+			userId = builder.userId;
+		}
 
-        public static Builder newBuilder() {
-            return new Builder();
-        }
+		public static Builder newBuilder() {
+			return new Builder();
+		}
 
-        public UserId getUserId() {
-            return userId;
-        }
+		public UserId getUserId() {
+			return userId;
+		}
 
-        public static final class Builder {
-            private UserId userId;
+		public static final class Builder {
+			private UserId userId;
 
-            private Builder() {
-            }
+			private Builder() {
+			}
 
-            public Builder withUserId(UserId userId) {
-                this.userId = userId;
-                return this;
-            }
+			public Builder withUserId(UserId userId) {
+				this.userId = userId;
+				return this;
+			}
 
-            public Response build() {
-                return new Response(this);
-            }
-        }
-    }
+			public Response build() {
+				return new Response(this);
+			}
+		}
+	}
 }

@@ -1,9 +1,10 @@
 package application.factory;
 
-import application.objectmother.UserObjectMother;
 import org.pureacc.betcentral.domain.model.User;
 import org.pureacc.betcentral.domain.repository.UserRepository;
 import org.pureacc.betcentral.vocabulary.Euros;
+
+import application.objectmother.UserObjectMother;
 
 public class Users {
 	private final UserRepository userRepository;

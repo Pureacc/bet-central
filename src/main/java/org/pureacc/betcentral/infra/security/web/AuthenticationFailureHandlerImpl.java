@@ -15,6 +15,7 @@ class AuthenticationFailureHandlerImpl implements AuthenticationFailureHandler {
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException {
 		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-		response.getWriter().print(exception.getMessage());
+		response.getWriter()
+				.print(exception.getMessage());
 	}
 }

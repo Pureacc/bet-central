@@ -7,11 +7,11 @@ import org.pureacc.betcentral.vocabulary.UserId;
 import org.pureacc.betcentral.vocabulary.Username;
 
 public interface UserRepository {
-    User get(UserId userId);
+	User get(UserId userId);
 
-    User get(Username username);
+	User get(Username username);
 
-    Optional<User> find(Username username);
+	Optional<User> find(Username username);
 
-    User save(User user);
+	User save(User user);
 }
