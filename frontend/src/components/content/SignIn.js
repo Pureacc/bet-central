@@ -13,12 +13,19 @@ import {Link as RouterLink} from "react-router-dom";
 import {ExitToApp} from "@material-ui/icons";
 import {connect} from "react-redux";
 import {compose} from "recompose";
-import {authenticate} from "../../actions/user";
+import {authenticate, getUser} from "../../actions/user";
 
 class SignIn extends React.Component {
     constructor(props) {
         super(props);
         this.state = {username: "", password: ""};
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.userId !== prevProps.userId) {
+            this.props.actions.getUser(this.props.userId);
+            this.props.history.push("/");
+        }
     }
 
     handleChangeUsername = event => {
@@ -31,8 +38,7 @@ class SignIn extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.authenticate(this.state.username, this.state.password);
-        this.props.history.push("/")
+        this.props.actions.authenticate(this.state.username, this.state.password);
     };
 
     render() {
@@ -132,13 +138,23 @@ const styles = theme => ({
     },
 });
 
+const mapStateToProps = state => {
+    const {user} = state;
+    return {
+        userId: user.id
+    }
+};
+
 const mapDispatchToProps = dispatch => {
     return {
-        authenticate: (username, password) => dispatch(authenticate(username, password))
+        actions: {
+            authenticate: (username, password) => dispatch(authenticate(username, password)),
+            getUser: (userId) => dispatch(getUser(userId))
+        }
     }
 };
 
 export default compose(
     withStyles(styles),
-    connect(f => f, mapDispatchToProps),
+    connect(mapStateToProps, mapDispatchToProps),
 )(SignIn);
