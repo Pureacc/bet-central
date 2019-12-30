@@ -1,7 +1,7 @@
 package org.pureacc.betcentral.domain.model;
 
 import org.pureacc.betcentral.vocabulary.Euros;
-import org.pureacc.betcentral.vocabulary.exception.DomainException;
+import org.pureacc.betcentral.domain.DomainException;
 
 public class Balance {
     private Euros euros;

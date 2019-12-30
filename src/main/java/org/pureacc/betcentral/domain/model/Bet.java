@@ -16,7 +16,7 @@ import org.pureacc.betcentral.vocabulary.BetId;
 import org.pureacc.betcentral.vocabulary.BetStatus;
 import org.pureacc.betcentral.vocabulary.DecimalOdds;
 import org.pureacc.betcentral.vocabulary.Euros;
-import org.pureacc.betcentral.vocabulary.exception.DomainException;
+import org.pureacc.betcentral.domain.DomainException;
 
 public class Bet {
 	private BetId betId;

@@ -8,7 +8,7 @@ import org.pureacc.betcentral.infra.security.application.checks.HasAuthority.Aut
 import org.pureacc.betcentral.infra.security.application.checks.IsAuthenticated;
 import org.pureacc.betcentral.vocabulary.annotation.Allow;
 import org.pureacc.betcentral.vocabulary.annotation.Allow.Role;
-import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException;
+import org.pureacc.betcentral.infra.security.AccessDeniedException;
 import org.pureacc.betcentral.vocabulary.exception.SystemException;
 import org.springframework.stereotype.Component;
 

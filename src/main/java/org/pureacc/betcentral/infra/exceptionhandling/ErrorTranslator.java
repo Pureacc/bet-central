@@ -2,7 +2,7 @@ package org.pureacc.betcentral.infra.exceptionhandling;
 
 import java.util.Locale;
 
-import org.pureacc.betcentral.vocabulary.exception.DomainException;
+import org.pureacc.betcentral.domain.DomainException;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.support.ResourceBundleMessageSource;
 

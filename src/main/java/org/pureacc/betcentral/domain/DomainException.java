@@ -1,4 +1,4 @@
-package org.pureacc.betcentral.vocabulary.exception;
+package org.pureacc.betcentral.domain;
 
 public class DomainException extends RuntimeException {
 	private final String key;

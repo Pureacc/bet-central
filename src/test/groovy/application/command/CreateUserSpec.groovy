@@ -6,7 +6,7 @@ import org.pureacc.betcentral.domain.model.User
 import org.pureacc.betcentral.domain.repository.UserRepository
 import org.pureacc.betcentral.vocabulary.Password
 import org.pureacc.betcentral.vocabulary.Username
-import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException
+import org.pureacc.betcentral.infra.security.AccessDeniedException
 import org.pureacc.betcentral.vocabulary.exception.UserException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder

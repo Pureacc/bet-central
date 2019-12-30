@@ -6,7 +6,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.pureacc.betcentral.vocabulary.exception.DomainException;
+import org.pureacc.betcentral.domain.DomainException;
 import org.pureacc.betcentral.vocabulary.exception.SystemException;
 import org.pureacc.betcentral.vocabulary.exception.UserException;
 import org.slf4j.Logger;

@@ -8,7 +8,7 @@ import org.pureacc.betcentral.domain.repository.UserRepository
 import org.pureacc.betcentral.infra.security.application.checks.HasAuthority
 import org.pureacc.betcentral.vocabulary.Euros
 import org.pureacc.betcentral.vocabulary.Operation
-import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException
+import org.pureacc.betcentral.infra.security.AccessDeniedException
 import org.pureacc.betcentral.vocabulary.exception.UserException
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll

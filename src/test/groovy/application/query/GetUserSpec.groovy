@@ -3,7 +3,7 @@ package application.query
 
 import org.pureacc.betcentral.application.api.GetUser
 import org.pureacc.betcentral.domain.model.User
-import org.pureacc.betcentral.vocabulary.exception.AccessDeniedException
+import org.pureacc.betcentral.infra.security.AccessDeniedException
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll
 
