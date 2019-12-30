@@ -1,6 +1,6 @@
 package infra.exceptionhandling;
 
-import org.pureacc.betcentral.application.command.Command;
+import org.pureacc.betcentral.vocabulary.annotation.Command;
 import org.pureacc.betcentral.domain.DomainException;
 import org.pureacc.betcentral.vocabulary.exception.SystemException;
 

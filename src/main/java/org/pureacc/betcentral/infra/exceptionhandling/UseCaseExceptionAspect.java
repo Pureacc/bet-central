@@ -23,11 +23,11 @@ class UseCaseExceptionAspect {
 		this.errorTranslator = errorTranslator;
 	}
 
-	@Pointcut("@within(org.pureacc.betcentral.application.command.Command)")
+	@Pointcut("@within(org.pureacc.betcentral.vocabulary.annotation.Command)")
 	public void command() {
 	}
 
-	@Pointcut("@within(org.pureacc.betcentral.application.query.Query)")
+	@Pointcut("@within(org.pureacc.betcentral.vocabulary.annotation.Query)")
 	public void query() {
 	}
 

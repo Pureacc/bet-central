@@ -5,6 +5,7 @@ import org.pureacc.betcentral.domain.model.Deposit;
 import org.pureacc.betcentral.domain.model.User;
 import org.pureacc.betcentral.domain.repository.DepositRepository;
 import org.pureacc.betcentral.domain.repository.UserRepository;
+import org.pureacc.betcentral.vocabulary.annotation.Command;
 
 @Command
 class CreateDepositCommand implements CreateDeposit {

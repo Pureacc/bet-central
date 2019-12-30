@@ -3,6 +3,7 @@ package org.pureacc.betcentral.application.command;
 import org.pureacc.betcentral.application.api.UpdateBalance;
 import org.pureacc.betcentral.domain.model.User;
 import org.pureacc.betcentral.domain.repository.UserRepository;
+import org.pureacc.betcentral.vocabulary.annotation.Command;
 
 @Command
 class UpdateBalanceCommand implements UpdateBalance {

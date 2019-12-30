@@ -1,6 +1,6 @@
 package infra.security.application;
 
-import org.pureacc.betcentral.application.query.Query;
+import org.pureacc.betcentral.vocabulary.annotation.Query;
 
 @Query
 public class TestQueryImpl implements TestQuery {

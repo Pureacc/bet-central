@@ -5,6 +5,7 @@ import org.pureacc.betcentral.domain.model.Bet;
 import org.pureacc.betcentral.domain.model.User;
 import org.pureacc.betcentral.domain.repository.BetRepository;
 import org.pureacc.betcentral.domain.repository.UserRepository;
+import org.pureacc.betcentral.vocabulary.annotation.Command;
 
 @Command
 class PlaceBetCommand implements PlaceBet {

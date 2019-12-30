@@ -3,6 +3,7 @@ package org.pureacc.betcentral.application.query;
 import org.pureacc.betcentral.application.api.GetUser;
 import org.pureacc.betcentral.domain.model.User;
 import org.pureacc.betcentral.domain.repository.UserRepository;
+import org.pureacc.betcentral.vocabulary.annotation.Query;
 
 @Query
 class GetUserQuery implements GetUser {

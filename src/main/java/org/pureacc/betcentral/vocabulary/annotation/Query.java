@@ -1,4 +1,4 @@
-package org.pureacc.betcentral.application.command;
+package org.pureacc.betcentral.vocabulary.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,8 +13,8 @@ import org.springframework.validation.annotation.Validated;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @DenyAll
-@Transactional
+@Transactional(readOnly = true)
 @Validated
 @Component
-public @interface Command {
+public @interface Query {
 }

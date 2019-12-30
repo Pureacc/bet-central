@@ -2,6 +2,7 @@ package org.pureacc.betcentral.application.query;
 
 import org.pureacc.betcentral.application.api.GetNoVigOdds;
 import org.pureacc.betcentral.domain.model.BetOffer;
+import org.pureacc.betcentral.vocabulary.annotation.Query;
 
 @Query
 class GetNoVigOddsQuery implements GetNoVigOdds {

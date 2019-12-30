@@ -4,6 +4,7 @@ import org.pureacc.betcentral.application.api.CreateUser;
 import org.pureacc.betcentral.domain.model.User;
 import org.pureacc.betcentral.domain.repository.UserRepository;
 import org.pureacc.betcentral.domain.service.PasswordHasher;
+import org.pureacc.betcentral.vocabulary.annotation.Command;
 
 @Command
 class CreateUserCommand implements CreateUser {

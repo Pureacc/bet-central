@@ -1,6 +1,6 @@
 package infra.security.application;
 
-import org.pureacc.betcentral.application.command.Command;
+import org.pureacc.betcentral.vocabulary.annotation.Command;
 
 @Command
 public class TestCommandImpl implements TestCommand {
