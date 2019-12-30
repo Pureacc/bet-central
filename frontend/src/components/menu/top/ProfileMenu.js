@@ -5,8 +5,7 @@ import {AccountCircle} from "@material-ui/icons";
 import {Menu} from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import * as Actions from "../../../actions/user";
+import {logOut} from "../../../actions/user";
 
 class ProfileMenu extends React.Component {
     constructor(props) {
@@ -64,7 +63,9 @@ class ProfileMenu extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        actions: bindActionCreators(Actions, dispatch)
+        actions: {
+            logOut: (userId, euros) => dispatch(logOut(userId, euros))
+        }
     }
 };
 

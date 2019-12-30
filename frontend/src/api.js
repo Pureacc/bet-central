@@ -7,3 +7,7 @@ export function authenticate(username, password) {
 export function deposit(userId, euros) {
     return Axios.post('/api/balance/deposit', {userId: userId, euros: euros});
 }
+
+export function logOut() {
+    return Axios.post('/logout');
+}
