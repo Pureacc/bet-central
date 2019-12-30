@@ -14,8 +14,8 @@ import spock.lang.Unroll
 
 import java.util.regex.Pattern
 
-import static application.factory.Authentications.authenticate
-import static application.factory.Authentications.unauthenticate
+import static infra.security.web.Authentications.authenticate
+import static infra.security.web.Authentications.unauthenticate
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic
 import static org.pureacc.betcentral.application.api.CreateUser.Request
 import static org.pureacc.betcentral.application.api.CreateUser.Response

@@ -9,12 +9,14 @@ import org.pureacc.betcentral.vocabulary.Euros;
 import org.pureacc.betcentral.vocabulary.UserId;
 import org.pureacc.betcentral.vocabulary.Username;
 import org.pureacc.betcentral.vocabulary.annotation.Allow;
+import org.pureacc.betcentral.vocabulary.annotation.SecuredResource;
 
 public interface GetUser {
     @Allow(AUTHENTICATED)
     Response execute(Request request);
 
     final class Request {
+        @SecuredResource
         @Valid
         @NotNull
         private final UserId userId;

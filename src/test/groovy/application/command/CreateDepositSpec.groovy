@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll
 
 import static org.pureacc.betcentral.application.api.CreateDeposit.Request
-import static application.factory.Authentications.authenticate
-import static application.factory.Authentications.unauthenticate
+import static infra.security.web.Authentications.authenticate
+import static infra.security.web.Authentications.unauthenticate
 
 class CreateDepositSpec extends AbstractApplicationSpec {
     @Autowired

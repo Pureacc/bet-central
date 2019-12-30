@@ -12,8 +12,8 @@ import org.pureacc.betcentral.vocabulary.exception.UserException
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Unroll
 
-import static application.factory.Authentications.authenticate
-import static application.factory.Authentications.unauthenticate
+import static infra.security.web.Authentications.authenticate
+import static infra.security.web.Authentications.unauthenticate
 import static org.pureacc.betcentral.vocabulary.BetStatus.*
 
 class LoseBetSpec extends AbstractApplicationSpec {

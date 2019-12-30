@@ -1,11 +1,11 @@
 package application
 
 import application.conf.ApplicationSpecConfiguration
-import application.factory.Authentications
 import application.factory.Bets
 import application.factory.Users
 import application.mock.TestEventPublisher
 import application.stub.TestTime
+import infra.security.web.Authentications
 import org.pureacc.betcentral.domain.service.DomainEventPublisher
 import org.pureacc.betcentral.domain.service.DomainTime
 import org.pureacc.betcentral.main.SpringAndReactApplication

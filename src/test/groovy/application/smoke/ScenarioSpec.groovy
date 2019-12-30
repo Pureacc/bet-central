@@ -1,24 +1,24 @@
 package application.smoke
 
+
 import org.pureacc.betcentral.application.api.*
+import org.pureacc.betcentral.domain.model.User
+import org.pureacc.betcentral.domain.repository.UserRepository
 import org.pureacc.betcentral.main.SpringAndReactApplication
-import org.pureacc.betcentral.vocabulary.DecimalOdds
-import org.pureacc.betcentral.vocabulary.Euros
-import org.pureacc.betcentral.vocabulary.Password
-import org.pureacc.betcentral.vocabulary.Username
+import org.pureacc.betcentral.vocabulary.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.security.authentication.TestingAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
 import spock.lang.Specification
 
 import javax.transaction.Transactional
 
-import static java.util.Collections.emptyList
+import static infra.security.web.Authentications.authenticate
 
 @Transactional
 @SpringBootTest(classes = SpringAndReactApplication.class)
 class ScenarioSpec extends Specification {
+    @Autowired
+    UserRepository userRepository
     @Autowired
     CreateUser createUser
     @Autowired
@@ -34,23 +34,22 @@ class ScenarioSpec extends Specification {
 
     def "I can create a user, deposit and place bets that win or lose"() {
         when: "I create a user"
-        Username username = Username.of("John Doe")
-        Password password = Password.of("hunter2")
         CreateUser.Request createUserRequest = CreateUser.Request.newBuilder()
-                .withUsername(username)
-                .withPassword(password).build()
+                .withUsername(Username.of("John Doe"))
+                .withPassword(Password.of("hunter2")).build()
         CreateUser.Response createUserResponse = createUser.execute(createUserRequest)
         and: "I am authenticated as that user"
-        SecurityContextHolder.getContext()
-                .setAuthentication(new TestingAuthenticationToken(username.value, password.value, emptyList()));
+        UserId userId = createUserResponse.userId
+        User user = userRepository.get(userId)
+        authenticate(user)
         and: "I deposit 50 euros"
         CreateDeposit.Request depositRequest = CreateDeposit.Request.newBuilder()
-                .withUserId(createUserResponse.userId)
+                .withUserId(userId)
                 .withEuros(Euros.of(50)).build()
         createDeposit.execute(depositRequest)
         and: "I place a bet for 10 euros with decimal odds of 3"
         PlaceBet.Request placeBetRequest = PlaceBet.Request.newBuilder()
-                .withUserId(createUserResponse.userId)
+                .withUserId(userId)
                 .withOdds(DecimalOdds.of(3))
                 .withEuros(Euros.of(10)).build()
         PlaceBet.Response placeBetResponse = placeBet.execute(placeBetRequest)
@@ -60,7 +59,7 @@ class ScenarioSpec extends Specification {
         winBet.execute(winBetRequest)
         and: "I place a bet for 8 euros with decimal odds of 2.5"
         PlaceBet.Request placeBetRequest2 = PlaceBet.Request.newBuilder()
-                .withUserId(createUserResponse.userId)
+                .withUserId(userId)
                 .withOdds(DecimalOdds.of(2.5))
                 .withEuros(Euros.of(8)).build()
         PlaceBet.Response placeBetResponse2 = placeBet.execute(placeBetRequest2)
@@ -71,7 +70,7 @@ class ScenarioSpec extends Specification {
 
         then: "My balance is 62 euros"
         GetUser.Request getUserRequest = GetUser.Request.newBuilder()
-                .withUserId(createUserResponse.userId).build()
+                .withUserId(userId).build()
         GetUser.Response getUserResponse = getUser.execute(getUserRequest)
         getUserResponse.balance == Euros.of(62)
     }
