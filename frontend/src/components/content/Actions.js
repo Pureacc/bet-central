@@ -27,7 +27,7 @@ class Actions extends React.Component {
                 </Typography>
                 <form>
                     {/*<Grid container direction="row" spacing={4}>*/}
-                        <Grid item container xs direction="column" spacing={16}>
+                        <Grid item container xs direction="column">
                             <TextField
                                 id="deposit-input"
                                 label="Deposit amount"

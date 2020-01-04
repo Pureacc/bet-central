@@ -8,7 +8,7 @@ class Home extends React.Component {
     render() {
         return <Typography variant="h4" gutterBottom component="h2">
             Home
-            <Grid item xs container direction="column" spacing={16}>
+            <Grid item xs container direction="column">
                 <TextField
                     id="username"
                     label="Username"

@@ -28,7 +28,7 @@ class Calculate extends React.Component {
           Calculate
         </Typography>
         <form>
-          <Grid item xs container direction="column" spacing={16}>
+          <Grid item xs container direction="column">
             <TextField
               id="odds-a"
               name="oddsA"
@@ -56,7 +56,7 @@ class Calculate extends React.Component {
               InputProps={{
                 startAdornment: <InputAdornment position="start">%</InputAdornment>,
               }}
-              disabled="true"
+              disabled={true}
               type="number"
               margin="normal"
             />
@@ -64,7 +64,7 @@ class Calculate extends React.Component {
               id="odds-a-no-vig"
               label="Odds A without vig"
               value={this.state.noVigOddsA}
-              disabled="true"
+              disabled={true}
               type="number"
               margin="normal"
             />
@@ -72,7 +72,7 @@ class Calculate extends React.Component {
               id="odds-b-no-vig"
               label="Odds B without vig"
               value={this.state.noVigOddsB}
-              disabled="true"
+              disabled={true}
               type="number"
               margin="normal"
             />
