@@ -73,6 +73,21 @@ class CreateDepositSpec extends AbstractApplicationSpec {
         null         | _
     }
 
+    def "An authenticated user cannot deposit euros into another user's account"() {
+        given: "I am an authenticated user"
+        User user = users.aUser()
+        authenticate(user)
+        and: "Another user"
+        User anotherUser = users.aUser()
+
+        when: "I deposit euros into the other user's account"
+        Request request = Request.newBuilder().withUserId(anotherUser.id).withEuros(Euros.of(10)).build()
+        deposit.execute(request)
+
+        then: "Access is denied"
+        thrown AccessDeniedException
+    }
+
     def "An unauthenticated user's access is denied"() {
         given: "I am unauthenticated"
         unauthenticate()

@@ -107,6 +107,24 @@ class PlaceBetSpec extends AbstractApplicationSpec {
         DecimalOdds.of(2)    | Euros.of(0)
     }
 
+    def "An authenticated user cannot place a bet for another user"() {
+        given: "I am an authenticated user"
+        User user = users.aUser()
+        authenticate(user)
+        and: "Another user"
+        User anotherUser = users.aUser()
+
+        when: "I place a bet for the other user"
+        Request request = Request.newBuilder()
+                .withUserId(anotherUser.id)
+                .withOdds(DecimalOdds.of(2))
+                .withEuros(Euros.of(5)).build()
+        placeBet.execute(request)
+
+        then: "Access is denied"
+        thrown AccessDeniedException
+    }
+
     def "An unauthenticated user's access is denied"() {
         given: "I am unauthenticated"
         unauthenticate()

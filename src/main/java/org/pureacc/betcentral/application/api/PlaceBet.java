@@ -10,12 +10,14 @@ import org.pureacc.betcentral.vocabulary.DecimalOdds;
 import org.pureacc.betcentral.vocabulary.Euros;
 import org.pureacc.betcentral.vocabulary.UserId;
 import org.pureacc.betcentral.vocabulary.annotation.Allow;
+import org.pureacc.betcentral.vocabulary.annotation.SecuredResource;
 
 public interface PlaceBet {
 	@Allow(AUTHENTICATED)
 	Response execute(@Valid Request request);
 
 	final class Request {
+		@SecuredResource
 		@Valid
 		@NotNull
 		private final UserId userId;
