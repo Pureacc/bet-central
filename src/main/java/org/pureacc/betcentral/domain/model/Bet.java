@@ -13,10 +13,7 @@ import org.pureacc.betcentral.domain.events.BetWonEvent;
 import org.pureacc.betcentral.domain.events.Event;
 import org.pureacc.betcentral.domain.model.snapshot.BetSnapshot;
 import org.pureacc.betcentral.domain.service.DomainEventPublisher;
-import org.pureacc.betcentral.vocabulary.BetId;
-import org.pureacc.betcentral.vocabulary.BetStatus;
-import org.pureacc.betcentral.vocabulary.DecimalOdds;
-import org.pureacc.betcentral.vocabulary.Euros;
+import org.pureacc.betcentral.vocabulary.*;
 
 public class Bet {
 	private BetId betId;
@@ -61,6 +58,10 @@ public class Bet {
 
 	public BetId getId() {
 		return betId;
+	}
+
+	public boolean isPlacedBy(UserId userId) {
+		return userId.equals(user.getId());
 	}
 
 	public boolean isWon() {
