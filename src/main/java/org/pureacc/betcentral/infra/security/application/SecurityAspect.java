@@ -12,9 +12,11 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.pureacc.betcentral.vocabulary.annotation.Allow;
 import org.pureacc.betcentral.vocabulary.annotation.SecuredResource;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
+@Order(2)
 @Component
 class SecurityAspect {
 	private final RoleSecurityControl roleSecurityControl;

@@ -7,13 +7,11 @@ import java.lang.annotation.Target;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Secured
 @Transactional(readOnly = true)
-@Validated
 @Component
 public @interface Query {
 }

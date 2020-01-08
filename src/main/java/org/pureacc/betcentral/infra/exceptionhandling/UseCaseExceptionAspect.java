@@ -11,9 +11,11 @@ import org.pureacc.betcentral.vocabulary.exception.SystemException;
 import org.pureacc.betcentral.vocabulary.exception.UserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 
 // TODO: translate ConstraintViolationException
 @Aspect
+@Order(0)
 class UseCaseExceptionAspect {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UseCaseExceptionAspect.class);
 
