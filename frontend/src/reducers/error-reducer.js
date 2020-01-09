@@ -7,7 +7,7 @@ export default function error(state = {}, action) {
         case GET_USER_REJECTED:
         case LOG_OUT_REJECTED:
             return {
-                message: action.payload.message
+                message: action.payload.response.data
             };
         default:
             return state;
