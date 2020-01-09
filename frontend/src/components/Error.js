@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {SnackbarContentWrapper} from "./SnackbarContentWrapper";
 import Snackbar from "@material-ui/core/Snackbar";
 import {connect} from "react-redux";
+import {clearError} from "../actions/error";
 
 class Error extends Component {
     constructor(props) {
@@ -21,7 +22,8 @@ class Error extends Component {
             return;
         }
 
-        this.setState({open: false})
+        this.setState({open: false});
+        this.props.actions.clearError();
     };
 
     render() {
@@ -54,4 +56,12 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps)(Error);
+const mapDispatchToProps = dispatch => {
+    return {
+        actions: {
+            clearError: () => dispatch(clearError())
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Error);
