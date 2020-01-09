@@ -48,9 +48,9 @@ class Error extends Component {
 }
 
 const mapStateToProps = state => {
-    const {user} = state;
+    const {error} = state;
     return {
-        message: user ? user.error : ""
+        message: error ? error.message : ""
     }
 };
 
