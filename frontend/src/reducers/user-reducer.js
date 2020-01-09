@@ -15,7 +15,10 @@ export default function user(state = {}, action) {
                 id: action.payload.data
             };
         case AUTHENTICATE_REJECTED:
-            return state;
+            return {
+                ...state,
+                error: action.payload.message
+            };
         case GET_USER_PENDING:
             return state;
         case GET_USER_FULFILLED:

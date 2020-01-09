@@ -9,6 +9,7 @@ import SignIn from "../content/SignIn";
 import Actions from "../content/Actions";
 import TopMenu from "../menu/top/TopMenu";
 import LeftMenu from "../menu/left/LeftMenu";
+import Error from "../Error";
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -50,6 +51,7 @@ class Dashboard extends React.Component {
                         <Route path="/bets" render={() =>
                             <SimpleTable/>
                         }/>
+                        <Error/>
                     </main>
 
                 </BrowserRouter>
