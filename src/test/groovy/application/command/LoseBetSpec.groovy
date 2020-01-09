@@ -91,6 +91,23 @@ class LoseBetSpec extends AbstractApplicationSpec {
         BetId.of(0)  | _
     }
 
+    def "An authenticated user cannot lose another user's bet"() {
+        given: "I am an authenticated user"
+        authenticate(users.aUser())
+        and: "Another user with a balance of 50 euros"
+        User anotherUser = users.aUser(Euros.of(50))
+        and: "The other user has placed a bet of 5 euros with status PENDING"
+        Bet bet = bets.aBet(anotherUser, Euros.of(5), PENDING)
+
+        when: "I lose the other user's bet"
+        LoseBet.Request request = LoseBet.Request.newBuilder()
+                .withBetId(bet.id).build()
+        loseBet.execute(request)
+
+        then: "Access is denied"
+        thrown AccessDeniedException
+    }
+
     def "An unauthenticated user's access is denied"() {
         given: "I am unauthenticated"
         unauthenticate()

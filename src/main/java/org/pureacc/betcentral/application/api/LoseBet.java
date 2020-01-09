@@ -7,12 +7,14 @@ import javax.validation.constraints.NotNull;
 
 import org.pureacc.betcentral.vocabulary.BetId;
 import org.pureacc.betcentral.vocabulary.annotation.Allow;
+import org.pureacc.betcentral.vocabulary.annotation.SecuredResource;
 
 public interface LoseBet {
 	@Allow(AUTHENTICATED)
 	void execute(@Valid Request request);
 
 	final class Request {
+		@SecuredResource
 		@Valid
 		@NotNull
 		private final BetId betId;
