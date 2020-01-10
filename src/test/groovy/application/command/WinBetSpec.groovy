@@ -92,10 +92,10 @@ class WinBetSpec extends AbstractApplicationSpec {
         thrown UserException
 
         where:
-        betId        | _
-        null         | _
-        BetId.of(-1) | _
-        BetId.of(0)  | _
+        betId        || error
+        null         || "betId must not be null"
+        BetId.of(-1) || "betId value must be greater than 0"
+        BetId.of(0)  || "betId value must be greater than 0"
     }
 
     def "An authenticated user cannot win another user's bet"() {

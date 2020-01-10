@@ -14,7 +14,7 @@ public class ToBetEntity {
 		}
 		betEntity.setUser(ToUserEntity.map(betSnapshot.getUser()));
 		betEntity.setOdds(betSnapshot.getOdds()
-				.getOdds());
+				.getValue());
 		betEntity.setEuros(betSnapshot.getEuros()
 				.getValue());
 		betEntity.setPlacedDate(betSnapshot.getPlacedDate());

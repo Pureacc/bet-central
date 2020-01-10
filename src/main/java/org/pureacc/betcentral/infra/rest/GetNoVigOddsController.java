@@ -35,9 +35,9 @@ class GetNoVigOddsController {
 			this.vigPercentage = response.getVig()
 					.getValue();
 			this.noVigOddsA = response.getNoVigOddsA()
-					.getOdds();
+					.getValue();
 			this.noVigOddsB = response.getNoVigOddsB()
-					.getOdds();
+					.getValue();
 		}
 
 		public double getVigPercentage() {

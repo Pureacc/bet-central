@@ -61,7 +61,7 @@ class LoseBetSpec extends AbstractApplicationSpec {
         loseBet.execute(request)
 
         then: "An exception is thrown"
-        UserException exception = thrown UserException
+        def exception = thrown UserException
         exception.message == "The bet status is invalid"
 
         where:
@@ -82,13 +82,14 @@ class LoseBetSpec extends AbstractApplicationSpec {
         loseBet.execute(request)
 
         then: "An exception is thrown"
-        thrown UserException
+        def exception = thrown UserException
+        exception.message == error
 
         where:
-        betId        | _
-        null         | _
-        BetId.of(-1) | _
-        BetId.of(0)  | _
+        betId        || error
+        null         || "betId must not be null"
+        BetId.of(-1) || "betId value must be greater than 0"
+        BetId.of(0)  || "betId value must be greater than 0"
     }
 
     def "An authenticated user cannot lose another user's bet"() {

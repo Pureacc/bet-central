@@ -74,7 +74,7 @@ class PlaceBetSpec extends AbstractApplicationSpec {
         placeBet.execute(request)
 
         then: "An exception is thrown"
-        UserException exception = thrown UserException
+        def exception = thrown UserException
         exception.message == "Your balance of ${balance} euros is insufficient"
 
         where:
@@ -97,14 +97,15 @@ class PlaceBetSpec extends AbstractApplicationSpec {
         placeBet.execute(request)
 
         then: "An exception is thrown"
-        thrown UserException
+        def exception = thrown UserException
+        exception.message == error
 
         where:
-        odds                 | euros
-        DecimalOdds.of(0.90) | Euros.of(5)
-        DecimalOdds.of(-2)   | Euros.of(5)
-        DecimalOdds.of(2)    | Euros.of(-1)
-        DecimalOdds.of(2)    | Euros.of(0)
+        odds                 | euros        || error
+        DecimalOdds.of(0.90) | Euros.of(5)  || "odds value must be greater than or equal to 1"
+        DecimalOdds.of(-2)   | Euros.of(5)  || "odds value must be greater than or equal to 1"
+        DecimalOdds.of(2)    | Euros.of(-1) || "euros value must be greater than 0"
+        DecimalOdds.of(2)    | Euros.of(0)  || "euros value must be greater than 0"
     }
 
     def "An authenticated user cannot place a bet for another user"() {

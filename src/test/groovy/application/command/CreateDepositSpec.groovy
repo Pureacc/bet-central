@@ -64,13 +64,14 @@ class CreateDepositSpec extends AbstractApplicationSpec {
         deposit.execute(request)
 
         then: "An exception is thrown"
-        thrown UserException
+        def exception = thrown UserException
+        exception.message == error
 
         where:
-        euros        | _
-        Euros.of(0)  | _
-        Euros.of(-1) | _
-        null         | _
+        euros        || error
+        Euros.of(0)  || "euros value must be greater than 0"
+        Euros.of(-1) || "euros value must be greater than 0"
+        null         || "euros must not be null"
     }
 
     def "An authenticated user cannot deposit euros into another user's account"() {

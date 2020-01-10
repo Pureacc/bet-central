@@ -6,26 +6,26 @@ import javax.validation.constraints.Min;
 
 public final class DecimalOdds {
 	@Min(1)
-	private final double odds;
+	private final double value;
 
-	private DecimalOdds(double odds) {
-		this.odds = odds;
+	private DecimalOdds(double value) {
+		this.value = value;
 	}
 
 	public static DecimalOdds of(double odds) {
 		return new DecimalOdds(odds);
 	}
 
-	public double getOdds() {
-		return odds;
+	public double getValue() {
+		return value;
 	}
 
 	public Percentage getProbability() {
-		return Percentage.of(100.0 / odds);
+		return Percentage.of(100.0 / value);
 	}
 
 	public Euros calculate(Euros euros) {
-		return Euros.of(euros.getValue() * odds);
+		return Euros.of(euros.getValue() * value);
 	}
 
 	@Override
@@ -35,16 +35,16 @@ public final class DecimalOdds {
 		if (o == null || getClass() != o.getClass())
 			return false;
 		DecimalOdds that = (DecimalOdds) o;
-		return Double.compare(that.odds, odds) == 0;
+		return Double.compare(that.value, value) == 0;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(odds);
+		return Objects.hash(value);
 	}
 
 	@Override
 	public String toString() {
-		return String.valueOf(odds);
+		return String.valueOf(value);
 	}
 }

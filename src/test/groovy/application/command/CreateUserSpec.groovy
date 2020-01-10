@@ -31,11 +31,11 @@ class CreateUserSpec extends AbstractApplicationSpec {
     UserRepository userRepository
 
     @Unroll
-    def "An unauthenticated user can create a new user with username #username and password #password"() {
+    def "An unauthenticated user can create a new user with username '#username' and password '#password.value'"() {
         given: "I am unauthenticated"
         unauthenticate()
 
-        when: "I create a new user with username #username and password #password"
+        when: "I create a new user with username '#username' and password '#password.value'"
         Request request = Request.newBuilder().withUsername(username).withPassword(password).build()
         Response response = createUser.execute(request)
 
@@ -58,28 +58,29 @@ class CreateUserSpec extends AbstractApplicationSpec {
     }
 
     @Unroll
-    def "An unauthenticated user cannot create a new user with username #username and password #password"() {
+    def "An unauthenticated user cannot create a new user with username '#username' and password '#password.value'"() {
         given: "I am unauthenticated"
         unauthenticate()
 
-        when: "I create a new user with username #username and password #password"
+        when: "I create a new user with username '#username' and password '#password.value'"
         Request request = Request.newBuilder().withUsername(username).withPassword(password).build()
         createUser.execute(request)
 
         then: "An exception is thrown"
-        thrown UserException
+        def exception = thrown UserException
+        exception.message == error
 
         where:
-        username                                               | password
-        Username.of("")                                        | Password.of("hunter2")
-        Username.of("   ")                                     | Password.of("hunter2")
-        Username.of(null)                                      | Password.of("hunter2")
-        Username.of(randomAlphabetic(USERNAME_LENGTH_MIN - 1)) | Password.of("hunter2")
-        Username.of(randomAlphabetic(USERNAME_LENGTH_MAX + 1)) | Password.of("hunter2")
-        null                                                   | Password.of("hunter2")
-        Username.of("Bettor420")                               | Password.of("")
-        Username.of("Bettor420")                               | Password.of("   ")
-        Username.of("Bettor420")                               | Password.of(null)
+        username                                               | password               || error
+        Username.of("")                                        | Password.of("hunter2") || "username value size must be between 8 and 32"
+        Username.of("   ")                                     | Password.of("hunter2") || "username value size must be between 8 and 32"
+        Username.of(null)                                      | Password.of("hunter2") || "username value must not be null"
+        Username.of(randomAlphabetic(USERNAME_LENGTH_MIN - 1)) | Password.of("hunter2") || "username value size must be between 8 and 32"
+        Username.of(randomAlphabetic(USERNAME_LENGTH_MAX + 1)) | Password.of("hunter2") || "username value size must be between 8 and 32"
+        null                                                   | Password.of("hunter2") || "username must not be null"
+        Username.of("Bettor420")                               | Password.of("")        || "password value must not be blank"
+        Username.of("Bettor420")                               | Password.of("   ")     || "password value must not be blank"
+        Username.of("Bettor420")                               | Password.of(null)      || "password value must not be blank"
     }
 
     def "An authenticated user's access is denied"() {

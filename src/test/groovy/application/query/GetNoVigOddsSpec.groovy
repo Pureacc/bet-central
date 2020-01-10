@@ -53,7 +53,8 @@ class GetNoVigOddsSpec extends AbstractApplicationSpec {
         getNoVigOdds.execute(request)
 
         then: "An exception is thrown"
-        thrown UserException
+        def exception = thrown UserException
+        exception.message == "oddsA value must be greater than or equal to 1"
 
         where:
         oddsA                | oddsB

@@ -1,6 +1,10 @@
 package org.pureacc.betcentral.infra.exceptionhandling;
 
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import javax.validation.ConstraintViolationException;
+import javax.validation.Path;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -45,11 +49,25 @@ class UseCaseExceptionAspect {
 			String message = errorTranslator.translate(domainException);
 			throw new UserException(message);
 		} catch (ConstraintViolationException constraintViolationException) {
-			throw new UserException(constraintViolationException.getMessage());
+			throw new UserException(translateConstraintViolation(constraintViolationException));
 		} catch (SystemException systemException) {
 			String message = errorTranslator.translate("error.generic");
 			LOGGER.error(message, systemException);
 			throw new UserException(message);
 		}
+	}
+
+	private String translateConstraintViolation(ConstraintViolationException exception) {
+		return exception.getConstraintViolations()
+				.stream()
+				.map(cv -> getField(cv.getPropertyPath()) + " " + cv.getMessage())
+				.collect(Collectors.joining(", "));
+	}
+
+	private String getField(Path path) {
+		return StreamSupport.stream(path.spliterator(), false)
+				.skip(2)
+				.map(Path.Node::getName)
+				.collect(Collectors.joining(" "));
 	}
 }

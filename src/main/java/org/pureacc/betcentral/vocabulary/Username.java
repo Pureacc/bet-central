@@ -2,13 +2,13 @@ package org.pureacc.betcentral.vocabulary;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public final class Username {
 	@Size(min = 8,
 		  max = 32)
-	@NotBlank
+	@NotNull
 	private final String value;
 
 	private Username(String value) {

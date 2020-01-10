@@ -58,7 +58,7 @@ class UpdateBalanceSpec extends AbstractApplicationSpec {
         when: "The system substracts #euros euros from the user's balance"
         Request request = Request.newBuilder()
                 .withUserId(user.id)
-                .withOperation(operation)
+                .withOperation(Operation.SUBSTRACT)
                 .withEuros(euros).build()
         updateBalance.execute(request)
 
@@ -67,9 +67,9 @@ class UpdateBalanceSpec extends AbstractApplicationSpec {
         exception.message == "Your balance of ${balance} euros is insufficient"
 
         where:
-        balance      | operation           | euros
-        Euros.of(0)  | Operation.SUBSTRACT | Euros.of(5)
-        Euros.of(10) | Operation.SUBSTRACT | Euros.of(15)
+        balance      | euros
+        Euros.of(0)  | Euros.of(5)
+        Euros.of(10) | Euros.of(15)
     }
 
     def "A user without the SYSTEM authority is denied access"() {
