@@ -13,6 +13,10 @@ const DEPOSIT = "DEPOSIT";
 export const DEPOSIT_PENDING = `${DEPOSIT}_${ActionType.Pending}`;
 export const DEPOSIT_FULFILLED = `${DEPOSIT}_${ActionType.Fulfilled}`;
 export const DEPOSIT_REJECTED = `${DEPOSIT}_${ActionType.Rejected}`;
+const PLACE_BET = "PLACE_BET";
+export const PLACE_BET_PENDING = `${PLACE_BET}_${ActionType.Pending}`;
+export const PLACE_BET_FULFILLED = `${PLACE_BET}_${ActionType.Fulfilled}`;
+export const PLACE_BET_REJECTED = `${PLACE_BET}_${ActionType.Rejected}`;
 const LOG_OUT = "LOG_OUT";
 export const LOG_OUT_PENDING = `${LOG_OUT}_${ActionType.Pending}`;
 export const LOG_OUT_FULFILLED = `${LOG_OUT}_${ActionType.Fulfilled}`;
@@ -36,6 +40,13 @@ export function deposit(userId, euros) {
     return {
         type: DEPOSIT,
         payload: api.deposit(userId, euros)
+    }
+}
+
+export function placeBet(userId, euros, odds) {
+    return {
+        type: PLACE_BET,
+        payload: api.placeBet(userId, euros, odds)
     }
 }
 

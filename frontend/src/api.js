@@ -12,6 +12,10 @@ export function deposit(userId, euros) {
     return Axios.post('/api/balance/deposit', {userId: userId, euros: euros});
 }
 
+export function placeBet(userId, euros, odds) {
+    return Axios.post('/api/bet/place', {userId: userId, euros: euros, odds: odds});
+}
+
 export function logOut() {
     return Axios.post('/logout');
 }

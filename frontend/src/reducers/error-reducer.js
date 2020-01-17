@@ -1,10 +1,17 @@
-import {AUTHENTICATE_REJECTED, DEPOSIT_REJECTED, GET_USER_REJECTED, LOG_OUT_REJECTED} from "../actions/user";
+import {
+    AUTHENTICATE_REJECTED,
+    DEPOSIT_REJECTED,
+    GET_USER_REJECTED,
+    LOG_OUT_REJECTED,
+    PLACE_BET_REJECTED
+} from "../actions/user";
 import {CLEAR_ERROR} from "../actions/error";
 
 export default function error(state = {}, action) {
     switch (action.type) {
         case AUTHENTICATE_REJECTED:
         case DEPOSIT_REJECTED:
+        case PLACE_BET_REJECTED:
         case GET_USER_REJECTED:
         case LOG_OUT_REJECTED:
             return {
