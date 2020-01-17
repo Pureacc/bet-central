@@ -13,6 +13,10 @@ class Actions extends React.Component {
         this.state = {depositAmount: 50, betAmount: 10, betOdds: 2.00};
     }
 
+    handleChangeOdds = event => {
+        this.setState({[event.target.name]: event.target.value});
+    };
+
     handleDeposit = event => {
         const {actions, userId} = this.props;
         const {depositAmount} = this.state;
@@ -39,9 +43,11 @@ class Actions extends React.Component {
                             </Typography>
                             <TextField
                                 id="deposit-input"
+                                name="depositAmount"
                                 label="Deposit amount"
                                 value={this.state.depositAmount}
                                 inputProps={{min: "1", step: "1"}}
+                                onChange={this.handleChangeOdds}
                                 type="number"
                                 margin="normal"
                             />
@@ -55,17 +61,21 @@ class Actions extends React.Component {
                             </Typography>
                             <TextField
                                 id="bet-amount-input"
+                                name="betAmount"
                                 label="Bet amount"
                                 value={this.state.betAmount}
                                 inputProps={{min: "0"}}
+                                onChange={this.handleChangeOdds}
                                 type="number"
                                 margin="normal"
                             />
                             <TextField
                                 id="bet-odds-input"
+                                name="betOdds"
                                 label="Bet odds"
                                 value={this.state.betOdds}
                                 inputProps={{min: "1", step: "0.01"}}
+                                onChange={this.handleChangeOdds}
                                 type="number"
                                 margin="normal"
                             />
