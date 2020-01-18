@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import {CssBaseline, withStyles} from '@material-ui/core'
 import SimpleTable from '../content/Bets';
 import Calculate from "../content/Calculate";
@@ -10,6 +10,10 @@ import Actions from "../content/Actions";
 import TopMenu from "../menu/top/TopMenu";
 import LeftMenu from "../menu/left/LeftMenu";
 import Error from "../Error";
+import {SecuredRoute} from "./SecuredRoute";
+import {compose} from "recompose";
+import {connect} from "react-redux";
+import {Landing} from "../content/Landing";
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -42,15 +46,19 @@ class Dashboard extends React.Component {
 
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer}/>
-                        <Route exact path="/" render={(props) => <Home {...props} />}/>
-                        <Route path="/register" component={Register}/>
-                        <Route path="/signin"
-                               render={(props) => <SignIn {...props} />}/>
-                        <Route path="/actions" component={Actions}/>
-                        <Route path="/calculate" component={Calculate}/>
-                        <Route path="/bets" render={() =>
-                            <SimpleTable/>
-                        }/>
+                        <Switch>
+                            {this.props.authenticated && <Route exact path="/" component={Home}/>}
+                            {this.props.authenticated || <Route exact path="/" component={Landing}/>}
+                            <Route path="/register" component={Register}/>
+                            <Route path="/signin"
+                                   render={(props) => <SignIn {...props} />}/>
+                            <SecuredRoute path="/actions" component={Actions}
+                                          isAuthenticated={this.props.authenticated}/>
+                            <SecuredRoute path="/bets" isAuthenticated={this.props.authenticated} render={() =>
+                                <SimpleTable/>
+                            }/>
+                            <Route path="/calculate" component={Calculate}/>
+                        </Switch>
                         <Error/>
                     </main>
 
@@ -73,4 +81,11 @@ const styles = theme => ({
     },
 });
 
-export default withStyles(styles)(Dashboard);
+const mapStateToProps = state => ({
+    authenticated: !!state.user.id,
+});
+
+export default compose(
+    withStyles(styles),
+    connect(mapStateToProps),
+)(Dashboard);

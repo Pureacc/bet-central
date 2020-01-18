@@ -1,12 +1,14 @@
 import * as React from "react";
 import classNames from "classnames";
-import {Divider, Drawer, IconButton, List, withStyles} from "@material-ui/core";
+import {Divider, Drawer, IconButton, withStyles} from "@material-ui/core";
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import {mainListItems, secondaryListItems} from "./listItems";
+import {MainListItems, SecondaryListItems} from "./listItems";
+import {compose} from "recompose";
+import {connect} from "react-redux";
 
 class LeftMenu extends React.Component {
     render() {
-        const {classes} = this.props;
+        const {classes, authenticated} = this.props;
 
         return (
             <Drawer
@@ -22,9 +24,9 @@ class LeftMenu extends React.Component {
                     </IconButton>
                 </div>
                 <Divider/>
-                <List>{mainListItems}</List>
+                <MainListItems isAuthenticated={authenticated}/>
                 <Divider/>
-                <List>{secondaryListItems}</List>
+                <SecondaryListItems isAuthenticated={authenticated}/>
             </Drawer>
         )
     }
@@ -62,4 +64,11 @@ const styles = theme => ({
     },
 });
 
-export default withStyles(styles)(LeftMenu);
+const mapStateToProps = state => ({
+    authenticated: !!state.user.id,
+});
+
+export default compose(
+    withStyles(styles),
+    connect(mapStateToProps),
+)(LeftMenu);
