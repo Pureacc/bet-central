@@ -57,6 +57,11 @@ class UserDetailsImpl implements UserDetails {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return username + " (" + id + ")";
+	}
+
 	public long getId() {
 		return id;
 	}

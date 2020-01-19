@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@Audit
 @Secured
 @Transactional(readOnly = true)
 @Component

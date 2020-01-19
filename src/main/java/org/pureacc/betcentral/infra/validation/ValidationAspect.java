@@ -13,7 +13,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
-@Order(1)
+@Order(2)
 @Component
 class ValidationAspect {
 	private final Validator validator;

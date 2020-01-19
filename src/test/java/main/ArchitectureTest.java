@@ -26,13 +26,15 @@ public class ArchitectureTest {
 	private static final String INFRA_SECURITY = "org.pureacc.betcentral.infra.security..";
 	private static final String INFRA_EXCEPTION_HANDLING = "org.pureacc.betcentral.infra.exceptionhandling..";
 	private static final String INFRA_VALIDATION = "org.pureacc.betcentral.infra.validation..";
+	private static final String INFRA_AUDIT = "org.pureacc.betcentral.infra.audit..";
 	private static final String[] CALLING_INFRA = new String[] { INFRA_REST };
 	private static final String[] IMPLEMENTING_INFRA = new String[] { INFRA_JPA,
 																	  INFRA_EVENTS,
 																	  INFRA_TIME,
 																	  INFRA_SECURITY,
 																	  INFRA_EXCEPTION_HANDLING,
-																	  INFRA_VALIDATION };
+																	  INFRA_VALIDATION,
+																	  INFRA_AUDIT};
 
 	private static final String WHITELIST = "java..";
 

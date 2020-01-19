@@ -5,14 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Audit
-@Secured
-@Transactional
-@Component
-public @interface Command {
+public @interface Audit {
 }
