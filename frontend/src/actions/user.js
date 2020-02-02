@@ -1,6 +1,7 @@
 import * as api from "../api";
 
 import {ActionType} from 'redux-promise-middleware';
+
 const AUTHENTICATE = "AUTHENTICATE";
 export const AUTHENTICATE_PENDING = `${AUTHENTICATE}_${ActionType.Pending}`;
 export const AUTHENTICATE_FULFILLED = `${AUTHENTICATE}_${ActionType.Fulfilled}`;
@@ -44,9 +45,11 @@ export function deposit(userId, euros) {
 }
 
 export function placeBet(userId, euros, odds) {
-    return {
-        type: PLACE_BET,
-        payload: api.placeBet(userId, euros, odds)
+    return (dispatch) => {
+        const response = dispatch(doPlaceBet(userId, euros, odds));
+        response.then(() => {
+            dispatch(getUser(userId));
+        })
     }
 }
 
@@ -54,5 +57,12 @@ export function logOut() {
     return {
         type: LOG_OUT,
         payload: api.logOut()
+    }
+}
+
+function doPlaceBet(userId, euros, odds) {
+    return {
+        type: PLACE_BET,
+        payload: api.placeBet(userId, euros, odds)
     }
 }
