@@ -38,9 +38,11 @@ export function getUser(userId) {
 }
 
 export function deposit(userId, euros) {
-    return {
-        type: DEPOSIT,
-        payload: api.deposit(userId, euros)
+    return (dispatch) => {
+        const response = dispatch(doDeposit(userId, euros));
+        response.then(() => {
+            dispatch(getUser(userId));
+        })
     }
 }
 
@@ -57,6 +59,13 @@ export function logOut() {
     return {
         type: LOG_OUT,
         payload: api.logOut()
+    }
+}
+
+function doDeposit(userId, euros) {
+    return {
+        type: DEPOSIT,
+        payload: api.deposit(userId, euros)
     }
 }
 

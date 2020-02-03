@@ -19,13 +19,12 @@ class BalanceController {
 	}
 
 	@PostMapping("api/balance/deposit")
-	public DepositWebResponse deposit(@RequestBody DepositWebRequest webRequest) {
+	public void deposit(@RequestBody DepositWebRequest webRequest) {
 		CreateDeposit.Request request = CreateDeposit.Request.newBuilder()
 				.withUserId(webRequest.getUserId())
 				.withEuros(webRequest.getEuros())
 				.build();
-		CreateDeposit.Response response = createDeposit.execute(request);
-		return new DepositWebResponse(response.getBalance());
+		createDeposit.execute(request);
 	}
 
 	static final class DepositWebRequest {
@@ -44,18 +43,6 @@ class BalanceController {
 
 		public Euros getEuros() {
 			return Euros.of(euros);
-		}
-	}
-
-	static final class DepositWebResponse {
-		private final double balance;
-
-		DepositWebResponse(Euros balance) {
-			this.balance = balance.getValue();
-		}
-
-		public double getBalance() {
-			return balance;
 		}
 	}
 }

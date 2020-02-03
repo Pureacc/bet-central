@@ -1,8 +1,6 @@
 import {
     AUTHENTICATE_FULFILLED,
     AUTHENTICATE_PENDING,
-    DEPOSIT_FULFILLED,
-    DEPOSIT_PENDING,
     GET_USER_FULFILLED,
     GET_USER_PENDING,
     LOG_OUT_FULFILLED,
@@ -24,13 +22,6 @@ export default function user(state = {}, action) {
             return {
                 ...state,
                 name: action.payload.data.username,
-                balance: action.payload.data.balance
-            };
-        case DEPOSIT_PENDING:
-            return state;
-        case DEPOSIT_FULFILLED:
-            return {
-                ...state,
                 balance: action.payload.data.balance
             };
         case LOG_OUT_PENDING:
