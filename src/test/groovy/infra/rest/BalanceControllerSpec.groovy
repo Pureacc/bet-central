@@ -1,6 +1,6 @@
 package infra.rest
 
-import org.pureacc.betcentral.application.api.CreateDeposit
+import org.pureacc.betcentral.application.api.PlaceDeposit
 import org.pureacc.betcentral.infra.rest.BalanceController
 import org.pureacc.betcentral.vocabulary.Euros
 import org.pureacc.betcentral.vocabulary.UserId
@@ -19,7 +19,7 @@ import static testutil.ResourceReader.asString
 @Unroll
 class BalanceControllerSpec extends AbstractControllerSpec {
     @SpringBean
-    CreateDeposit createDeposit = Mock(CreateDeposit)
+    PlaceDeposit placeDeposit = Mock(PlaceDeposit)
     @Value("classpath:web/balance-deposit-request.json")
     Resource depositRequest
 
@@ -28,7 +28,7 @@ class BalanceControllerSpec extends AbstractControllerSpec {
         def result = mvc.perform(post(url).contentType(APPLICATION_JSON).content(asString(depositRequest)))
 
         then: "A deposit is made"
-        1 * createDeposit.execute({
+        1 * placeDeposit.execute({
             it.userId == UserId.of(userId)
             it.euros == Euros.of(euros)
         })

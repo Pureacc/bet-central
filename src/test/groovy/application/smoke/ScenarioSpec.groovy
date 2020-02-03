@@ -22,7 +22,7 @@ class ScenarioSpec extends Specification {
     @Autowired
     CreateUser createUser
     @Autowired
-    CreateDeposit createDeposit
+    PlaceDeposit placeDeposit
     @Autowired
     PlaceBet placeBet
     @Autowired
@@ -43,10 +43,10 @@ class ScenarioSpec extends Specification {
         User user = userRepository.get(userId)
         authenticate(user)
         and: "I deposit 50 euros"
-        CreateDeposit.Request depositRequest = CreateDeposit.Request.newBuilder()
+        PlaceDeposit.Request depositRequest = PlaceDeposit.Request.newBuilder()
                 .withUserId(userId)
                 .withEuros(Euros.of(50)).build()
-        createDeposit.execute(depositRequest)
+        placeDeposit.execute(depositRequest)
         and: "I place a bet for 10 euros with decimal odds of 3"
         PlaceBet.Request placeBetRequest = PlaceBet.Request.newBuilder()
                 .withUserId(userId)

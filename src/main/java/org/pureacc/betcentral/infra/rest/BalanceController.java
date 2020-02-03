@@ -1,6 +1,6 @@
 package org.pureacc.betcentral.infra.rest;
 
-import org.pureacc.betcentral.application.api.CreateDeposit;
+import org.pureacc.betcentral.application.api.PlaceDeposit;
 import org.pureacc.betcentral.vocabulary.Euros;
 import org.pureacc.betcentral.vocabulary.UserId;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,19 +12,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @RestController
 class BalanceController {
-	private final CreateDeposit createDeposit;
+	private final PlaceDeposit placeDeposit;
 
-	BalanceController(CreateDeposit createDeposit) {
-		this.createDeposit = createDeposit;
+	BalanceController(PlaceDeposit placeDeposit) {
+		this.placeDeposit = placeDeposit;
 	}
 
 	@PostMapping("api/balance/deposit")
 	public void deposit(@RequestBody DepositWebRequest webRequest) {
-		CreateDeposit.Request request = CreateDeposit.Request.newBuilder()
+		PlaceDeposit.Request request = PlaceDeposit.Request.newBuilder()
 				.withUserId(webRequest.getUserId())
 				.withEuros(webRequest.getEuros())
 				.build();
-		createDeposit.execute(request);
+		placeDeposit.execute(request);
 	}
 
 	static final class DepositWebRequest {

@@ -1,7 +1,7 @@
 package application.command
 
 import application.AbstractApplicationSpec
-import org.pureacc.betcentral.application.api.CreateDeposit
+import org.pureacc.betcentral.application.api.PlaceDeposit
 import org.pureacc.betcentral.domain.events.DepositEvent
 import org.pureacc.betcentral.domain.model.Deposit
 import org.pureacc.betcentral.domain.model.User
@@ -14,11 +14,11 @@ import spock.lang.Unroll
 
 import static infra.security.web.Authentications.authenticate
 import static infra.security.web.Authentications.unauthenticate
-import static org.pureacc.betcentral.application.api.CreateDeposit.Request
+import static org.pureacc.betcentral.application.api.PlaceDeposit.Request
 
-class CreateDepositSpec extends AbstractApplicationSpec {
+class PlaceDepositSpec extends AbstractApplicationSpec {
     @Autowired
-    CreateDeposit deposit
+    PlaceDeposit deposit
     @Autowired
     DepositRepository depositRepository
 

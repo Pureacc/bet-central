@@ -10,7 +10,7 @@ import org.pureacc.betcentral.vocabulary.UserId;
 import org.pureacc.betcentral.vocabulary.annotation.Allow;
 import org.pureacc.betcentral.vocabulary.annotation.SecuredResource;
 
-public interface CreateDeposit {
+public interface PlaceDeposit {
 	@Allow(AUTHENTICATED)
 	void execute(@Valid Request request);
 
