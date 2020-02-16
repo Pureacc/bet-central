@@ -14,6 +14,7 @@ import {SecuredRoute} from "./SecuredRoute";
 import {compose} from "recompose";
 import {connect} from "react-redux";
 import {Landing} from "../content/Landing";
+import Success from "../Success";
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -60,6 +61,7 @@ class Dashboard extends React.Component {
                             <Route path="/calculate" component={Calculate}/>
                         </Switch>
                         <Error/>
+                        <Success/>
                     </main>
 
                 </BrowserRouter>
