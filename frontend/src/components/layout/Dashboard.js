@@ -9,12 +9,11 @@ import SignIn from "../content/SignIn";
 import Actions from "../content/Actions";
 import TopMenu from "../menu/top/TopMenu";
 import LeftMenu from "../menu/left/LeftMenu";
-import Error from "../Error";
 import {SecuredRoute} from "./SecuredRoute";
 import {compose} from "recompose";
 import {connect} from "react-redux";
 import {Landing} from "../content/Landing";
-import Success from "../Success";
+import Message from "../Message";
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -60,8 +59,7 @@ class Dashboard extends React.Component {
                             }/>
                             <Route path="/calculate" component={Calculate}/>
                         </Switch>
-                        <Error/>
-                        <Success/>
+                        <Message/>
                     </main>
 
                 </BrowserRouter>

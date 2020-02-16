@@ -34,7 +34,7 @@ export default class Toast extends Component {
                     horizontal: 'center',
                 }}
                 open={this.state.open}
-                autoHideDuration={6000}
+                autoHideDuration={5000}
                 onClose={this.handleClose}
             >
                 <SnackbarContentWrapper

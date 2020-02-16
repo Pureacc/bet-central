@@ -1,6 +1,5 @@
 import {combineReducers} from "redux";
 import user from "./user-reducer";
-import error from "./error-reducer";
-import success from "./success-reducer";
+import message from "./message-reducer";
 
-export default combineReducers({user, error, success})
+export default combineReducers({user, message})
