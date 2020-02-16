@@ -24,6 +24,8 @@ class ScenarioSpec extends Specification {
     @Autowired
     PlaceDeposit placeDeposit
     @Autowired
+    PlaceWithdrawal placeWithdrawal
+    @Autowired
     PlaceBet placeBet
     @Autowired
     WinBet winBet
@@ -32,7 +34,7 @@ class ScenarioSpec extends Specification {
     @Autowired
     GetUser getUser
 
-    def "I can create a user, deposit and place bets that win or lose"() {
+    def "I can create a user, deposit money, place bets that win or lose and withdraw money"() {
         when: "I create a user"
         CreateUser.Request createUserRequest = CreateUser.Request.newBuilder()
                 .withUsername(Username.of("John Doe"))
@@ -67,11 +69,16 @@ class ScenarioSpec extends Specification {
         LoseBet.Request loseBetRequest = LoseBet.Request.newBuilder()
                 .withBetId(placeBetResponse2.betId).build()
         loseBet.execute(loseBetRequest)
+        and: "I withdraw 30 euros"
+        PlaceWithdrawal.Request withdrawalRequest = PlaceWithdrawal.Request.newBuilder()
+                .withUserId(userId)
+                .withEuros(Euros.of(30)).build()
+        placeWithdrawal.execute(withdrawalRequest)
 
-        then: "My balance is 62 euros"
+        then: "My balance is 32 euros"
         GetUser.Request getUserRequest = GetUser.Request.newBuilder()
                 .withUserId(userId).build()
         GetUser.Response getUserResponse = getUser.execute(getUserRequest)
-        getUserResponse.balance == Euros.of(62)
+        getUserResponse.balance == Euros.of(32)
     }
 }
