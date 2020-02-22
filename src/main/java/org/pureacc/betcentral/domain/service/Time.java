@@ -1,7 +1,7 @@
 package org.pureacc.betcentral.domain.service;
 
-import java.util.Date;
+import java.time.Instant;
 
 public interface Time {
-	public Date now();
+	public Instant now();
 }

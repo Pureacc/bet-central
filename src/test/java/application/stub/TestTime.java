@@ -1,14 +1,14 @@
 package application.stub;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.pureacc.betcentral.domain.service.Time;
 
 public class TestTime implements Time {
-	private static final Date NOW = new Date();
+	private static final Instant NOW = Instant.now();
 
 	@Override
-	public Date now() {
+	public Instant now() {
 		return NOW;
 	}
 }

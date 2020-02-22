@@ -1,6 +1,6 @@
 package org.pureacc.betcentral.domain.model.snapshot;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.pureacc.betcentral.domain.model.User;
 import org.pureacc.betcentral.vocabulary.Euros;
@@ -8,7 +8,7 @@ import org.pureacc.betcentral.vocabulary.Euros;
 public final class WithdrawalSnapshot {
 	private final User user;
 	private final Euros euros;
-	private final Date date;
+	private final Instant date;
 
 	private WithdrawalSnapshot(Builder builder) {
 		user = builder.user;
@@ -28,14 +28,14 @@ public final class WithdrawalSnapshot {
 		return euros;
 	}
 
-	public Date getDate() {
+	public Instant getDate() {
 		return date;
 	}
 
 	public static final class Builder {
 		private User user;
 		private Euros euros;
-		private Date date;
+		private Instant date;
 
 		private Builder() {
 		}
@@ -50,7 +50,7 @@ public final class WithdrawalSnapshot {
 			return this;
 		}
 
-		public Builder withDate(Date date) {
+		public Builder withDate(Instant date) {
 			this.date = date;
 			return this;
 		}

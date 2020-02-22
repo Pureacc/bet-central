@@ -1,7 +1,7 @@
-export const CLEAR = "CLEAR";
+export const CLEAR_MESSAGE = "CLEAR";
 
 export function clear() {
     return {
-        type: CLEAR
+        type: CLEAR_MESSAGE
     }
 }

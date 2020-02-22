@@ -1,6 +1,6 @@
 package org.pureacc.betcentral.domain.service;
 
-import java.util.Date;
+import java.time.Instant;
 
 public class DomainTime {
 	private static Time time;
@@ -9,7 +9,7 @@ public class DomainTime {
 		DomainTime.time = time;
 	}
 
-	public static Date now() {
+	public static Instant now() {
 		return time.now();
 	}
 }

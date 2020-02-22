@@ -5,7 +5,7 @@ import static org.pureacc.betcentral.vocabulary.BetStatus.LOST;
 import static org.pureacc.betcentral.vocabulary.BetStatus.PENDING;
 import static org.pureacc.betcentral.vocabulary.BetStatus.WON;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.pureacc.betcentral.domain.DomainException;
 import org.pureacc.betcentral.domain.events.BetPlacedEvent;
@@ -20,8 +20,8 @@ public class Bet {
 	private User user;
 	private DecimalOdds odds;
 	private Euros stake;
-	private Date placedDate;
-	private Date resolveDate;
+	private Instant placedDate;
+	private Instant resolveDate;
 	private BetStatus status;
 
 	public Bet(User user, DecimalOdds odds, Euros stake) {

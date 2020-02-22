@@ -2,7 +2,7 @@ package org.pureacc.betcentral.domain.model;
 
 import static org.pureacc.betcentral.domain.service.DomainTime.now;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.pureacc.betcentral.domain.events.WithdrawalEvent;
 import org.pureacc.betcentral.domain.model.snapshot.WithdrawalSnapshot;
@@ -12,7 +12,7 @@ import org.pureacc.betcentral.vocabulary.Euros;
 public class Withdrawal {
 	private User user;
 	private Euros euros;
-	private Date date;
+	private Instant date;
 
 	public Withdrawal(User user, Euros euros) {
 		user.validateSufficientBalance(euros);

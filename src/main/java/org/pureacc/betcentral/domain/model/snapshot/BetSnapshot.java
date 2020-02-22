@@ -1,6 +1,6 @@
 package org.pureacc.betcentral.domain.model.snapshot;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.pureacc.betcentral.domain.model.User;
 import org.pureacc.betcentral.vocabulary.BetId;
@@ -13,8 +13,8 @@ public final class BetSnapshot {
 	private final User user;
 	private final DecimalOdds odds;
 	private final Euros euros;
-	private final Date placedDate;
-	private final Date resolveDate;
+	private final Instant placedDate;
+	private final Instant resolveDate;
 	private final BetStatus status;
 
 	private BetSnapshot(Builder builder) {
@@ -47,11 +47,11 @@ public final class BetSnapshot {
 		return euros;
 	}
 
-	public Date getPlacedDate() {
+	public Instant getPlacedDate() {
 		return placedDate;
 	}
 
-	public Date getResolveDate() {
+	public Instant getResolveDate() {
 		return resolveDate;
 	}
 
@@ -64,8 +64,8 @@ public final class BetSnapshot {
 		private User user;
 		private DecimalOdds odds;
 		private Euros euros;
-		private Date placedDate;
-		private Date resolveDate;
+		private Instant placedDate;
+		private Instant resolveDate;
 		private BetStatus status;
 
 		private Builder() {
@@ -91,12 +91,12 @@ public final class BetSnapshot {
 			return this;
 		}
 
-		public Builder withPlacedDate(Date placedDate) {
+		public Builder withPlacedDate(Instant placedDate) {
 			this.placedDate = placedDate;
 			return this;
 		}
 
-		public Builder withResolveDate(Date resolveDate) {
+		public Builder withResolveDate(Instant resolveDate) {
 			this.resolveDate = resolveDate;
 			return this;
 		}

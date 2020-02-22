@@ -2,6 +2,7 @@ import * as api from "../api";
 
 import {ActionType} from 'redux-promise-middleware';
 
+export const RESTORE_SESSION = "RESTORE_SESSION";
 const AUTHENTICATE = "AUTHENTICATE";
 export const AUTHENTICATE_PENDING = `${AUTHENTICATE}_${ActionType.Pending}`;
 export const AUTHENTICATE_FULFILLED = `${AUTHENTICATE}_${ActionType.Fulfilled}`;
@@ -22,6 +23,13 @@ const LOG_OUT = "LOG_OUT";
 export const LOG_OUT_PENDING = `${LOG_OUT}_${ActionType.Pending}`;
 export const LOG_OUT_FULFILLED = `${LOG_OUT}_${ActionType.Fulfilled}`;
 export const LOG_OUT_REJECTED = `${LOG_OUT}_${ActionType.Rejected}`;
+
+export function restoreSession(userId) {
+    return (dispatch) => {
+        dispatch(doRestoreSession(userId));
+        dispatch(getUser(userId));
+    }
+}
 
 export function authenticate(username, password) {
     return {
@@ -59,6 +67,13 @@ export function logOut() {
     return {
         type: LOG_OUT,
         payload: api.logOut()
+    }
+}
+
+function doRestoreSession(userId) {
+    return {
+        type: RESTORE_SESSION,
+        userId: userId
     }
 }
 

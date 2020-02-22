@@ -4,17 +4,26 @@ import {
     GET_USER_FULFILLED,
     GET_USER_PENDING,
     LOG_OUT_FULFILLED,
-    LOG_OUT_PENDING
+    LOG_OUT_PENDING, RESTORE_SESSION
 } from "../actions/user";
+import {saveSession, deleteSession} from "../infra/session";
 
 export default function user(state = {}, action) {
     switch (action.type) {
+        case RESTORE_SESSION:
+            return {
+                ...state,
+                authenticated: true,
+                id: action.userId
+            };
         case AUTHENTICATE_PENDING:
             return state;
         case AUTHENTICATE_FULFILLED:
+            saveSession(action.payload.data);
             return {
                 ...state,
-                id: action.payload.data
+                authenticated: true,
+                id: action.payload.data.userId
             };
         case GET_USER_PENDING:
             return state;
@@ -27,7 +36,10 @@ export default function user(state = {}, action) {
         case LOG_OUT_PENDING:
             return state;
         case LOG_OUT_FULFILLED:
-            return {};
+            deleteSession();
+            return {
+                authenticated: false
+            };
         default:
             return state;
     }

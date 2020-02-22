@@ -1,6 +1,5 @@
 package infra.security.web
 
-
 import application.AbstractApplicationSpec
 import application.stub.TestUserRepository
 import org.pureacc.betcentral.domain.model.User
@@ -17,6 +16,7 @@ import org.springframework.core.io.Resource
 import org.springframework.http.*
 import org.springframework.transaction.annotation.Transactional
 
+import java.time.ZoneOffset
 import java.util.regex.Pattern
 
 import static application.objectmother.UserObjectMother.RAW_PASSWORD
@@ -48,8 +48,9 @@ class WebSecuritySpec extends AbstractApplicationSpec {
         then: "I receive an authentication cookie"
         String cookie = response.getHeaders().getFirst("Set-Cookie")
         COOKIE_PATTERN.matcher(cookie).matches()
-        and: "I receive my user id"
-        response.body == "${user.id.value}"
+        and: "I receive my user id and session expiry date"
+        def expiryDate = testTime.now().atOffset(ZoneOffset.UTC).plusHours(4)
+        response.body == "{\"userId\": ${user.id.value}, \"expires\": \"${expiryDate}\"}"
     }
 
     def "When I POST the login endpoint with an invalid username I get a 400 Bad Request with error message"() {

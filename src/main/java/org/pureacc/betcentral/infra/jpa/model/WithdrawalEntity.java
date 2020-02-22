@@ -1,6 +1,6 @@
 package org.pureacc.betcentral.infra.jpa.model;
 
-import java.util.Date;
+import java.time.Instant;
 
 import javax.persistence.*;
 
@@ -13,7 +13,7 @@ public class WithdrawalEntity {
 	@ManyToOne
 	private UserEntity user;
 	private double euros;
-	private Date date;
+	private Instant date;
 
 	public long getId() {
 		return id;
@@ -39,11 +39,11 @@ public class WithdrawalEntity {
 		this.euros = euros;
 	}
 
-	public Date getDate() {
+	public Instant getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Instant date) {
 		this.date = date;
 	}
 }

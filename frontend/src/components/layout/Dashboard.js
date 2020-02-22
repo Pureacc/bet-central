@@ -32,7 +32,7 @@ class Dashboard extends React.Component {
     };
 
     render() {
-        const {classes} = this.props;
+        const {classes, authenticated} = this.props;
 
         return (
             <div className={classes.root}>
@@ -40,21 +40,23 @@ class Dashboard extends React.Component {
 
                 <BrowserRouter>
                     <TopMenu open={this.state.open}
+                             authenticated={authenticated}
                              onDrawerOpen={this.handleDrawerOpen}/>
                     <LeftMenu open={this.state.open}
+                              authenticated={authenticated}
                               onDrawerClose={this.handleDrawerClose}/>
 
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer}/>
                         <Switch>
-                            {this.props.authenticated && <Route exact path="/" component={Home}/>}
-                            {this.props.authenticated || <Route exact path="/" component={Landing}/>}
+                            {authenticated && <Route exact path="/" component={Home}/>}
+                            {authenticated || <Route exact path="/" component={Landing}/>}
                             <Route path="/register" component={Register}/>
                             <Route path="/signin"
                                    render={(props) => <SignIn {...props} />}/>
                             <SecuredRoute path="/actions" component={Actions}
-                                          isAuthenticated={this.props.authenticated}/>
-                            <SecuredRoute path="/bets" isAuthenticated={this.props.authenticated} render={() =>
+                                          isAuthenticated={authenticated}/>
+                            <SecuredRoute path="/bets" isAuthenticated={authenticated} render={() =>
                                 <SimpleTable/>
                             }/>
                             <Route path="/calculate" component={Calculate}/>
@@ -81,9 +83,11 @@ const styles = theme => ({
     },
 });
 
-const mapStateToProps = state => ({
-    authenticated: !!state.user.id,
-});
+const mapStateToProps = (state) => {
+    return {
+        authenticated: !!state.user.authenticated,
+    };
+};
 
 export default compose(
     withStyles(styles),

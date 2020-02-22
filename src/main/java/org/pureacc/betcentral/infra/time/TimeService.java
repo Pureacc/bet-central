@@ -1,6 +1,6 @@
 package org.pureacc.betcentral.infra.time;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.pureacc.betcentral.domain.service.DomainTime;
 import org.pureacc.betcentral.domain.service.Time;
@@ -13,7 +13,7 @@ class TimeService implements Time {
 	}
 
 	@Override
-	public Date now() {
-		return new Date();
+	public Instant now() {
+		return Instant.now();
 	}
 }
