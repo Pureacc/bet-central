@@ -1,5 +1,4 @@
 Bet Central
 ===
 <h3>TO DO</h3>
-* Success toast message
-* extract inputfield component
+* Change cookie-based auth to token-based (JWT) (or fix the CSRF vulnerability with current cookie-based approach)

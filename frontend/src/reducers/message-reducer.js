@@ -8,7 +8,6 @@ import {
     PLACE_BET_FULFILLED,
     PLACE_BET_REJECTED
 } from "../actions/user";
-import {CLEAR_MESSAGE} from "../actions/message";
 
 export default function message(state = {}, action) {
     switch (action.type) {
@@ -24,8 +23,6 @@ export default function message(state = {}, action) {
         case GET_USER_REJECTED:
         case LOG_OUT_REJECTED:
             return setMessage(action.payload.response.data, "error");
-        case CLEAR_MESSAGE:
-            return setMessage("", state.variant);
         default:
             return state;
     }
@@ -33,6 +30,7 @@ export default function message(state = {}, action) {
 
 function setMessage(message, variant) {
     return {
+        id: Math.random(),
         message: message,
         variant: variant
     };

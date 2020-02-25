@@ -9,8 +9,8 @@ export default class Toast extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const {message} = this.props;
-        if (!!message && message !== prevProps.message) {
+        const {id} = this.props;
+        if (!!id && id !== prevProps.id) {
             this.setState({open: true});
         }
     }
@@ -19,9 +19,7 @@ export default class Toast extends Component {
         if (reason === 'clickaway') {
             return;
         }
-        const {onClose} = this.props;
         this.setState({open: false});
-        onClose();
     };
 
     render() {
